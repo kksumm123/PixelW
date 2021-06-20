@@ -9,9 +9,8 @@ public class Player : MonoBehaviour
     BoxCollider2D boxCol2D;
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 900f;
+    [SerializeField] StateType state;
 
-    StateType state;
-    [SerializeField]
     StateType State
     {
         get { return state; }
@@ -25,31 +24,46 @@ public class Player : MonoBehaviour
     }
     void StateUpdate()
     {
-        if (IsGound())
+        if (State != StateType.Ground && IsGound())
             State = StateType.Ground;
         if (rigid.velocity.y < 0)
             State = StateType.Fall;
     }
 
-    [SerializeField] float groundRayOffset = 0;
-    [SerializeField] float groundRayLength = 0.9f;
+    [SerializeField] float groundRayOffsetX = 0;
+    [SerializeField] float groundRayOffsetY = 0.2f;
+    [SerializeField] float groundRayLength = 0.2f;
     [SerializeField] LayerMask groundLayer;
     private bool IsGound()
     {
         var pos = transform.position;
-        if (ChkRay(pos, Vector2.down, groundRayLength, groundLayer))
-            return true;
-        if (ChkRay(pos - new Vector3(groundRayOffset, 0, 0)
+        if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down, groundRayLength, groundLayer))
             return true;
-        if (ChkRay(pos + new Vector3(groundRayOffset, 0, 0)
+        if (ChkRay(pos + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
+            , Vector2.down, groundRayLength, groundLayer))
+            return true;
+        if (ChkRay(pos + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down, groundRayLength, groundLayer))
             return true;
         return false;
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position 
+            + new Vector3(0, groundRayOffsetY, 0)
+            , Vector2.down * groundRayLength);
+        Gizmos.DrawRay(transform.position 
+            + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
+            , Vector2.down * groundRayLength);
+        Gizmos.DrawRay(transform.position
+            + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
+            , Vector2.down * groundRayLength);
+    }
 
     bool ChkRay(Vector3 pos, Vector2 dir, float length, LayerMask layer)
     {
+        Debug.Assert(layer != 0, "레이어 지정안됨");
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         if (hit.transform != null)
             return true;
@@ -59,7 +73,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        groundRayOffset = boxCol2D.size.x / 2;
+        boxCol2D = GetComponent<BoxCollider2D>();
+        groundRayOffsetX = boxCol2D.size.x / 2;
+        groundLayer = 1 << LayerMask.NameToLayer("Ground");
     }
 
     void Update()
@@ -98,8 +114,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                rigid.AddForce(new Vector2(0, jumpForce));
                 State = StateType.Jump;
+                rigid.AddForce(new Vector2(0, jumpForce));
             }
         }
     }

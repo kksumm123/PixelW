@@ -146,3 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 900
+  state: 0
+  groundRayOffsetX: 0
+  groundRayOffsetY: 0.2
+  groundRayLength: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
