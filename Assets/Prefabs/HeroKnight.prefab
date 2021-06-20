@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3629546926374517586}
   - component: {fileID: 1636686234436584935}
   - component: {fileID: 8492624426509421858}
+  - component: {fileID: 1045693870}
   m_Layer: 0
   m_Name: HeroKnight
   m_TagString: Untagged
@@ -104,7 +105,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &8492624426509421858
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,3 +132,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6220112, y: 1.2172985}
   m_EdgeRadius: 0
+--- !u!114 &1045693870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2174868280717748133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e4cb3a64b191c4caacb6cf85802bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  jumpForce: 900

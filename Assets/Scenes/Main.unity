@@ -1699,6 +1699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumpForce: 900
 --- !u!1 &1172577690
 GameObject:
   m_ObjectHideFlags: 0
@@ -7147,6 +7148,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1636686234436584935, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2174868280717748133, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
       propertyPath: m_Name
       value: HeroKnight
