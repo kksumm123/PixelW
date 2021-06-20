@@ -21,9 +21,16 @@ public class Player : MonoBehaviour
     {
         float moveX = 0;
         if (Input.GetKey(KeyCode.A))
+        {
             moveX = -1;
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+
+        }
         if (Input.GetKey(KeyCode.D))
+        { 
             moveX = 1;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
 
         if (moveX != 0)
         {

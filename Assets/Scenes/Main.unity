@@ -1681,6 +1681,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1045693869 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2174868280717748133, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
+  m_PrefabInstance: {fileID: 3731012082831672392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1045693870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1045693869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e4cb3a64b191c4caacb6cf85802bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &1172577690
 GameObject:
   m_ObjectHideFlags: 0
@@ -7138,12 +7156,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3652324840081335925, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652324840081335925, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.61
+      value: -8.591
       objectReference: {fileID: 0}
     - target: {fileID: 3652324840081335925, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.15
+      value: -2.035
       objectReference: {fileID: 0}
     - target: {fileID: 3652324840081335925, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
       propertyPath: m_LocalPosition.z
