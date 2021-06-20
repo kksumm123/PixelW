@@ -10,11 +10,16 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
-
+    int i = 0;
     StateType State
     {
         get { return state; }
-        set { Debug.Log($"{state} -> {value}"); state = value; }
+        set
+        {
+            if (state != StateType.Ground && value != StateType.Ground)
+                Debug.Log($"{state} -> {value}");
+            state = value;
+        }
     }
     enum StateType
     {
@@ -58,10 +63,10 @@ public class Player : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position 
+        Gizmos.DrawRay(transform.position
             + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
-        Gizmos.DrawRay(transform.position 
+        Gizmos.DrawRay(transform.position
             + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
         Gizmos.DrawRay(transform.position
@@ -118,10 +123,10 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.Ground)
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
-                rigid.AddForce(new Vector2(0, jumpForce));
                 State = StateType.Jump;
+                rigid.AddForce(new Vector2(0, jumpForce));
             }
         }
     }
