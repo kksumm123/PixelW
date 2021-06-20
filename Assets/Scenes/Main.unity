@@ -786,10 +786,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1045693870, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
-      propertyPath: groundRayLength
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 2174868280717748133, guid: eee32d7e6b986074d80bdaac93476962, type: 3}
       propertyPath: m_Name
       value: HeroKnight
