@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     StateType State
     {
         get { return state; }
-        set { state = value; }
+        set { Debug.Log($"{state} -> {value}"); state = value; }
     }
     enum StateType
     {
@@ -22,11 +22,19 @@ public class Player : MonoBehaviour
         Jump,
         Fall
     }
+
+    private void SetGroundRaySetting()
+    {
+        groundRayOffsetX = boxCol2D.size.x / 2;
+        groundLayer = 1 << LayerMask.NameToLayer("Ground");
+    }
     void StateUpdate()
     {
-        if (State != StateType.Ground && IsGound())
+        var velo = rigid.velocity;
+
+        if (velo.y == 0 && IsGound())
             State = StateType.Ground;
-        if (rigid.velocity.y < 0)
+        if (velo.y < 0)
             State = StateType.Fall;
     }
 
@@ -74,8 +82,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        groundRayOffsetX = boxCol2D.size.x / 2;
-        groundLayer = 1 << LayerMask.NameToLayer("Ground");
+        SetGroundRaySetting();
     }
 
     void Update()
@@ -84,7 +91,6 @@ public class Player : MonoBehaviour
         Move();
         Jump();
     }
-
 
     private void Move()
     {
@@ -114,8 +120,8 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                State = StateType.Jump;
                 rigid.AddForce(new Vector2(0, jumpForce));
+                State = StateType.Jump;
             }
         }
     }
