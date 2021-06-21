@@ -79,13 +79,17 @@ public class Player : MonoBehaviour
         AnimForState();
         AnimationPlay();
         Move();
+        Rolling();
         Jump();
     }
+
 
     #region StateUpdate
     void StateUpdate()
     {
         if (isUpdatePhysics == false)
+            return;
+        else if (isRolling == true)
             return;
 
         var velo = rigid.velocity;
@@ -176,6 +180,9 @@ public class Player : MonoBehaviour
             case StateType.WallSlide:
                 Anim = AnimType.WallSlide;
                 break;
+            case StateType.Roll:
+                Anim = AnimType.Roll;
+                break;
         }
     }
     #endregion
@@ -200,6 +207,9 @@ public class Player : MonoBehaviour
             case AnimType.WallSlide:
                 animator.Play("WallSlide");
                 break;
+            case AnimType.Roll:
+                animator.Play("Roll");
+                break;
         }
     }
     #endregion
@@ -211,6 +221,8 @@ public class Player : MonoBehaviour
         if (State == StateType.WallSlide)
             return;
         else if (Mathf.Abs(velocity.x) > 4.9)
+            return;
+        else if (isRolling == true)
             return;
 
         moveX = 0;
@@ -229,6 +241,29 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+    [SerializeField] bool isRolling = false;
+    [SerializeField] float rollTime = 0.7f;
+    private void Rolling()
+    {
+        if (isRolling)
+        {
+            var pos = tr.position;
+            pos.x += transform.forward.z * speed * Time.deltaTime;
+            tr.position = pos;
+        }
+        else if (ChkGound() && Input.GetKey(KeyCode.LeftShift))
+        {
+            State = StateType.Roll;
+            StartCoroutine(IsRollingCo());
+        }
+    }
+
+    private IEnumerator IsRollingCo()
+    {
+        isRolling = true;
+        yield return new WaitForSeconds(rollTime);
+        isRolling = false;
+    }
 
     #region Jump
     private void Jump()
@@ -236,7 +271,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             // Normal Jump
-            if (State == StateType.Ground || State == StateType.Run)
+            if (ChkGound())
             {
                 isUpdatePhysics = false;
                 State = StateType.Jump;
@@ -256,7 +291,7 @@ public class Player : MonoBehaviour
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * forZ * -1
                     , slideJumpForceY));
-                transform.rotation = 
+                transform.rotation =
                     new Quaternion(0, transform.rotation.y == 0 ? 180 : 0, 0, 0);
             }
         }
@@ -283,6 +318,7 @@ public class Player : MonoBehaviour
         Fall,
         Run,
         WallSlide,
+        Roll,
     }
     #endregion
     #region AnimationType
@@ -303,7 +339,8 @@ public class Player : MonoBehaviour
         Run,
         Fall,
         Jump,
-        WallSlide
+        WallSlide,
+        Roll
     }
     #endregion
 }
