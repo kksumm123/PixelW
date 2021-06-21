@@ -78,9 +78,7 @@ public class Player : MonoBehaviour
     {
         Debug.Assert(layer != 0, "레이어 지정안됨");
         var hit = Physics2D.Raycast(pos, dir, length, layer);
-        if (hit.transform != null)
-            return true;
-        return false;
+        return hit.transform;
     }
 
     void Start()
@@ -90,7 +88,7 @@ public class Player : MonoBehaviour
         SetGroundRaySetting();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         StateUpdate();
         Move();
