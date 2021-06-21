@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         isUpdatePhysics = true;
     }
 
-    bool isUpdatePhysics = false;
+    [SerializeField] bool isUpdatePhysics = false;
 
     void Update()
     {
@@ -100,8 +100,12 @@ public class Player : MonoBehaviour
             State = StateType.Run;
         if (velo.y < 0)
             State = StateType.Fall;
+        if (velo.y > 0)
+            State = StateType.Jump;
         if (ChkWall())
+        {
             State = StateType.WallSlide;
+        }
     }
     #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
