@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  slideJumpForce: 250
   jumpForce: 900
   state: 0
   anim: 0
@@ -155,6 +156,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
+  slideRayOffsetX: 0
+  slideRayOffsetY: 0
+  slideRayLength: 0.01
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3

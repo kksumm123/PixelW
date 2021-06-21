@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     Animator animator;
 
     [SerializeField] float speed = 5f;
+    [SerializeField] float slideJumpForce = 10f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
@@ -207,13 +208,19 @@ public class Player : MonoBehaviour
     #region Jump
     private void Jump()
     {
-        if (State == StateType.Ground || State == StateType.Run)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (State == StateType.Ground || State == StateType.Run)
             {
                 isUpdatePhysics = false;
                 State = StateType.Jump;
                 rigid.AddForce(new Vector2(0, jumpForce));
+            }
+            else if (State == StateType.WallSlide)
+            {
+                isUpdatePhysics = false;
+                State = StateType.Jump;
+                rigid.AddForce(new Vector2(slideJumpForce * transform.forward.z * -1, 0));
             }
         }
     }
