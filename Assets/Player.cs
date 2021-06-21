@@ -66,8 +66,6 @@ public class Player : MonoBehaviour
         AnimationPlay();
         Move();
         Jump();
-        Slide();
-
     }
 
     #region StateUpdate
@@ -85,7 +83,7 @@ public class Player : MonoBehaviour
         if (velo.y < 0)
             State = StateType.Fall;
         if (ChkWall())
-            State = StateType.Slide;
+            State = StateType.WallSlide;
     }
     #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
@@ -107,7 +105,7 @@ public class Player : MonoBehaviour
         return false;
     }
     #endregion Ground
-    #region Slide
+    #region WallSlide
     [SerializeField] float slideRayOffsetX = 0;
     [SerializeField] float slideRayLength = 0.01f;
     private bool ChkWall()
@@ -121,7 +119,7 @@ public class Player : MonoBehaviour
 
         return false;
     }
-    #endregion Slide
+    #endregion WallSlide
 
     #endregion
 
@@ -142,8 +140,8 @@ public class Player : MonoBehaviour
             case StateType.Run:
                 Anim = AnimType.Run;
                 break;
-            case StateType.Slide:
-                Anim = AnimType.Slide;
+            case StateType.WallSlide:
+                Anim = AnimType.WallSlide;
                 break;
         }
     }
@@ -165,6 +163,9 @@ public class Player : MonoBehaviour
                 break;
             case AnimType.Fall:
                 animator.Play("Fall");
+                break;
+            case AnimType.WallSlide:
+                animator.Play("WallSlide");
                 break;
         }
     }
@@ -229,7 +230,7 @@ public class Player : MonoBehaviour
         Jump,
         Fall,
         Run,
-        Slide,
+        WallSlide,
     }
     #endregion
     #region AnimationType
@@ -250,7 +251,7 @@ public class Player : MonoBehaviour
         Run,
         Fall,
         Jump,
-        Slide
+        WallSlide
     }
     #endregion
 }
