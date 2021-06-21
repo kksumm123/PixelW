@@ -384,7 +384,7 @@ Animator:
   m_GameObject: {fileID: 202740441}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3c2a5b7097b0fe44394328c0bdb9252e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -7345,10 +7345,6 @@ PrefabInstance:
     - target: {fileID: 7664287425192727411, guid: 4d4a1fb381cae6c4cb949de15f2c1a6b, type: 3}
       propertyPath: m_Name
       value: BlockFlash
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229989714094105222, guid: 4d4a1fb381cae6c4cb949de15f2c1a6b, type: 3}
-      propertyPath: delay
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d4a1fb381cae6c4cb949de15f2c1a6b, type: 3}

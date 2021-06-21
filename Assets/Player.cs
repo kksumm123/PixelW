@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
+    Animator animator;
+
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
+    [SerializeField] AnimType anim = AnimType.Idle;
 
     #region StateUpdate
     bool isUpdatePhysics = false;
@@ -69,10 +72,26 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region AnimUpdate
+    void AnimUpdate()
+    {
+        switch (Anim)
+        {
+            case AnimType.Idle:
+                animator.Play("Idle");
+                break;
+            case AnimType.Run:
+                animator.Play("Run");
+                break;
+        }
+    }
+    #endregion
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         SetGroundRaySetting();
     }
 
@@ -83,18 +102,19 @@ public class Player : MonoBehaviour
     void Update()
     {
         StateUpdate();
+        AnimUpdate();
         Move();
         Jump();
     }
     #region Move
+    float moveX = 0;
     private void Move()
     {
-        float moveX = 0;
+        moveX = 0;
         if (Input.GetKey(KeyCode.A))
         {
             moveX = -1;
             transform.rotation = new Quaternion(0, 180, 0, 0);
-
         }
         if (Input.GetKey(KeyCode.D))
         {
@@ -104,10 +124,13 @@ public class Player : MonoBehaviour
 
         if (moveX != 0)
         {
+            Anim = AnimType.Run;
             var pos = transform.position;
             pos.x += moveX * speed * Time.deltaTime;
             transform.position = pos;
         }
+        else
+            Anim = AnimType.Idle;
     }
     #endregion
 
@@ -142,7 +165,25 @@ public class Player : MonoBehaviour
     {
         Ground,
         Jump,
-        Fall
+        Fall,
+    }
+    #endregion
+    #region AnimationType
+    AnimType Anim
+    {
+        get { return anim; }
+        set
+        {
+            if (anim == value)
+                return;
+            Debug.Log($"{anim} -> {value}");
+            anim = value;
+        }
+    }
+    enum AnimType
+    {
+        Idle,
+        Run,
     }
     #endregion
 }
