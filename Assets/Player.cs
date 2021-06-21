@@ -132,8 +132,9 @@ public class Player : MonoBehaviour
         get { return state; }
         set
         {
-            if (state != StateType.Ground && value != StateType.Ground)
-                Debug.Log($"{state} -> {value}");
+            if (state == value)
+                return;
+            Debug.Log($"{state} -> {value}");
             state = value;
         }
     }
