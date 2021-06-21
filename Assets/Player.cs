@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    Transform tr;
     Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
     Animator animator;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
     #endregion
     void Start()
     {
+        tr = transform;
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
 
         void SetGroundRaySetting()
         {
-            //groundRayOffsetX = boxCol2D.size.x / 2;
+            slideRayOffsetX = boxCol2D.size.x / 2;
             groundLayer = 1 << LayerMask.NameToLayer("Ground");
         }
     }
@@ -64,9 +66,10 @@ public class Player : MonoBehaviour
         AnimationPlay();
         Move();
         Jump();
-
+        Slide();
 
     }
+
     #region StateUpdate
     void StateUpdate()
     {
@@ -75,19 +78,21 @@ public class Player : MonoBehaviour
 
         var velo = rigid.velocity;
 
-        if (velo.y == 0 && IsGound())
+        if (velo.y == 0 && ChkGound())
             State = StateType.Ground;
         if (State != StateType.Jump && State != StateType.Fall && moveX != 0)
             State = StateType.Run;
         if (velo.y < 0)
             State = StateType.Fall;
+        if (ChkWall())
+            State = StateType.Slide;
     }
-
+    #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
     [SerializeField] float groundRayOffsetY = 0.2f;
     [SerializeField] float groundRayLength = 0.2f;
     [SerializeField] LayerMask groundLayer;
-    private bool IsGound()
+    private bool ChkGound()
     {
         var pos = transform.position;
         if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
@@ -101,7 +106,49 @@ public class Player : MonoBehaviour
             return true;
         return false;
     }
+    #endregion Ground
+    #region Slide
+    [SerializeField] float slideRayOffsetX = 0;
+    [SerializeField] float slideRayLength = 0.01f;
+    private bool ChkWall()
+    {
+        if (ChkRay(tr.position - new Vector3(slideRayOffsetX, 0, 0)
+            , Vector2.left, slideRayLength, groundLayer))
+            return true;
+        else if (ChkRay(tr.position + new Vector3(slideRayOffsetX, 0, 0)
+            , Vector2.right, slideRayLength, groundLayer))
+            return true;
+
+        return false;
+    }
+    #endregion Slide
+
     #endregion
+
+    #region AnimForState
+    private void AnimForState()
+    {
+        switch (State)
+        {
+            case StateType.Ground:
+                Anim = AnimType.Idle;
+                break;
+            case StateType.Jump:
+                Anim = AnimType.Jump;
+                break;
+            case StateType.Fall:
+                Anim = AnimType.Fall;
+                break;
+            case StateType.Run:
+                Anim = AnimType.Run;
+                break;
+            case StateType.Slide:
+                Anim = AnimType.Slide;
+                break;
+        }
+    }
+    #endregion
+
     #region AnimationPlay
     void AnimationPlay()
     {
@@ -122,26 +169,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-    #region AnimForState
-    private void AnimForState()
-    {
-        switch (State)
-        {
-            case StateType.Ground:
-                Anim = AnimType.Idle;
-                break;
-            case StateType.Jump:
-                Anim = AnimType.Jump;
-                break;
-            case StateType.Fall:
-                Anim = AnimType.Fall;
-                break;
-            case StateType.Run:
-                Anim = AnimType.Run;
-                break;
-        }
-    }
-    #endregion
+
     #region Move
     float moveX = 0;
     private void Move()
@@ -166,6 +194,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
     #region Jump
     private void Jump()
     {
@@ -180,6 +209,7 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
+
 
     #region StateType
     StateType State
@@ -199,6 +229,7 @@ public class Player : MonoBehaviour
         Jump,
         Fall,
         Run,
+        Slide,
     }
     #endregion
     #region AnimationType
@@ -219,6 +250,7 @@ public class Player : MonoBehaviour
         Run,
         Fall,
         Jump,
+        Slide
     }
     #endregion
 }
