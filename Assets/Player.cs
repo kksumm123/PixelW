@@ -11,15 +11,13 @@ public class Player : MonoBehaviour
     Animator animator;
 
     [SerializeField] Vector3 fowward;
+    [SerializeField] Vector3 velocity;
     [SerializeField] float speed = 5f;
     [SerializeField] float slideJumpForceX = 150f;
     [SerializeField] float slideJumpForceY = 900f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-    [SerializeField] bool banToMoveLeft = false;
-    [SerializeField] bool banToMoveRight = false;
-    [SerializeField] float banToMoveTime = 0.3f;
 
     #region About Ray
     private void OnDrawGizmos()
@@ -76,6 +74,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         fowward = transform.forward;
+        velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
         AnimationPlay();
@@ -208,14 +207,16 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.WallSlide)
             return;
+        else if (Mathf.Abs(velocity.x) > 1)
+            return;
 
         moveX = 0;
-        if (banToMoveLeft == false && Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             moveX = -1;
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        if (banToMoveRight == false && Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             moveX = 1;
             transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -254,18 +255,8 @@ public class Player : MonoBehaviour
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * forZ * -1
                     , slideJumpForceY));
-                    StartCoroutine(BanToMove());
             }
         }
-    }
-
-    private IEnumerator BanToMove()
-    {
-        banToMoveLeft = true;
-        banToMoveRight = true;
-        yield return new WaitForSeconds(banToMoveTime);
-        banToMoveLeft = false;
-        banToMoveRight = false;
     }
     #endregion
 
