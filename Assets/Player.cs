@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
 
-    #region About Ray
+    #region AboutRay
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
     }
-    #endregion
+    #endregion AboutRay
     void Start()
     {
         tr = transform;
@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
     }
     #endregion WallSlide
 
-    #endregion
+    #endregion StateUpdate
 
     #region AnimForState
     private void AnimForState()
@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    #endregion
+    #endregion AnimForState
 
     #region AnimationPlay
     void AnimationPlay()
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    #endregion
+    #endregion AnimationPlay
 
     #region Move
     float moveX = 0;
@@ -240,7 +240,9 @@ public class Player : MonoBehaviour
             tr.position = pos;
         }
     }
-    #endregion
+    #endregion Move
+
+    #region Rolling
     [SerializeField] bool isRolling = false;
     [SerializeField] float rollTime = 0.7f;
     private void Rolling()
@@ -264,9 +266,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(rollTime);
         isRolling = false;
     }
+    #endregion Rolling
 
     #region Jump
-    private void Jump()
+    void Jump()
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -289,14 +292,13 @@ public class Player : MonoBehaviour
 
                 var forZ = transform.forward.z;
                 rigid.AddForce(
-                    new Vector2(slideJumpForceX * forZ * -1
-                    , slideJumpForceY));
+                    new Vector2(slideJumpForceX * forZ * -1, slideJumpForceY));
                 transform.rotation =
                     new Quaternion(0, transform.rotation.y == 0 ? 180 : 0, 0, 0);
             }
         }
     }
-    #endregion
+    #endregion Jump
 
 
     #region StateType
@@ -320,7 +322,7 @@ public class Player : MonoBehaviour
         WallSlide,
         Roll,
     }
-    #endregion
+    #endregion StateType
     #region AnimationType
     AnimType Anim
     {
@@ -342,5 +344,5 @@ public class Player : MonoBehaviour
         WallSlide,
         Roll
     }
-    #endregion
+    #endregion AnimationType
 }
