@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     BoxCollider2D boxCol2D;
     Animator animator;
 
+    [SerializeField] Vector3 fowward;
     [SerializeField] float speed = 5f;
     [SerializeField] float slideJumpForceX = 250f;
     [SerializeField] float slideJumpForceY = 900f;
@@ -30,6 +31,14 @@ public class Player : MonoBehaviour
         Gizmos.DrawRay(transform.position
             + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position
+            + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
+            , Vector2.left * slideRayLength);
+        Gizmos.DrawRay(transform.position
+            + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                 , Vector2.right * slideRayLength);
     }
 
     bool ChkRay(Vector3 pos, Vector2 dir, float length, LayerMask layer)
@@ -64,6 +73,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        fowward = transform.forward;
         StateUpdate();
         AnimForState();
         AnimationPlay();
@@ -79,8 +89,12 @@ public class Player : MonoBehaviour
 
         var velo = rigid.velocity;
 
-        if (velo.y == 0 && ChkGound())
+        if (ChkGound())
+        {
             State = StateType.Ground;
+            velo.y = 0;
+            rigid.velocity = velo;
+        }
         if (State != StateType.Jump && State != StateType.Fall
             && State != StateType.WallSlide && moveX != 0)
             State = StateType.Run;
@@ -96,7 +110,7 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     private bool ChkGound()
     {
-        var pos = transform.position;
+        var pos = tr.position;
         if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down, groundRayLength, groundLayer))
             return true;
@@ -117,12 +131,18 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.Jump || State == StateType.Fall)
         {
-            if (ChkRay(tr.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
-            , Vector2.left, slideRayLength, groundLayer))
-                return true;
-            else if (ChkRay(tr.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
-                , Vector2.right, slideRayLength, groundLayer))
-                return true;
+            if (transform.forward.z == 1)
+            {
+                if (ChkRay(tr.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                    , Vector2.right, slideRayLength, groundLayer))
+                    return true;
+            }
+            else
+            {
+                if (ChkRay(tr.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
+                , Vector2.left, slideRayLength, groundLayer))
+                    return true;
+            }
         }
         return false;
     }
@@ -199,9 +219,9 @@ public class Player : MonoBehaviour
 
         if (moveX != 0)
         {
-            var pos = transform.position;
+            var pos = tr.position;
             pos.x += moveX * speed * Time.deltaTime;
-            transform.position = pos;
+            tr.position = pos;
         }
     }
     #endregion
