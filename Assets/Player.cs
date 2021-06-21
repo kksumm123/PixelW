@@ -96,13 +96,17 @@ public class Player : MonoBehaviour
             velo.y = 0;
             rigid.velocity = velo;
         }
+
         if (State != StateType.Jump && State != StateType.Fall
             && State != StateType.WallSlide && moveX != 0)
             State = StateType.Run;
+
         if (velo.y < 0)
             State = StateType.Fall;
+
         if (velo.y > 0)
             State = StateType.Jump;
+
         if (ChkWall())
             State = StateType.WallSlide;
     }
@@ -248,9 +252,11 @@ public class Player : MonoBehaviour
             {
                 isUpdatePhysics = false;
                 State = StateType.Jump;
+
                 var velo = rigid.velocity;
                 velo.y = 0f;
                 rigid.velocity = velo;
+
                 var forZ = transform.forward.z;
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * forZ * -1
