@@ -25,10 +25,13 @@ public class Player : MonoBehaviour
     {
         if (isUpdatePhysics == false)
             return;
+
         var velo = rigid.velocity;
 
         if (velo.y == 0 && IsGound())
             State = StateType.Ground;
+        if (State != StateType.Jump && State != StateType.Fall && moveX != 0)
+            State = StateType.Run;
         if (velo.y < 0)
             State = StateType.Fall;
     }
@@ -72,8 +75,8 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region AnimUpdate
-    void AnimUpdate()
+    #region AnimationPlay
+    void AnimationPlay()
     {
         switch (Anim)
         {
@@ -82,6 +85,12 @@ public class Player : MonoBehaviour
                 break;
             case AnimType.Run:
                 animator.Play("Run");
+                break;
+            case AnimType.Jump:
+                animator.Play("Jump");
+                break;
+            case AnimType.Fall:
+                animator.Play("Fall");
                 break;
         }
     }
@@ -102,10 +111,33 @@ public class Player : MonoBehaviour
     void Update()
     {
         StateUpdate();
-        AnimUpdate();
+        AnimForState();
+        AnimationPlay();
         Move();
         Jump();
     }
+
+    #region AnimForState
+    private void AnimForState()
+    {
+        switch (State)
+        {
+            case StateType.Ground:
+                Anim = AnimType.Idle;
+                break;
+            case StateType.Jump:
+                Anim = AnimType.Jump;
+                break;
+            case StateType.Fall:
+                Anim = AnimType.Fall;
+                break;
+            case StateType.Run:
+                Anim = AnimType.Run;
+                break;
+        }
+    }
+    #endregion
+
     #region Move
     float moveX = 0;
     private void Move()
@@ -124,20 +156,17 @@ public class Player : MonoBehaviour
 
         if (moveX != 0)
         {
-            Anim = AnimType.Run;
             var pos = transform.position;
             pos.x += moveX * speed * Time.deltaTime;
             transform.position = pos;
         }
-        else
-            Anim = AnimType.Idle;
     }
     #endregion
 
     #region Jump
     private void Jump()
     {
-        if (State == StateType.Ground)
+        if (State == StateType.Ground || State == StateType.Run)
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
@@ -166,8 +195,10 @@ public class Player : MonoBehaviour
         Ground,
         Jump,
         Fall,
+        Run,
     }
     #endregion
+
     #region AnimationType
     AnimType Anim
     {
@@ -184,6 +215,8 @@ public class Player : MonoBehaviour
     {
         Idle,
         Run,
+        Fall,
+        Jump,
     }
     #endregion
 }
