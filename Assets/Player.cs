@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
 
     #region StateUpdate
+    bool isUpdatePhysics = false;
     private void SetGroundRaySetting()
     {
         groundRayOffsetX = boxCol2D.size.x / 2;
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
     }
     void StateUpdate()
     {
+        if (isUpdatePhysics == false)
+            return;
         var velo = rigid.velocity;
 
         if (velo.y == 0 && IsGound())
@@ -75,6 +78,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        isUpdatePhysics = true;
+    }
+    void Update()
+    {
         StateUpdate();
         Move();
         Jump();
@@ -109,8 +116,9 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.Ground)
         {
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W))
             {
+                isUpdatePhysics = false;
                 State = StateType.Jump;
                 rigid.AddForce(new Vector2(0, jumpForce));
             }
