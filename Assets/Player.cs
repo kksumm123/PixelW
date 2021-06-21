@@ -10,24 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 5f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
-    int i = 0;
-    StateType State
-    {
-        get { return state; }
-        set
-        {
-            if (state != StateType.Ground && value != StateType.Ground)
-                Debug.Log($"{state} -> {value}");
-            state = value;
-        }
-    }
-    enum StateType
-    {
-        Ground,
-        Jump,
-        Fall
-    }
 
+    #region StateUpdate
     private void SetGroundRaySetting()
     {
         groundRayOffsetX = boxCol2D.size.x / 2;
@@ -80,6 +64,7 @@ public class Player : MonoBehaviour
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
     }
+    #endregion
 
     void Start()
     {
@@ -94,7 +79,7 @@ public class Player : MonoBehaviour
         Move();
         Jump();
     }
-
+    #region Move
     private void Move()
     {
         float moveX = 0;
@@ -117,6 +102,9 @@ public class Player : MonoBehaviour
             transform.position = pos;
         }
     }
+    #endregion
+
+    #region Jump
     private void Jump()
     {
         if (State == StateType.Ground)
@@ -128,4 +116,24 @@ public class Player : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region StateType
+    StateType State
+    {
+        get { return state; }
+        set
+        {
+            if (state != StateType.Ground && value != StateType.Ground)
+                Debug.Log($"{state} -> {value}");
+            state = value;
+        }
+    }
+    enum StateType
+    {
+        Ground,
+        Jump,
+        Fall
+    }
+    #endregion
 }
