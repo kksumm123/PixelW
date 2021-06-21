@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     Animator animator;
 
     [SerializeField] float speed = 5f;
-    [SerializeField] float slideJumpForce = 10f;
+    [SerializeField] float slideJumpForceX = 250f;
+    [SerializeField] float slideJumpForceY = 900f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
@@ -219,8 +220,13 @@ public class Player : MonoBehaviour
             else if (State == StateType.WallSlide)
             {
                 isUpdatePhysics = false;
+                var velo = rigid.velocity;
+                velo.y = 0f;
+                rigid.velocity = velo;
                 State = StateType.Jump;
-                rigid.AddForce(new Vector2(slideJumpForce * transform.forward.z * -1, 0));
+                rigid.AddForce(
+                    new Vector2(slideJumpForceX * transform.forward.z * -1
+                    , slideJumpForceY));
             }
         }
     }
@@ -235,7 +241,7 @@ public class Player : MonoBehaviour
         {
             if (state == value)
                 return;
-            Debug.Log($"{state} -> {value}");
+            Debug.Log($"StateType : {state} -> {value}");
             state = value;
         }
     }
@@ -256,7 +262,7 @@ public class Player : MonoBehaviour
         {
             if (anim == value)
                 return;
-            Debug.Log($"{anim} -> {value}");
+            Debug.Log($"AnimType : {anim} -> {value}");
             anim = value;
         }
     }
