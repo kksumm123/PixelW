@@ -17,7 +17,9 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-
+    [SerializeField] bool banToMoveLeft = false;
+    [SerializeField] bool banToMoveRight = false;
+    [SerializeField] float banToMoveTime = 0.3f;
 
     #region About Ray
     private void OnDrawGizmos()
@@ -82,7 +84,6 @@ public class Player : MonoBehaviour
     }
 
     #region StateUpdate
-    [SerializeField] float WallSlideDelay = 0.2f;
     void StateUpdate()
     {
         if (isUpdatePhysics == false)
@@ -104,15 +105,7 @@ public class Player : MonoBehaviour
         if (velo.y > 0)
             State = StateType.Jump;
         if (ChkWall())
-        {
-            StartCoroutine(WallSlideCo());
-        }
-    }
-
-    private IEnumerator WallSlideCo()
-    {
-        yield return new WaitForSeconds(WallSlideDelay);
-        State = StateType.WallSlide;
+            State = StateType.WallSlide;
     }
     #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
@@ -217,12 +210,12 @@ public class Player : MonoBehaviour
             return;
 
         moveX = 0;
-        if (Input.GetKey(KeyCode.A))
+        if (banToMoveLeft == false && Input.GetKey(KeyCode.A))
         {
             moveX = -1;
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (banToMoveRight == false && Input.GetKey(KeyCode.D))
         {
             moveX = 1;
             transform.rotation = new Quaternion(0, 0, 0, 0);
@@ -253,16 +246,26 @@ public class Player : MonoBehaviour
             else if (State == StateType.WallSlide)
             {
                 isUpdatePhysics = false;
+                State = StateType.Jump;
                 var velo = rigid.velocity;
                 velo.y = 0f;
                 rigid.velocity = velo;
-                State = StateType.Jump;
+                var forZ = transform.forward.z;
                 rigid.AddForce(
-                    new Vector2(slideJumpForceX * transform.forward.z * -1
+                    new Vector2(slideJumpForceX * forZ * -1
                     , slideJumpForceY));
-
+                    StartCoroutine(BanToMove());
             }
         }
+    }
+
+    private IEnumerator BanToMove()
+    {
+        banToMoveLeft = true;
+        banToMoveRight = true;
+        yield return new WaitForSeconds(banToMoveTime);
+        banToMoveLeft = false;
+        banToMoveRight = false;
     }
     #endregion
 

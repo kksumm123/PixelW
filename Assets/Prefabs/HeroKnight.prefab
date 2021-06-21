@@ -147,12 +147,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fowward: {x: 0, y: 0, z: 0}
   speed: 5
-  slideJumpForceX: 250
+  slideJumpForceX: 150
   slideJumpForceY: 900
   jumpForce: 900
   state: 0
   anim: 0
   isUpdatePhysics: 0
+  WallSlideDelay: 0.2
   groundRayOffsetX: 0.2
   groundRayOffsetY: 0.2
   groundRayLength: 0.2
