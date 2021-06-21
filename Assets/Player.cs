@@ -14,46 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
 
-    #region StateUpdate
-    bool isUpdatePhysics = false;
-    private void SetGroundRaySetting()
-    {
-        groundRayOffsetX = boxCol2D.size.x / 2;
-        groundLayer = 1 << LayerMask.NameToLayer("Ground");
-    }
-    void StateUpdate()
-    {
-        if (isUpdatePhysics == false)
-            return;
 
-        var velo = rigid.velocity;
-
-        if (velo.y == 0 && IsGound())
-            State = StateType.Ground;
-        if (State != StateType.Jump && State != StateType.Fall && moveX != 0)
-            State = StateType.Run;
-        if (velo.y < 0)
-            State = StateType.Fall;
-    }
-
-    [SerializeField] float groundRayOffsetX = 0;
-    [SerializeField] float groundRayOffsetY = 0.2f;
-    [SerializeField] float groundRayLength = 0.2f;
-    [SerializeField] LayerMask groundLayer;
-    private bool IsGound()
-    {
-        var pos = transform.position;
-        if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
-        if (ChkRay(pos + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
-        if (ChkRay(pos + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
-        return false;
-    }
+    #region About Ray
     private void OnDrawGizmos()
     {
         Gizmos.DrawRay(transform.position
@@ -74,7 +36,72 @@ public class Player : MonoBehaviour
         return hit.transform;
     }
     #endregion
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+        boxCol2D = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
+        SetGroundRaySetting();
 
+        void SetGroundRaySetting()
+        {
+            //groundRayOffsetX = boxCol2D.size.x / 2;
+            groundLayer = 1 << LayerMask.NameToLayer("Ground");
+        }
+    }
+
+    void FixedUpdate()
+    {
+        isUpdatePhysics = true;
+    }
+
+    bool isUpdatePhysics = false;
+
+    void Update()
+    {
+        StateUpdate();
+        AnimForState();
+        AnimationPlay();
+        Move();
+        Jump();
+
+
+    }
+    #region StateUpdate
+    void StateUpdate()
+    {
+        if (isUpdatePhysics == false)
+            return;
+
+        var velo = rigid.velocity;
+
+        if (velo.y == 0 && IsGound())
+            State = StateType.Ground;
+        if (State != StateType.Jump && State != StateType.Fall && moveX != 0)
+            State = StateType.Run;
+        if (velo.y < 0)
+            State = StateType.Fall;
+    }
+
+    [SerializeField] float groundRayOffsetX = 0.2f;
+    [SerializeField] float groundRayOffsetY = 0.2f;
+    [SerializeField] float groundRayLength = 0.2f;
+    [SerializeField] LayerMask groundLayer;
+    private bool IsGound()
+    {
+        var pos = transform.position;
+        if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
+            , Vector2.down, groundRayLength, groundLayer))
+            return true;
+        if (ChkRay(pos + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
+            , Vector2.down, groundRayLength, groundLayer))
+            return true;
+        if (ChkRay(pos + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
+            , Vector2.down, groundRayLength, groundLayer))
+            return true;
+        return false;
+    }
+    #endregion
     #region AnimationPlay
     void AnimationPlay()
     {
@@ -95,28 +122,6 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-
-    void Start()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-        boxCol2D = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
-        SetGroundRaySetting();
-    }
-
-    void FixedUpdate()
-    {
-        isUpdatePhysics = true;
-    }
-    void Update()
-    {
-        StateUpdate();
-        AnimForState();
-        AnimationPlay();
-        Move();
-        Jump();
-    }
-
     #region AnimForState
     private void AnimForState()
     {
@@ -137,7 +142,6 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-
     #region Move
     float moveX = 0;
     private void Move()
@@ -162,7 +166,6 @@ public class Player : MonoBehaviour
         }
     }
     #endregion
-
     #region Jump
     private void Jump()
     {
@@ -198,7 +201,6 @@ public class Player : MonoBehaviour
         Run,
     }
     #endregion
-
     #region AnimationType
     AnimType Anim
     {
