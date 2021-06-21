@@ -79,7 +79,8 @@ public class Player : MonoBehaviour
 
         if (velo.y == 0 && ChkGound())
             State = StateType.Ground;
-        if (State != StateType.Jump && State != StateType.Fall && moveX != 0)
+        if (State != StateType.Jump && State != StateType.Fall
+            && State != StateType.WallSlide && moveX != 0)
             State = StateType.Run;
         if (velo.y < 0)
             State = StateType.Fall;
