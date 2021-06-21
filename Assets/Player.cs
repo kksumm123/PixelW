@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 fowward;
     [SerializeField] Vector3 velocity;
     [SerializeField] float speed = 5f;
-    [SerializeField] float slideJumpForceX = 150f;
+    [SerializeField] float slideJumpForceX = 250f;
     [SerializeField] float slideJumpForceY = 900f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
@@ -207,7 +207,7 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.WallSlide)
             return;
-        else if (Mathf.Abs(velocity.x) > 1)
+        else if (Mathf.Abs(velocity.x) > 1.5)
             return;
 
         moveX = 0;
@@ -255,6 +255,8 @@ public class Player : MonoBehaviour
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * forZ * -1
                     , slideJumpForceY));
+                transform.rotation = 
+                    new Quaternion(0, transform.rotation.y == 0 ? 180 : 0, 0, 0);
             }
         }
     }
