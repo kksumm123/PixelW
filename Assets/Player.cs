@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] Vector3 fowward;
     [SerializeField] float speed = 5f;
-    [SerializeField] float slideJumpForceX = 250f;
+    [SerializeField] float slideJumpForceX = 150f;
     [SerializeField] float slideJumpForceY = 900f;
     [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
     }
 
     #region StateUpdate
+    [SerializeField] float WallSlideDelay = 0.2f;
     void StateUpdate()
     {
         if (isUpdatePhysics == false)
@@ -104,8 +105,14 @@ public class Player : MonoBehaviour
             State = StateType.Jump;
         if (ChkWall())
         {
-            State = StateType.WallSlide;
+            StartCoroutine(WallSlideCo());
         }
+    }
+
+    private IEnumerator WallSlideCo()
+    {
+        yield return new WaitForSeconds(WallSlideDelay);
+        State = StateType.WallSlide;
     }
     #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
@@ -235,12 +242,14 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
+            // Normal Jump
             if (State == StateType.Ground || State == StateType.Run)
             {
                 isUpdatePhysics = false;
                 State = StateType.Jump;
                 rigid.AddForce(new Vector2(0, jumpForce));
             }
+            // Slide Jump
             else if (State == StateType.WallSlide)
             {
                 isUpdatePhysics = false;
@@ -251,6 +260,7 @@ public class Player : MonoBehaviour
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * transform.forward.z * -1
                     , slideJumpForceY));
+
             }
         }
     }
