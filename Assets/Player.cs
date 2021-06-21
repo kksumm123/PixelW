@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         void SetGroundRaySetting()
         {
             slideRayOffsetX = boxCol2D.size.x / 2;
+            slideRayOffsetY = boxCol2D.size.y / 2;
             groundLayer = 1 << LayerMask.NameToLayer("Ground");
         }
     }
@@ -107,16 +108,19 @@ public class Player : MonoBehaviour
     #endregion Ground
     #region WallSlide
     [SerializeField] float slideRayOffsetX = 0;
+    [SerializeField] float slideRayOffsetY = 0;
     [SerializeField] float slideRayLength = 0.01f;
     private bool ChkWall()
     {
-        if (ChkRay(tr.position - new Vector3(slideRayOffsetX, 0, 0)
+        if (State == StateType.Jump || State == StateType.Fall)
+        {
+            if (ChkRay(tr.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
             , Vector2.left, slideRayLength, groundLayer))
-            return true;
-        else if (ChkRay(tr.position + new Vector3(slideRayOffsetX, 0, 0)
-            , Vector2.right, slideRayLength, groundLayer))
-            return true;
-
+                return true;
+            else if (ChkRay(tr.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                , Vector2.right, slideRayLength, groundLayer))
+                return true;
+        }
         return false;
     }
     #endregion WallSlide
@@ -175,6 +179,9 @@ public class Player : MonoBehaviour
     float moveX = 0;
     private void Move()
     {
+        if (State == StateType.WallSlide)
+            return;
+
         moveX = 0;
         if (Input.GetKey(KeyCode.A))
         {
