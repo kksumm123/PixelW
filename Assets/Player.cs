@@ -93,8 +93,7 @@ public class Player : MonoBehaviour
         if (ChkGound())
         {
             State = StateType.Ground;
-            velo.y = 0;
-            rigid.velocity = velo;
+            rigid.velocity = Vector2.zero;
         }
 
         if (State != StateType.Jump && State != StateType.Fall
@@ -211,23 +210,19 @@ public class Player : MonoBehaviour
     {
         if (State == StateType.WallSlide)
             return;
-        else if (Mathf.Abs(velocity.x) > 1.5)
+        else if (Mathf.Abs(velocity.x) > 4.9)
             return;
 
         moveX = 0;
         if (Input.GetKey(KeyCode.A))
-        {
             moveX = -1;
-            transform.rotation = new Quaternion(0, 180, 0, 0);
-        }
         if (Input.GetKey(KeyCode.D))
-        {
             moveX = 1;
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-        }
 
         if (moveX != 0)
         {
+            transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
+
             var pos = tr.position;
             pos.x += moveX * speed * Time.deltaTime;
             tr.position = pos;
