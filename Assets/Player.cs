@@ -345,6 +345,10 @@ public class Player : MonoBehaviour
     [SerializeField] int attackMaxIdx = 2; // = 3 (0, 1, 2)
     [SerializeField] float attackIdxResetTime = 1.2f;
     [SerializeField] float attackIdxResetCurTime = 0f;
+    Coroutine attackCoHandle;
+    Coroutine attackDelayCoHandle;
+    Coroutine attackIndxResetCoHandle;
+
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -368,9 +372,12 @@ public class Player : MonoBehaviour
                             break;
                     
                     }
-                    StartCoroutine(AttackCo(attackCurDelay));
-                    StartCoroutine(AttackDelayCo());
-                    StartCoroutine(AttackIndxResetCo());
+                    StopCo(attackCoHandle);
+                    StopCo(attackDelayCoHandle);
+                    StopCo(attackIndxResetCoHandle);
+                    attackCoHandle =  StartCoroutine(AttackCo(attackCurDelay));
+                    attackDelayCoHandle = StartCoroutine(AttackDelayCo());
+                    attackIndxResetCoHandle = StartCoroutine(AttackIndxResetCo());
                     attackIdx++;
                 }
                 else
@@ -379,6 +386,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    void StopCo(Coroutine handle)
+    {
+        if (handle != null)
+            StopCoroutine(handle);
+    }
 
     IEnumerator AttackCo(float attackCurDelay)
     {
