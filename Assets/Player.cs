@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] float speed = 5f;
-    
+
 
     #region AboutRay
     private void OnDrawGizmos()
@@ -83,8 +83,21 @@ public class Player : MonoBehaviour
         Rolling();
         Jump();
         Attack();
+        Block();
     }
 
+    void Block()
+    {
+        if (ChkIdle() || ChkBlocking())
+        {
+            if (Input.GetMouseButton(1))
+            {
+                State = StateType.IdleBlock;
+            }
+            else
+                State = StateType.Ground;
+        }
+    }
 
     #region StateUpdate
     void StateUpdate()
@@ -94,7 +107,7 @@ public class Player : MonoBehaviour
         else if (isRolling == true)
             return;
 
-        if (ChkAttacking() == false)
+        if (ChkAttackAndBlock() == false)
         {
             var velo = rigid.velocity;
 
@@ -118,19 +131,46 @@ public class Player : MonoBehaviour
                 State = StateType.WallSlide;
         }
     }
-
-    private bool ChkAttacking()
+    #region ChkAttackAndBlock
+    private bool ChkAttackAndBlock()
     {
         switch (State)
         {
             case StateType.Attack1:
             case StateType.Attack2:
             case StateType.Attack3:
+            case StateType.IdleBlock:
+            case StateType.Block:
                 return true;
         }
         return false;
     }
-    #region Ground
+    #endregion ChkAttackAndBlock
+    #region ChkIdle
+    private bool ChkIdle()
+    {
+        switch (State)
+        {
+            case StateType.Ground:
+            case StateType.Run:
+                return true;
+        }
+        return false;
+    }
+    #endregion ChkIdle
+    #region ChkBlocking
+    private bool ChkBlocking()
+    {
+        switch (State)
+        {
+            case StateType.IdleBlock:
+            case StateType.Block:
+                return true;
+        }
+        return false;
+    }
+    #endregion ChkBlocking
+    #region ChkGound
     [SerializeField] float groundRayOffsetX = 0.2f;
     [SerializeField] float groundRayOffsetY = 0.2f;
     [SerializeField] float groundRayLength = 0.2f;
@@ -149,8 +189,8 @@ public class Player : MonoBehaviour
             return true;
         return false;
     }
-    #endregion Ground
-    #region WallSlide
+    #endregion ChkGound
+    #region ChkWall
     [SerializeField] float slideRayOffsetX = 0;
     [SerializeField] float slideRayOffsetY = 0;
     [SerializeField] float slideRayLength = 0.01f;
@@ -173,7 +213,7 @@ public class Player : MonoBehaviour
         }
         return false;
     }
-    #endregion WallSlide
+    #endregion ChkWall
 
     #endregion StateUpdate
 
@@ -209,6 +249,13 @@ public class Player : MonoBehaviour
             case StateType.Attack3:
                 Anim = AnimType.Attack3;
                 break;
+            case StateType.IdleBlock:
+                Anim = AnimType.IdleBlock;
+                break;
+            case StateType.Block:
+                Anim = AnimType.Block;
+                break;
+
         }
     }
     #endregion AnimForState
@@ -244,6 +291,12 @@ public class Player : MonoBehaviour
                 break;
             case AnimType.Attack3:
                 animator.Play("Attack3");
+                break;
+            case AnimType.IdleBlock:
+                animator.Play("IdleBlock");
+                break;
+            case AnimType.Block:
+                animator.Play("Block");
                 break;
         }
     }
@@ -370,12 +423,12 @@ public class Player : MonoBehaviour
                         case 2:
                             State = StateType.Attack3;
                             break;
-                    
+
                     }
                     StopCo(attackCoHandle);
                     StopCo(attackDelayCoHandle);
                     StopCo(attackIndxResetCoHandle);
-                    attackCoHandle =  StartCoroutine(AttackCo(attackCurDelay));
+                    attackCoHandle = StartCoroutine(AttackCo(attackCurDelay));
                     attackDelayCoHandle = StartCoroutine(AttackDelayCo());
                     attackIndxResetCoHandle = StartCoroutine(AttackIndxResetCo());
                     attackIdx++;
