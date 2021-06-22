@@ -149,7 +149,8 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   state: 0
   anim: 0
-  speed: 5
+  normalSpeed: 5
+  battleSpeed: 1
   isUpdatePhysics: 0
   groundRayOffsetX: 0.2
   groundRayOffsetY: 0.2
@@ -171,7 +172,7 @@ MonoBehaviour:
   - 0.57
   attackCurDelay: 0
   attackIdx: 0
-  attackMaxIdx: 2
+  attackMaxIdx: 3
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
 --- !u!95 &202740442

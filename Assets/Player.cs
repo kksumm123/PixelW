@@ -389,7 +389,7 @@ public class Player : MonoBehaviour
         new List<float>() { 0.43f, 0.43f, 0.57f };
     [SerializeField] float attackCurDelay = 0;
     [SerializeField] int attackIdx = 0;
-    [SerializeField] int attackMaxIdx = 2; // = 3 (0, 1, 2)
+    [SerializeField] int attackMaxIdx = 3;
     [SerializeField] float attackIdxResetTime = 1.2f;
     [SerializeField] float attackIdxResetCurTime = 0f;
     Coroutine attackCoHandle;
@@ -402,7 +402,7 @@ public class Player : MonoBehaviour
         {
             if (ChkGound() && attackCurDelay <= 0)
             {
-                if (attackIdx <= attackMaxIdx)
+                if (attackIdx < attackMaxIdx)
                 {
                     attackCurDelay = attackDelay[attackIdx];
                     attackIdxResetCurTime = attackIdxResetTime;
@@ -417,7 +417,6 @@ public class Player : MonoBehaviour
                         case 2:
                             State = StateType.Attack3;
                             break;
-
                     }
                     StopCo(attackCoHandle);
                     StopCo(attackDelayCoHandle);
