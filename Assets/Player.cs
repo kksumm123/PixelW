@@ -286,9 +286,7 @@ public class Player : MonoBehaviour
                 isUpdatePhysics = false;
                 State = StateType.Jump;
 
-                var velo = rigid.velocity;
-                velo.y = 0f;
-                rigid.velocity = velo;
+                rigid.velocity = Vector2.zero;
 
                 var forZ = transform.forward.z;
                 rigid.AddForce(
