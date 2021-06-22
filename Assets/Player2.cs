@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player2 : MonoBehaviour
 {
     Transform tr;
     Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
     Animator animator;
 
-    [SerializeField] Vector3 forward;
+    [SerializeField] Vector3 fowward;
     [SerializeField] Vector3 velocity;
     [SerializeField] float speed = 5f;
     [SerializeField] float slideJumpForceX = 250f;
@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
         return hit.transform;
     }
     #endregion AboutRay
-    float originSpeed;
     void Start()
     {
         tr = transform;
@@ -56,7 +55,6 @@ public class Player : MonoBehaviour
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         SetGroundRaySetting();
-        originSpeed = speed;
 
         void SetGroundRaySetting()
         {
@@ -75,11 +73,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        forward = transform.forward;
+        fowward = transform.forward;
         velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
-        //AnimationPlay();
+        AnimationPlay();
 
         Move();
         Rolling();
@@ -87,59 +85,15 @@ public class Player : MonoBehaviour
         Attack();
     }
 
-
-    [SerializeField]
-    List<float> attackDelay =
-        new List<float>() { 0.43f, 0.43f, 0.57f };
-    [SerializeField] int attackIdx = 0;
-    [SerializeField] int attackMaxIdx = 2; // = 3 (0, 1, 2)
-    [SerializeField] float attackCurDelay = 0;
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (ChkGound() && attackCurDelay <= 0)
+            if (ChkGound())
             {
-                if (attackIdx <= attackMaxIdx)
-                {
-                    attackCurDelay = attackDelay[attackIdx];
-                    switch (attackIdx)
-                    {
-                        case 0:
-                            State = StateType.Attack1;
-                            break;
-                        case 1:
-                            State = StateType.Attack2;
-                            break;
-                        case 2:
-                            State = StateType.Attack3;
-                            break;
-                    }
-                    StartCoroutine(AttackCo(attackCurDelay));
-                    StartCoroutine(AttackDelayCo());
-                    attackIdx++;
-                }
-                else
-                    attackIdx = 0;
+                Anim = AnimType.Attack1;
             }
         }
-    }
-
-    private IEnumerator AttackDelayCo()
-    {
-        while (attackCurDelay > 0)
-        {
-            attackCurDelay -= Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private IEnumerator AttackCo(float attackCurDelay)
-    {
-        speed = 1;
-        yield return new WaitForSeconds(attackCurDelay);
-        State = StateType.AttackExit;
-        speed = originSpeed;
     }
 
 
@@ -151,41 +105,26 @@ public class Player : MonoBehaviour
         else if (isRolling == true)
             return;
 
-        if (ChkAttacking() == false)
+        var velo = rigid.velocity;
+
+        if (ChkGound())
         {
-            var velo = rigid.velocity;
-
-            if (ChkGound())
-            {
-                State = StateType.Ground;
-                rigid.velocity = Vector2.zero;
-            }
-
-            if (State != StateType.Jump && State != StateType.Fall
-                && State != StateType.WallSlide && moveX != 0)
-                State = StateType.Run;
-
-            if (velo.y < 0)
-                State = StateType.Fall;
-
-            if (velo.y > 0)
-                State = StateType.Jump;
-
-            if (ChkWall())
-                State = StateType.WallSlide;
+            State = StateType.Ground;
+            rigid.velocity = Vector2.zero;
         }
-    }
 
-    private bool ChkAttacking()
-    {
-        switch (State)
-        {
-            case StateType.Attack1:
-            case StateType.Attack2:
-            case StateType.Attack3:
-                return true;
-        }
-        return false;
+        if (State != StateType.Jump && State != StateType.Fall
+            && State != StateType.WallSlide && moveX != 0)
+            State = StateType.Run;
+
+        if (velo.y < 0)
+            State = StateType.Fall;
+
+        if (velo.y > 0)
+            State = StateType.Jump;
+
+        if (ChkWall())
+            State = StateType.WallSlide;
     }
     #region Ground
     [SerializeField] float groundRayOffsetX = 0.2f;
@@ -257,15 +196,6 @@ public class Player : MonoBehaviour
             case StateType.Roll:
                 Anim = AnimType.Roll;
                 break;
-            case StateType.Attack1:
-                Anim = AnimType.Attack1;
-                break;
-            case StateType.Attack2:
-                Anim = AnimType.Attack2;
-                break;
-            case StateType.Attack3:
-                Anim = AnimType.Attack3;
-                break;
         }
     }
     #endregion AnimForState
@@ -336,7 +266,7 @@ public class Player : MonoBehaviour
 
     #region Rolling
     [SerializeField] bool isRolling = false;
-    [SerializeField] float rollTime = 0.6f;
+    [SerializeField] float rollTime = 0.7f;
     private void Rolling()
     {
         if (isRolling)
@@ -411,10 +341,6 @@ public class Player : MonoBehaviour
         Run,
         WallSlide,
         Roll,
-        Attack1,
-        Attack2,
-        Attack3,
-        AttackExit,
     }
     #endregion StateType
     #region AnimationType
@@ -427,8 +353,6 @@ public class Player : MonoBehaviour
                 return;
             Debug.Log($"AnimType : {anim} -> {value}");
             anim = value;
-            AnimationPlay();
-
         }
     }
     enum AnimType
@@ -444,9 +368,4 @@ public class Player : MonoBehaviour
         Attack3,
     }
     #endregion AnimationType
-
-    float GetCurAnimLength()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).length;
-    }
 }
