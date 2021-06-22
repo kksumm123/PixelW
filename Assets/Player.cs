@@ -12,12 +12,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] Vector3 forward;
     [SerializeField] Vector3 velocity;
-    [SerializeField] float speed = 5f;
-    [SerializeField] float slideJumpForceX = 250f;
-    [SerializeField] float slideJumpForceY = 900f;
-    [SerializeField] float jumpForce = 900f;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
+    [SerializeField] float speed = 5f;
+    
 
     #region AboutRay
     private void OnDrawGizmos()
@@ -85,61 +83,6 @@ public class Player : MonoBehaviour
         Rolling();
         Jump();
         Attack();
-    }
-
-
-    [SerializeField]
-    List<float> attackDelay =
-        new List<float>() { 0.43f, 0.43f, 0.57f };
-    [SerializeField] int attackIdx = 0;
-    [SerializeField] int attackMaxIdx = 2; // = 3 (0, 1, 2)
-    [SerializeField] float attackCurDelay = 0;
-    private void Attack()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (ChkGound() && attackCurDelay <= 0)
-            {
-                if (attackIdx <= attackMaxIdx)
-                {
-                    attackCurDelay = attackDelay[attackIdx];
-                    switch (attackIdx)
-                    {
-                        case 0:
-                            State = StateType.Attack1;
-                            break;
-                        case 1:
-                            State = StateType.Attack2;
-                            break;
-                        case 2:
-                            State = StateType.Attack3;
-                            break;
-                    }
-                    StartCoroutine(AttackCo(attackCurDelay));
-                    StartCoroutine(AttackDelayCo());
-                    attackIdx++;
-                }
-                else
-                    attackIdx = 0;
-            }
-        }
-    }
-
-    private IEnumerator AttackDelayCo()
-    {
-        while (attackCurDelay > 0)
-        {
-            attackCurDelay -= Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private IEnumerator AttackCo(float attackCurDelay)
-    {
-        speed = 1;
-        yield return new WaitForSeconds(attackCurDelay);
-        State = StateType.AttackExit;
-        speed = originSpeed;
     }
 
 
@@ -361,6 +304,9 @@ public class Player : MonoBehaviour
     #endregion Rolling
 
     #region Jump
+    [SerializeField] float jumpForce = 900f;
+    [SerializeField] float slideJumpForceX = 250f;
+    [SerializeField] float slideJumpForceY = 900f;
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -390,6 +336,75 @@ public class Player : MonoBehaviour
     }
     #endregion Jump
 
+    #region Attack
+    [SerializeField]
+    List<float> attackDelay =
+        new List<float>() { 0.43f, 0.43f, 0.57f };
+    [SerializeField] float attackCurDelay = 0;
+    [SerializeField] int attackIdx = 0;
+    [SerializeField] int attackMaxIdx = 2; // = 3 (0, 1, 2)
+    [SerializeField] float attackIdxResetTime = 1.2f;
+    [SerializeField] float attackIdxResetCurTime = 0f;
+    private void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (ChkGound() && attackCurDelay <= 0)
+            {
+                if (attackIdx <= attackMaxIdx)
+                {
+                    attackCurDelay = attackDelay[attackIdx];
+                    attackIdxResetCurTime = attackIdxResetTime;
+                    switch (attackIdx)
+                    {
+                        case 0:
+                            State = StateType.Attack1;
+                            break;
+                        case 1:
+                            State = StateType.Attack2;
+                            break;
+                        case 2:
+                            State = StateType.Attack3;
+                            break;
+                    
+                    }
+                    StartCoroutine(AttackCo(attackCurDelay));
+                    StartCoroutine(AttackDelayCo());
+                    StartCoroutine(AttackIndxResetCo());
+                    attackIdx++;
+                }
+                else
+                    attackIdx = 0;
+            }
+        }
+    }
+
+
+    IEnumerator AttackCo(float attackCurDelay)
+    {
+        speed = 1;
+        yield return new WaitForSeconds(attackCurDelay);
+        State = StateType.AttackExit;
+        speed = originSpeed;
+    }
+    IEnumerator AttackDelayCo()
+    {
+        while (attackCurDelay > 0)
+        {
+            attackCurDelay -= Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator AttackIndxResetCo()
+    {
+        while (attackIdxResetCurTime > 0)
+        {
+            attackIdxResetCurTime -= Time.deltaTime;
+            yield return null;
+        }
+        attackIdx = 0;
+    }
+    #endregion Attack
 
     #region StateType
     StateType State
