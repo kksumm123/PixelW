@@ -145,22 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e4cb3a64b191c4caacb6cf85802bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forward: {x: 0, y: 0, z: 0}
+  trForward: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
-  speed: 5
-  slideJumpForceX: 250
-  slideJumpForceY: 900
-  jumpForce: 900
   state: 0
   anim: 0
+  speed: 5
   isUpdatePhysics: 0
-  attackDelay:
-  - 0.43
-  - 0.43
-  - 0.57
-  attackIdx: 0
-  attackMaxIdx: 2
-  attackCurDelay: 0
   groundRayOffsetX: 0.2
   groundRayOffsetY: 0.2
   groundRayLength: 0.2
@@ -172,6 +162,18 @@ MonoBehaviour:
   slideRayLength: 0.01
   isRolling: 0
   rollTime: 0.6
+  jumpForce: 900
+  slideJumpForceX: 250
+  slideJumpForceY: 900
+  attackDelay:
+  - 0.43
+  - 0.43
+  - 0.57
+  attackCurDelay: 0
+  attackIdx: 0
+  attackMaxIdx: 2
+  attackIdxResetTime: 1.2
+  attackIdxResetCurTime: 0
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3

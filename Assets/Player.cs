@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     BoxCollider2D boxCol2D;
     Animator animator;
 
-    [SerializeField] Vector3 forward;
+    [SerializeField] Vector3 trForward;
     [SerializeField] Vector3 velocity;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        forward = transform.forward;
+        trForward = transform.forward;
         velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
@@ -386,12 +386,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    void StopCo(Coroutine handle)
-    {
-        if (handle != null)
-            StopCoroutine(handle);
-    }
-
     IEnumerator AttackCo(float attackCurDelay)
     {
         speed = 1;
@@ -442,6 +436,9 @@ public class Player : MonoBehaviour
         Attack2,
         Attack3,
         AttackExit,
+        IdleBlock,
+        Block,
+
     }
     #endregion StateType
     #region AnimationType
@@ -455,7 +452,6 @@ public class Player : MonoBehaviour
             Debug.Log($"AnimType : {anim} -> {value}");
             anim = value;
             AnimationPlay();
-
         }
     }
     enum AnimType
@@ -469,11 +465,14 @@ public class Player : MonoBehaviour
         Attack1,
         Attack2,
         Attack3,
+        IdleBlock,
+        Block,
+
     }
     #endregion AnimationType
-
-    float GetCurAnimLength()
+    void StopCo(Coroutine handle)
     {
-        return animator.GetCurrentAnimatorStateInfo(0).length;
+        if (handle != null)
+            StopCoroutine(handle);
     }
 }
