@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Declare
     Transform tr;
     Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] float normalSpeed = 5f;
     [SerializeField] float battleSpeed = 1f;
-
+    #endregion Declare
 
     #region AboutRay
     private void OnDrawGizmos()
@@ -47,6 +48,8 @@ public class Player : MonoBehaviour
         return hit.transform;
     }
     #endregion AboutRay
+
+    #region Start()
     float originSpeed;
     void Start()
     {
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour
             groundLayer = 1 << LayerMask.NameToLayer("Ground");
         }
     }
+    #endregion Start()
 
     void FixedUpdate()
     {
@@ -85,23 +89,6 @@ public class Player : MonoBehaviour
         Jump();
         Attack();
         Block();
-    }
-
-    void Block()
-    {
-        if (ChkIdle() || ChkBlocking())
-        {
-            if (Input.GetMouseButton(1))
-            {
-                State = StateType.IdleBlock;
-                normalSpeed = battleSpeed;
-            }
-            else
-            {
-                State = StateType.Ground;
-                normalSpeed = originSpeed;
-            }
-        }
     }
 
     #region StateUpdate
@@ -470,6 +457,25 @@ public class Player : MonoBehaviour
         attackIdx = 0;
     }
     #endregion Attack
+
+    #region Block
+    void Block()
+    {
+        if (ChkIdle() || ChkBlocking())
+        {
+            if (Input.GetMouseButton(1))
+            {
+                State = StateType.IdleBlock;
+                normalSpeed = battleSpeed;
+            }
+            else
+            {
+                State = StateType.Ground;
+                normalSpeed = originSpeed;
+            }
+        }
+    }
+    #endregion Block
 
     #region StateType
     StateType State
