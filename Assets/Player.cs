@@ -69,12 +69,12 @@ public class Player : MonoBehaviour
     }
     #endregion Start()
 
+    #region Update()
+    [SerializeField] bool isUpdatePhysics = false;
     void FixedUpdate()
     {
         isUpdatePhysics = true;
     }
-
-    [SerializeField] bool isUpdatePhysics = false;
 
     void Update()
     {
@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
         Attack();
         Block();
     }
+    #endregion Update()
 
     #region StateUpdate
     void StateUpdate()
