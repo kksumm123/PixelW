@@ -321,7 +321,8 @@ public class Player : MonoBehaviour
 
         if (moveX != 0)
         {
-            transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
+            if (ChkBlocking() == false)
+                transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
 
             var pos = tr.position;
             pos.x += moveX * speed * Time.deltaTime;
