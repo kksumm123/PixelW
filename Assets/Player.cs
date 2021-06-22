@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 velocity;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-    [SerializeField] float speed = 5f;
+    [SerializeField] float normalSpeed = 5f;
+    [SerializeField] float battleSpeed = 1f;
 
 
     #region AboutRay
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         SetGroundRaySetting();
-        originSpeed = speed;
+        originSpeed = normalSpeed;
 
         void SetGroundRaySetting()
         {
@@ -93,9 +94,13 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButton(1))
             {
                 State = StateType.IdleBlock;
+                normalSpeed = battleSpeed;
             }
             else
+            {
                 State = StateType.Ground;
+                normalSpeed = originSpeed;
+            }
         }
     }
 
@@ -325,7 +330,7 @@ public class Player : MonoBehaviour
                 transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
 
             var pos = tr.position;
-            pos.x += moveX * speed * Time.deltaTime;
+            pos.x += moveX * normalSpeed * Time.deltaTime;
             tr.position = pos;
         }
     }
@@ -339,7 +344,7 @@ public class Player : MonoBehaviour
         if (isRolling)
         {
             var pos = tr.position;
-            pos.x += transform.forward.z * speed * Time.deltaTime;
+            pos.x += transform.forward.z * normalSpeed * Time.deltaTime;
             tr.position = pos;
         }
         else if (ChkGound() && Input.GetKey(KeyCode.LeftShift))
@@ -442,10 +447,10 @@ public class Player : MonoBehaviour
 
     IEnumerator AttackCo(float attackCurDelay)
     {
-        speed = 1;
+        normalSpeed = battleSpeed;
         yield return new WaitForSeconds(attackCurDelay);
         State = StateType.AttackExit;
-        speed = originSpeed;
+        normalSpeed = originSpeed;
     }
     IEnumerator AttackDelayCo()
     {
