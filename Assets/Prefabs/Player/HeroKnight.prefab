@@ -151,7 +151,7 @@ MonoBehaviour:
   state: 0
   anim: 0
   normalSpeed: 5
-  battleSpeed: 1
+  battleSpeed: 0.5
   isUpdatePhysics: 0
   groundRayOffsetX: 0.2
   groundRayOffsetY: 0.2

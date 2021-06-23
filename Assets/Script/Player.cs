@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] float normalSpeed = 5f;
-    [SerializeField] float battleSpeed = 1f;
+    [SerializeField] float battleSpeed = 0.5f;
     #endregion Declare
 
     #region AboutRay
