@@ -27,7 +27,7 @@ public class Monster : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("AttackObj"))
+        if (collision.CompareTag("AttackBoxObj"))
         {
             StartCoroutine(HitCo());
             animator.Play("Hit");

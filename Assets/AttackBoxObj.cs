@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackObj : MonoBehaviour
+public class AttackBoxObj : MonoBehaviour
 {
     BoxCollider2D boxCol2D;
     Vector2 boxCol2DSize;

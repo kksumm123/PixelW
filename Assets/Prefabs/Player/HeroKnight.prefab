@@ -176,7 +176,7 @@ MonoBehaviour:
   attackMaxIdx: 3
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
-  attackGo: {fileID: 2837947586576825059}
+  attackBoxObj: {fileID: 0}
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3
@@ -208,8 +208,8 @@ GameObject:
   - component: {fileID: 1360070427733819843}
   - component: {fileID: 1258690440}
   m_Layer: 0
-  m_Name: Attack1
-  m_TagString: AttackObj
+  m_Name: AttackBoxObj
+  m_TagString: AttackBoxObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

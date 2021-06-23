@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        attackBoxObj = transform.Find("AttackBoxObj").gameObject;
         SetGroundRaySetting();
         originSpeed = normalSpeed;
 
@@ -392,11 +393,10 @@ public class Player : MonoBehaviour
     [SerializeField] int attackMaxIdx = 3;
     [SerializeField] float attackIdxResetTime = 1.2f;
     [SerializeField] float attackIdxResetCurTime = 0f;
+    [SerializeField] GameObject attackBoxObj;
     Coroutine attackCoHandle;
     Coroutine attackDelayCoHandle;
     Coroutine attackIndxResetCoHandle;
-
-    public GameObject attackGo;
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -436,11 +436,11 @@ public class Player : MonoBehaviour
     IEnumerator AttackCo(float attackCurDelay)
     {
         normalSpeed = battleSpeed;
-        attackGo.SetActive(true);
+        attackBoxObj.SetActive(true);
         yield return new WaitForSeconds(attackCurDelay);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
-        attackGo.SetActive(false);
+        attackBoxObj.SetActive(false);
     }
     IEnumerator AttackDelayCo()
     {
