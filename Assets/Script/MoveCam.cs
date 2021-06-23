@@ -46,10 +46,11 @@ public class MoveCam : MonoBehaviour
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(tr.position + new Vector3(0, 1, 0), Vector2.left * camWidthHalf);
-        Gizmos.DrawRay(tr.position, Vector2.right * camWidthHalf);
-    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawRay(tr.position + new Vector3(0, 1, 0), Vector2.left * camWidthHalf);
+    //    Gizmos.DrawRay(tr.position, Vector2.right * camWidthHalf);
+    //}
 }
