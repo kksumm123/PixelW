@@ -7,6 +7,7 @@ public class MoveCam : MonoBehaviour
     Transform playerTr;
     Transform tr;
 
+    [SerializeField] float speed = 2f;
     void Start()
     {
         playerTr = GameObject.Find("Player").GetComponent<Transform>();
@@ -16,6 +17,6 @@ public class MoveCam : MonoBehaviour
     void Update()
     {
         var distance = new Vector3(playerTr.position.x - tr.position.x, 0, 0);
-        transform.Translate(distance * Time.deltaTime, Space.World);
+        transform.Translate(distance * speed * Time.deltaTime, Space.World);
     }
 }
