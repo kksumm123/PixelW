@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
 {
     Animator animator;
     Transform playerTr;
+    [SerializeField] float hitAnimationLenth;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -16,9 +17,8 @@ public class Monster : MonoBehaviour
         if (ishit == false)
         {
             var distance = playerTr.position.x - transform.position.x;
-            transform.Translate(new Vector3(distance, 0, 0), Space.World);
+            transform.Translate(new Vector3(distance * Time.deltaTime, 0, 0), Space.World);
             animator.Play("Walk");
-            Debug.Log($"distance {distance}");
         }
     }
 
@@ -26,16 +26,16 @@ public class Monster : MonoBehaviour
     {
         if (collision.CompareTag("AttackObj"))
         {
-            ishit = true;
+            StartCoroutine(HitCo());
             animator.Play("Hit");
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+
+    private IEnumerator HitCo()
     {
-        if (collision.CompareTag("AttackObj"))
-        {
-            ishit = false;
-        }
+        ishit = true;
+        yield return new WaitForSeconds(hitAnimationLenth);
+        ishit = false;
     }
     bool ishit = false;
 }

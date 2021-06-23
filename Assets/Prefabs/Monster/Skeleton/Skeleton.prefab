@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5067838825629823010}
   - component: {fileID: 2147848405250009998}
   - component: {fileID: 237804423}
+  - component: {fileID: 1043432981144184253}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Monster
@@ -151,3 +152,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1043432981144184253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020995610703227779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7675f2e901888fb47a3c60b7af7c64ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitAnimationLenth: 0.4
