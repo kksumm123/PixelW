@@ -176,6 +176,7 @@ MonoBehaviour:
   attackMaxIdx: 3
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
+  attack1Go: {fileID: 2837947586576825059}
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3
@@ -205,13 +206,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5614034124283831931}
   - component: {fileID: 1360070427733819843}
+  - component: {fileID: 1258690440}
   m_Layer: 0
   m_Name: Attack1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5614034124283831931
 Transform:
   m_ObjectHideFlags: 0
@@ -252,3 +254,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &1258690440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2837947586576825059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04687b6d86a74447bb769b133f73bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackForce: {x: 1000, y: 2000}
