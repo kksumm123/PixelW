@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    Animator animator;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag("AttackObj"))
+        {
+            animator.Play("Hit");
+        }
     }
 }
