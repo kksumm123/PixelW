@@ -10,7 +10,7 @@ public class MoveCam : MonoBehaviour
     [SerializeField] float speed = 2f;
     [SerializeField] bool canFollow = true;
     void Start()
-    {
+    { 
         playerTr = GameObject.Find("Player").GetComponent<Transform>();
         tr = transform;
     }
@@ -25,6 +25,7 @@ public class MoveCam : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        Debug.Log("¡¯¿‘");
         if (collision.CompareTag("CamViewCol"))
             canFollow = false;
         else
