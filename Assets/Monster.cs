@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        playerTr = GetComponent<Transform>();
+        playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     void Update()
     {
@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
             var distance = playerTr.position.x - transform.position.x;
             transform.Translate(new Vector3(distance, 0, 0), Space.World);
             animator.Play("Walk");
+            Debug.Log($"distance {distance}");
         }
     }
 
