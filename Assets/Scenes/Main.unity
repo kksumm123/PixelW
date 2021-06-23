@@ -7235,7 +7235,7 @@ GameObject:
   - component: {fileID: 1892137158}
   m_Layer: 7
   m_Name: CamViewCol_R
-  m_TagString: Untagged
+  m_TagString: CamViewCol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7908,7 +7908,7 @@ GameObject:
   - component: {fileID: 2088371258}
   m_Layer: 7
   m_Name: CamViewCol_L
-  m_TagString: Untagged
+  m_TagString: CamViewCol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
