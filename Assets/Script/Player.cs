@@ -396,6 +396,7 @@ public class Player : MonoBehaviour
     Coroutine attackDelayCoHandle;
     Coroutine attackIndxResetCoHandle;
 
+    public GameObject attack1Go;
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
