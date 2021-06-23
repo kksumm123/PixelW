@@ -176,7 +176,7 @@ MonoBehaviour:
   attackMaxIdx: 3
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
-  attack1Go: {fileID: 2837947586576825059}
+  attackGo: {fileID: 2837947586576825059}
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3

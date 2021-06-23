@@ -396,7 +396,7 @@ public class Player : MonoBehaviour
     Coroutine attackDelayCoHandle;
     Coroutine attackIndxResetCoHandle;
 
-    public GameObject attack1Go;
+    public GameObject attackGo;
     private void Attack()
     {
         if (Input.GetMouseButtonDown(0))
@@ -436,11 +436,11 @@ public class Player : MonoBehaviour
     IEnumerator AttackCo(float attackCurDelay)
     {
         normalSpeed = battleSpeed;
-        attack1Go.SetActive(true);
+        attackGo.SetActive(true);
         yield return new WaitForSeconds(attackCurDelay);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
-        attack1Go.SetActive(false);
+        attackGo.SetActive(false);
     }
     IEnumerator AttackDelayCo()
     {
