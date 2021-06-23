@@ -16,8 +16,11 @@ public class Monster : MonoBehaviour
     {
         if (ishit == false)
         {
-            var distance = playerTr.position.x - transform.position.x;
-            transform.Translate(new Vector3(distance * Time.deltaTime, 0, 0), Space.World);
+            var distance = playerTr.position - transform.position;
+            distance.Normalize();
+            transform.Translate(
+                new Vector3(distance.x * Time.deltaTime, 0, 0), Space.World);
+            transform.rotation = new Quaternion(0, distance.x >= 0 ? 0 : 180, 0, 0);
             animator.Play("Walk");
         }
     }
