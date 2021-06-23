@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CamViewCol
   - Monster
+  - AttackObj
   layers:
   - Default
   - TransparentFX

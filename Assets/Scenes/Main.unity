@@ -451,6 +451,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &237804422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5020995610703227779, guid: 1f0e9264e192c4b4eae17b0be14129b8, type: 3}
+  m_PrefabInstance: {fileID: 6081427493447035691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &237804423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237804422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7675f2e901888fb47a3c60b7af7c64ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &277032215
 GameObject:
   m_ObjectHideFlags: 0
@@ -8315,11 +8332,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1229099588592608100, guid: 1f0e9264e192c4b4eae17b0be14129b8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.41
+      value: -4.494
       objectReference: {fileID: 0}
     - target: {fileID: 1229099588592608100, guid: 1f0e9264e192c4b4eae17b0be14129b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.08
+      value: -1.159
       objectReference: {fileID: 0}
     - target: {fileID: 1229099588592608100, guid: 1f0e9264e192c4b4eae17b0be14129b8, type: 3}
       propertyPath: m_LocalPosition.z
