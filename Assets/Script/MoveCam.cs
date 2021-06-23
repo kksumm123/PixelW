@@ -8,33 +8,34 @@ public class MoveCam : MonoBehaviour
     Transform playerTr;
     Transform tr;
 
-    [SerializeField] float speed = 2f;
+    [SerializeField] float speed = 5f;
     [SerializeField] LayerMask camViewLayer;
-    [SerializeField] float camWidth;
+    [SerializeField] float camWidthHalf;
     void Start()
     {
         playerTr = GameObject.Find("Player").GetComponent<Transform>();
         camViewLayer = 1 << LayerMask.NameToLayer("CamView");
-        camWidth = 2 * transform.GetComponent<Camera>().orthographicSize * transform.GetComponent<Camera>().aspect;
+        camWidthHalf = transform.GetComponent<Camera>().orthographicSize * transform.GetComponent<Camera>().aspect;
         tr = transform;
     }
 
     void Update()
     {
-        var distance = new Vector3(playerTr.position.x - tr.position.x, 0, 0);
-        if (ChkViewLayer(distance) == false)
+        var moveValue = 
+            new Vector3(playerTr.position.x - tr.position.x, 0, 0) * speed * Time.deltaTime;
+        if (ChkViewLayer(moveValue) == false)
         {
-            transform.Translate(distance * speed * Time.deltaTime, Space.World);
+            transform.Translate(moveValue, Space.World);
         }
     }
 
-    private bool ChkViewLayer(Vector3 distance)
+    private bool ChkViewLayer(Vector3 value)
     {
-        if (ChkRay(tr.position + distance
-            , Vector2.left, camWidth, camViewLayer))
+        if (ChkRay(tr.position + value
+            , Vector2.left, camWidthHalf, camViewLayer))
             return true;
-        if (ChkRay(tr.position + distance
-            , Vector2.right, camWidth, camViewLayer))
+        if (ChkRay(tr.position + value
+            , Vector2.right, camWidthHalf, camViewLayer))
             return true;
 
         return false;
@@ -48,7 +49,7 @@ public class MoveCam : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(tr.position + new Vector3(0, 1, 0), Vector2.left * camWidth);
-        Gizmos.DrawRay(tr.position, Vector2.right * camWidth);
+        Gizmos.DrawRay(tr.position + new Vector3(0, 1, 0), Vector2.left * camWidthHalf);
+        Gizmos.DrawRay(tr.position, Vector2.right * camWidthHalf);
     }
 }
