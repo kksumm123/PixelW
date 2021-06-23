@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class MoveCam : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Transform playerTr;
+    Transform tr;
+
     void Start()
     {
-        
+        playerTr = GameObject.Find("Player").GetComponent<Transform>();
+        tr = transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        var distance = new Vector3(playerTr.position.x - tr.position.x, 0, 0);
+        transform.Translate(distance * Time.deltaTime, Space.World);
     }
 }
