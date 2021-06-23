@@ -23,12 +23,4 @@ public class MoveCam : MonoBehaviour
             transform.Translate(distance * speed * Time.deltaTime, Space.World);
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Debug.Log("¡¯¿‘");
-        if (collision.CompareTag("CamViewCol"))
-            canFollow = false;
-        else
-            canFollow = true;
-    }
 }
