@@ -13,13 +13,17 @@ public class Monster : MonoBehaviour
     }
     void Update()
     {
-        var distance = playerTr.position - transform.position;
-
+        if (ishit == false)
+        {
+            var distance = playerTr.position.x - transform.position.x;
+            transform.Translate(new Vector3(distance, 0, 0), Space.World);
+            animator.Play("Walk");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("AttackObj"))
+        if (collision.CompareTag("AttackObj"))
         {
             ishit = true;
             animator.Play("Hit");
