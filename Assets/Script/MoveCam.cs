@@ -30,10 +30,10 @@ public class MoveCam : MonoBehaviour
 
     private bool ChkViewLayer(Vector3 distance)
     {
-        if (ChkRay(tr.position + new Vector3(camWidth, 0, 0) + distance
+        if (ChkRay(tr.position + distance
             , Vector2.left, camWidth, camViewLayer))
             return true;
-        if (ChkRay(tr.position + new Vector3(camWidth, 0, 0) + distance
+        if (ChkRay(tr.position + distance
             , Vector2.right, camWidth, camViewLayer))
             return true;
 
@@ -44,5 +44,11 @@ public class MoveCam : MonoBehaviour
         Debug.Assert(layer != 0, "레이어 지정안됨");
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(tr.position + new Vector3(0, 1, 0), Vector2.left * camWidth);
+        Gizmos.DrawRay(tr.position, Vector2.right * camWidth);
     }
 }
