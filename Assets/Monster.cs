@@ -8,7 +8,7 @@ public class Monster : MonoBehaviour
     Animator animator;
     Transform playerTr;
     Transform tr;
-    [SerializeField] float hitAnimationLenth;
+    [SerializeField] float hitAnimationLenth = 0.4f;
     [SerializeField] bool ishit = false;
     void Start()
     {
