@@ -16,12 +16,6 @@ public class AttackBoxObj : MonoBehaviour
         playerTr = transform.parent.GetComponent<Transform>();
     }
 
-
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))

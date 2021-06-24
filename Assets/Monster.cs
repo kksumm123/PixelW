@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,27 @@ public class Monster : MonoBehaviour
 {
     Animator animator;
     Transform playerTr;
+    Transform tr;
     [SerializeField] float hitAnimationLenth;
     [SerializeField] bool ishit = false;
     void Start()
     {
         animator = GetComponent<Animator>();
         playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        playerLayer = 1 << LayerMask.NameToLayer("Player");
     }
     void Update()
+    {
+        Walk();
+        Attack();
+    }
+
+    void Attack()
+    {
+
+    }
+
+    void Walk()
     {
         if (ishit == false)
         {
@@ -27,7 +41,25 @@ public class Monster : MonoBehaviour
             animator.Play("Walk");
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] float chkAttackRangeDistance = 2f;
+    [SerializeField] LayerMask playerLayer;
+    bool ChkAttack(Vector3 value)
+    {
+        if (ChkRay(tr.position + value
+            , tr.forward.z == 1 ? Vector2.right : Vector2.left
+            , chkAttackRangeDistance, playerLayer))
+            return true;
+
+        return false;
+    }
+    bool ChkRay(Vector3 pos, Vector2 dir, float length, LayerMask layer)
+    {
+        Debug.Assert(layer != 0, "레이어 지정안됨");
+        var hit = Physics2D.Raycast(pos, dir, length, layer);
+        return hit.transform;
+    }
+    #region OnTrigger
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("AttackBoxObj"))
         {
@@ -36,10 +68,11 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private IEnumerator HitCo()
+    IEnumerator HitCo()
     {
         ishit = true;
         yield return new WaitForSeconds(hitAnimationLenth);
         ishit = false;
     }
+    #endregion OnTrigger
 }
