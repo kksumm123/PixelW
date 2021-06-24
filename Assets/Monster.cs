@@ -31,6 +31,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     List<float> attackDelay =
         new List<float>() { 0.667f, 0.667f };
+    [SerializeField] float attackReadyMotionDelay = 0.5f;
     [SerializeField] float attackCurDelay = 0;
     [SerializeField] int attackIdx = 0;
     [SerializeField] int attackMaxIdx = 2;
@@ -62,7 +63,9 @@ public class Monster : MonoBehaviour
                     StopCo(attackCoHandle);
                     StopCo(attackDelayCoHandle);
                     StopCo(attackIndxResetCoHandle);
-                    attackCoHandle = StartCoroutine(AttackCo(attackCurDelay));
+                    attackCoHandle = 
+                        StartCoroutine(
+                            AttackCo(attackCurDelay - attackReadyMotionDelay));
                     attackDelayCoHandle = StartCoroutine(AttackDelayCo());
                     attackIndxResetCoHandle = StartCoroutine(AttackIndxResetCo());
                     attackIdx++;
@@ -75,6 +78,7 @@ public class Monster : MonoBehaviour
 
     IEnumerator AttackCo(float attackCurDelay)
     {
+        yield return new WaitForSeconds(attackReadyMotionDelay);
         attackBoxObj.SetActive(true);
         yield return new WaitForSeconds(attackCurDelay);
         State = StateType.AttackExit;
