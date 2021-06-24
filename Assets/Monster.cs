@@ -12,7 +12,6 @@ public class Monster : MonoBehaviour
     [SerializeField] AnimType anim = AnimType.Idle;
 
     [SerializeField] float hitAnimationLenth = 0.4f;
-    [SerializeField] bool ishit = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,7 +28,7 @@ public class Monster : MonoBehaviour
 
     void Attack()
     {
-        if (ChkAttack())
+        if (State != StateType.Hit && ChkAttack())
         {
             State = StateType.Attack;
         }
@@ -37,7 +36,7 @@ public class Monster : MonoBehaviour
 
     void Walk()
     {
-        if (ishit == false && ChkAttack() == false)
+        if (State != StateType.Hit && ChkAttack() == false)
         {
             var distance = playerTr.position - transform.position;
             distance.Normalize();
@@ -72,15 +71,14 @@ public class Monster : MonoBehaviour
         if (collision.CompareTag("AttackBoxObj"))
         {
             StartCoroutine(HitCo());
-            animator.Play("Hit");
         }
     }
 
     IEnumerator HitCo()
     {
-        ishit = true;
+        State = StateType.Hit;
         yield return new WaitForSeconds(hitAnimationLenth);
-        ishit = false;
+        State = StateType.Idle;
     }
     #endregion OnTrigger
 
@@ -103,6 +101,7 @@ public class Monster : MonoBehaviour
         Idle,
         Walk,
         Attack,
+        Hit,
     }
     #endregion StateType
     #region AnimationType
@@ -123,6 +122,7 @@ public class Monster : MonoBehaviour
         Idle,
         Walk,
         Attack,
+        Hit,
     }
     #endregion AnimationType
     #region AnimForState
@@ -138,6 +138,9 @@ public class Monster : MonoBehaviour
                 break;
             case StateType.Attack:
                 Anim = AnimType.Attack;
+                break;
+            case StateType.Hit:
+                Anim = AnimType.Hit;
                 break;
         }
     }
@@ -155,6 +158,9 @@ public class Monster : MonoBehaviour
                 break;
             case AnimType.Attack:
                 animator.Play("Attack1");
+                break;
+            case AnimType.Hit:
+                animator.Play("Hit");
                 break;
         }
     }
