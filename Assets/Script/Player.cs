@@ -555,7 +555,7 @@ public class Player : MonoBehaviour
             StartCoroutine(HitCo());
         }
     }
-    [SerializeField] float hitAnimationLenth = 0.273f;
+    [SerializeField] float hitAnimationLenth = 0.873f;
     IEnumerator HitCo()
     {
         State = StateType.Hit;

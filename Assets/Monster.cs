@@ -17,7 +17,7 @@ public class Monster : MonoBehaviour
         playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         tr = transform;
-        attackBoxObj = transform.Find("AttackBoxObj").gameObject;
+        monsterAttackBoxObj = transform.Find("MonsterAttackBoxObj").gameObject;
     }
     void Update()
     {
@@ -36,7 +36,7 @@ public class Monster : MonoBehaviour
     [SerializeField] int attackMaxIdx = 2;
     [SerializeField] float attackIdxResetTime = 1.2f;
     [SerializeField] float attackIdxResetCurTime = 0f;
-    [SerializeField] GameObject attackBoxObj;
+    [SerializeField] GameObject monsterAttackBoxObj;
     Coroutine attackCoHandle;
     Coroutine attackDelayCoHandle;
     Coroutine attackIndxResetCoHandle;
@@ -78,10 +78,10 @@ public class Monster : MonoBehaviour
     IEnumerator AttackCo(float delay)
     {
         yield return new WaitForSeconds(attackReadyMotionDelay);
-        attackBoxObj.SetActive(true);
+        monsterAttackBoxObj.SetActive(true);
         yield return new WaitForSeconds(delay);
         State = StateType.AttackExit;
-        attackBoxObj.SetActive(false);
+        monsterAttackBoxObj.SetActive(false);
     }
     IEnumerator AttackDelayCo()
     {
