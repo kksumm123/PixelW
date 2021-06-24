@@ -101,7 +101,7 @@ public class Monster : MonoBehaviour
     #region Walk
     void Walk()
     {
-        if (State != StateType.Hit && ChkAttack() == false)
+        if (State != StateType.Hit && ChkAttack() == false && attackCurDelay <= 0)
         {
             var distance = playerTr.position - transform.position;
             distance.Normalize();
