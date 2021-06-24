@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
         playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         tr = transform;
+        attackBoxObj = transform.Find("AttackBoxObj").gameObject;
     }
     void Update()
     {
