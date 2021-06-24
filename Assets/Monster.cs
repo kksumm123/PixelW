@@ -76,11 +76,11 @@ public class Monster : MonoBehaviour
         }
     }
 
-    IEnumerator AttackCo(float attackCurDelay)
+    IEnumerator AttackCo(float delay)
     {
         yield return new WaitForSeconds(attackReadyMotionDelay);
         attackBoxObj.SetActive(true);
-        yield return new WaitForSeconds(attackCurDelay);
+        yield return new WaitForSeconds(delay);
         State = StateType.AttackExit;
         attackBoxObj.SetActive(false);
     }

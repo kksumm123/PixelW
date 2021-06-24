@@ -433,11 +433,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator AttackCo(float attackCurDelay)
+    IEnumerator AttackCo(float delay)
     {
         normalSpeed = battleSpeed;
         attackBoxObj.SetActive(true);
-        yield return new WaitForSeconds(attackCurDelay);
+        yield return new WaitForSeconds(delay);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
         attackBoxObj.SetActive(false);
