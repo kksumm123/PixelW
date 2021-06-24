@@ -26,14 +26,78 @@ public class Monster : MonoBehaviour
         Attack();
     }
 
-    void Attack()
+    #region Attack
+    [SerializeField]
+    List<float> attackDelay =
+        new List<float>() { 0.667f, 0.667f };
+    [SerializeField] float attackCurDelay = 0;
+    [SerializeField] int attackIdx = 0;
+    [SerializeField] int attackMaxIdx = 2;
+    [SerializeField] float attackIdxResetTime = 1.2f;
+    [SerializeField] float attackIdxResetCurTime = 0f;
+    [SerializeField] GameObject attackBoxObj;
+    Coroutine attackCoHandle;
+    Coroutine attackDelayCoHandle;
+    Coroutine attackIndxResetCoHandle;
+    private void Attack()
     {
         if (State != StateType.Hit && ChkAttack())
         {
-            State = StateType.Attack;
+            if (attackCurDelay <= 0)
+            {
+                if (attackIdx < attackMaxIdx)
+                {
+                    attackCurDelay = attackDelay[attackIdx];
+                    attackIdxResetCurTime = attackIdxResetTime;
+                    switch (attackIdx)
+                    {
+                        case 0:
+                            State = StateType.Attack1;
+                            break;
+                        case 1:
+                            State = StateType.Attack2;
+                            break;
+                    }
+                    StopCo(attackCoHandle);
+                    StopCo(attackDelayCoHandle);
+                    StopCo(attackIndxResetCoHandle);
+                    attackCoHandle = StartCoroutine(AttackCo(attackCurDelay));
+                    attackDelayCoHandle = StartCoroutine(AttackDelayCo());
+                    attackIndxResetCoHandle = StartCoroutine(AttackIndxResetCo());
+                    attackIdx++;
+                }
+                else
+                    attackIdx = 0;
+            }
         }
     }
 
+    IEnumerator AttackCo(float attackCurDelay)
+    {
+        attackBoxObj.SetActive(true);
+        yield return new WaitForSeconds(attackCurDelay);
+        State = StateType.AttackExit;
+        attackBoxObj.SetActive(false);
+    }
+    IEnumerator AttackDelayCo()
+    {
+        while (attackCurDelay > 0)
+        {
+            attackCurDelay -= Time.deltaTime;
+            yield return null;
+        }
+    }
+    IEnumerator AttackIndxResetCo()
+    {
+        while (attackIdxResetCurTime > 0)
+        {
+            attackIdxResetCurTime -= Time.deltaTime;
+            yield return null;
+        }
+        attackIdx = 0;
+    }
+    #endregion Attack
+    #region Walk
     void Walk()
     {
         if (State != StateType.Hit && ChkAttack() == false)
@@ -48,6 +112,8 @@ public class Monster : MonoBehaviour
             State = StateType.Walk;
         }
     }
+    #endregion Walk
+    #region AboutRay
     [SerializeField] float chkAttackRangeDistance = 2f;
     [SerializeField] LayerMask playerLayer;
     bool ChkAttack()
@@ -65,6 +131,7 @@ public class Monster : MonoBehaviour
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
     }
+    #endregion AboutRay
     #region OnTrigger
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -100,7 +167,9 @@ public class Monster : MonoBehaviour
     {
         Idle,
         Walk,
-        Attack,
+        Attack1,
+        Attack2,
+        AttackExit,
         Hit,
     }
     #endregion StateType
@@ -121,7 +190,8 @@ public class Monster : MonoBehaviour
     {
         Idle,
         Walk,
-        Attack,
+        Attack1,
+        Attack2,
         Hit,
     }
     #endregion AnimationType
@@ -136,8 +206,11 @@ public class Monster : MonoBehaviour
             case StateType.Walk:
                 Anim = AnimType.Walk;
                 break;
-            case StateType.Attack:
-                Anim = AnimType.Attack;
+            case StateType.Attack1:
+                Anim = AnimType.Attack1;
+                break;
+            case StateType.Attack2:
+                Anim = AnimType.Attack2;
                 break;
             case StateType.Hit:
                 Anim = AnimType.Hit;
@@ -156,8 +229,11 @@ public class Monster : MonoBehaviour
             case AnimType.Walk:
                 animator.Play("Walk");
                 break;
-            case AnimType.Attack:
+            case AnimType.Attack1:
                 animator.Play("Attack1");
+                break;
+            case AnimType.Attack2:
+                animator.Play("Attack2");
                 break;
             case AnimType.Hit:
                 animator.Play("Hit");
@@ -165,4 +241,9 @@ public class Monster : MonoBehaviour
         }
     }
     #endregion AnimationPlay
+    void StopCo(Coroutine handle)
+    {
+        if (handle != null)
+            StopCoroutine(handle);
+    }
 }
