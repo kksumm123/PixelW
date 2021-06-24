@@ -31,13 +31,13 @@ public class Monster : MonoBehaviour
     {
         if (ChkAttack())
         {
-            animator.Play("Attack1");
+            State = StateType.Attack;
         }
     }
 
     void Walk()
     {
-        if (ishit == false)
+        if (ishit == false && ChkAttack() == false)
         {
             var distance = playerTr.position - transform.position;
             distance.Normalize();
@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
                 new Vector3(distance.x * Time.deltaTime, 0, 0), Space.World);
             transform.rotation = new Quaternion(0, distance.x >= 0 ? 0 : 180, 0, 0);
 
-            animator.Play("Walk");
+            State = StateType.Walk;
         }
     }
     [SerializeField] float chkAttackRangeDistance = 2f;
@@ -93,6 +93,7 @@ public class Monster : MonoBehaviour
         {
             if (state == value)
                 return;
+
             Debug.Log($"StateType : {state} -> {value}");
             state = value;
         }
