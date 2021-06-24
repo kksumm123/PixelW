@@ -11805,9 +11805,9 @@ GameObject:
   - component: {fileID: 2045607050}
   - component: {fileID: 2045607052}
   - component: {fileID: 2045607051}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: AttackBoxObj
-  m_TagString: AttackBoxObj
+  m_TagString: MonsterAttackBoxObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
