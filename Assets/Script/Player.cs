@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         else if (isRolling == true)
             return;
 
-        if (ChkAttackAndBlock() == false)
+        if (State != StateType.Hit && ChkAttackAndBlock() == false)
         {
             var velo = rigid.velocity;
 
