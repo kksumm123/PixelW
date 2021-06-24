@@ -15,10 +15,11 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         playerTr = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
+        tr = transform;
     }
     void Update()
     {
-        Walk();
+        //Walk();
         Attack();
     }
 
@@ -27,6 +28,10 @@ public class Monster : MonoBehaviour
         if (ChkAttack())
         {
             animator.Play("Attack1");
+        }
+        else
+        {
+            animator.Play("Idle");
         }
     }
 
