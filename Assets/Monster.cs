@@ -11,7 +11,6 @@ public class Monster : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
 
-    [SerializeField] float hitAnimationLenth = 0.4f;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -137,22 +136,6 @@ public class Monster : MonoBehaviour
         return hit.transform;
     }
     #endregion AboutRay
-    #region OnTrigger
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("AttackBoxObj"))
-        {
-            StartCoroutine(HitCo());
-        }
-    }
-
-    IEnumerator HitCo()
-    {
-        State = StateType.Hit;
-        yield return new WaitForSeconds(hitAnimationLenth);
-        State = StateType.Idle;
-    }
-    #endregion OnTrigger
 
 
     #region StateType
@@ -246,6 +229,22 @@ public class Monster : MonoBehaviour
         }
     }
     #endregion AnimationPlay
+    #region OnTrigger
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("AttackBoxObj"))
+        {
+            StartCoroutine(HitCo());
+        }
+    }
+    [SerializeField] float hitAnimationLenth = 0.4f;
+    IEnumerator HitCo()
+    {
+        State = StateType.Hit;
+        yield return new WaitForSeconds(hitAnimationLenth);
+        State = StateType.Idle;
+    }
+    #endregion OnTrigger
     void StopCo(Coroutine handle)
     {
         if (handle != null)

@@ -83,13 +83,15 @@ public class Player : MonoBehaviour
         velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
-        //AnimationPlay();
 
-        Move();
-        Rolling();
-        Jump();
-        Attack();
-        Block();
+        if (State != StateType.Hit)
+        {
+            Move();
+            Rolling();
+            Jump();
+            Attack();
+            Block();
+        }
     }
     #endregion Update()
 
@@ -211,90 +213,6 @@ public class Player : MonoBehaviour
 
     #endregion StateUpdate
 
-    #region AnimForState
-    private void AnimForState()
-    {
-        switch (State)
-        {
-            case StateType.Ground:
-                Anim = AnimType.Idle;
-                break;
-            case StateType.Jump:
-                Anim = AnimType.Jump;
-                break;
-            case StateType.Fall:
-                Anim = AnimType.Fall;
-                break;
-            case StateType.Run:
-                Anim = AnimType.Run;
-                break;
-            case StateType.WallSlide:
-                Anim = AnimType.WallSlide;
-                break;
-            case StateType.Roll:
-                Anim = AnimType.Roll;
-                break;
-            case StateType.Attack1:
-                Anim = AnimType.Attack1;
-                break;
-            case StateType.Attack2:
-                Anim = AnimType.Attack2;
-                break;
-            case StateType.Attack3:
-                Anim = AnimType.Attack3;
-                break;
-            case StateType.IdleBlock:
-                Anim = AnimType.IdleBlock;
-                break;
-            case StateType.Block:
-                Anim = AnimType.Block;
-                break;
-
-        }
-    }
-    #endregion AnimForState
-
-    #region AnimationPlay
-    void AnimationPlay()
-    {
-        switch (Anim)
-        {
-            case AnimType.Idle:
-                animator.Play("Idle");
-                break;
-            case AnimType.Run:
-                animator.Play("Run");
-                break;
-            case AnimType.Jump:
-                animator.Play("Jump");
-                break;
-            case AnimType.Fall:
-                animator.Play("Fall");
-                break;
-            case AnimType.WallSlide:
-                animator.Play("WallSlide");
-                break;
-            case AnimType.Roll:
-                animator.Play("Roll");
-                break;
-            case AnimType.Attack1:
-                animator.Play("Attack1");
-                break;
-            case AnimType.Attack2:
-                animator.Play("Attack2");
-                break;
-            case AnimType.Attack3:
-                animator.Play("Attack3");
-                break;
-            case AnimType.IdleBlock:
-                animator.Play("IdleBlock");
-                break;
-            case AnimType.Block:
-                animator.Play("Block");
-                break;
-        }
-    }
-    #endregion AnimationPlay
 
     #region Move
     float moveX = 0;
@@ -480,6 +398,96 @@ public class Player : MonoBehaviour
     }
     #endregion Block
 
+
+    #region AnimForState
+    private void AnimForState()
+    {
+        switch (State)
+        {
+            case StateType.Ground:
+                Anim = AnimType.Idle;
+                break;
+            case StateType.Jump:
+                Anim = AnimType.Jump;
+                break;
+            case StateType.Fall:
+                Anim = AnimType.Fall;
+                break;
+            case StateType.Run:
+                Anim = AnimType.Run;
+                break;
+            case StateType.WallSlide:
+                Anim = AnimType.WallSlide;
+                break;
+            case StateType.Roll:
+                Anim = AnimType.Roll;
+                break;
+            case StateType.Attack1:
+                Anim = AnimType.Attack1;
+                break;
+            case StateType.Attack2:
+                Anim = AnimType.Attack2;
+                break;
+            case StateType.Attack3:
+                Anim = AnimType.Attack3;
+                break;
+            case StateType.IdleBlock:
+                Anim = AnimType.IdleBlock;
+                break;
+            case StateType.Block:
+                Anim = AnimType.Block;
+                break;
+            case StateType.Hit:
+                Anim = AnimType.Hit;
+                break;
+
+        }
+    }
+    #endregion AnimForState
+    #region AnimationPlay
+    void AnimationPlay()
+    {
+        switch (Anim)
+        {
+            case AnimType.Idle:
+                animator.Play("Idle");
+                break;
+            case AnimType.Run:
+                animator.Play("Run");
+                break;
+            case AnimType.Jump:
+                animator.Play("Jump");
+                break;
+            case AnimType.Fall:
+                animator.Play("Fall");
+                break;
+            case AnimType.WallSlide:
+                animator.Play("WallSlide");
+                break;
+            case AnimType.Roll:
+                animator.Play("Roll");
+                break;
+            case AnimType.Attack1:
+                animator.Play("Attack1");
+                break;
+            case AnimType.Attack2:
+                animator.Play("Attack2");
+                break;
+            case AnimType.Attack3:
+                animator.Play("Attack3");
+                break;
+            case AnimType.IdleBlock:
+                animator.Play("IdleBlock");
+                break;
+            case AnimType.Block:
+                animator.Play("Block");
+                break;
+            case AnimType.Hit:
+                animator.Play("Hit");
+                break;
+        }
+    }
+    #endregion AnimationPlay
     #region StateType
     StateType State
     {
@@ -506,6 +514,7 @@ public class Player : MonoBehaviour
         AttackExit,
         IdleBlock,
         Block,
+        Hit,
 
     }
     #endregion StateType
@@ -535,9 +544,25 @@ public class Player : MonoBehaviour
         Attack3,
         IdleBlock,
         Block,
-
+        Hit,
     }
     #endregion AnimationType
+    #region OnTrigger
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MonsterAttackBoxObj"))
+        {
+            StartCoroutine(HitCo());
+        }
+    }
+    [SerializeField] float hitAnimationLenth = 0.273f;
+    IEnumerator HitCo()
+    {
+        State = StateType.Hit;
+        yield return new WaitForSeconds(hitAnimationLenth);
+        State = StateType.AttackExit;
+    }
+    #endregion OnTrigger
     void StopCo(Coroutine handle)
     {
         if (handle != null)
