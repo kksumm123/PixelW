@@ -8,13 +8,21 @@ public class AttackBoxObj : MonoBehaviour
     Vector2 boxCol2DSize;
     Transform playerTr;
     [SerializeField] Vector2 attackForce = new Vector3(1000, 2000, 0);
-    private void Start()
+
+    void Start()
     {
         boxCol2D = GetComponent<BoxCollider2D>();
         boxCol2DSize = boxCol2D.size;
         playerTr = transform.parent.GetComponent<Transform>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+
+    void Update()
+    {
+        
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
         {
@@ -24,7 +32,7 @@ public class AttackBoxObj : MonoBehaviour
             boxCol2D.size = Vector2.zero;
         }
     }
-    private void OnDisable()
+    void OnDisable()
     {
         boxCol2D.size = boxCol2DSize;
     }
