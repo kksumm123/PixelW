@@ -24,7 +24,10 @@ public class Monster : MonoBehaviour
 
     void Attack()
     {
-
+        if (ChkAttack())
+        {
+            animator.Play("Attack1");
+        }
     }
 
     void Walk()
@@ -43,9 +46,9 @@ public class Monster : MonoBehaviour
     }
     [SerializeField] float chkAttackRangeDistance = 2f;
     [SerializeField] LayerMask playerLayer;
-    bool ChkAttack(Vector3 value)
+    bool ChkAttack()
     {
-        if (ChkRay(tr.position + value
+        if (ChkRay(tr.position
             , tr.forward.z == 1 ? Vector2.right : Vector2.left
             , chkAttackRangeDistance, playerLayer))
             return true;
