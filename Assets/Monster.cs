@@ -8,6 +8,9 @@ public class Monster : MonoBehaviour
     Animator animator;
     Transform playerTr;
     Transform tr;
+    [SerializeField] StateType state;
+    [SerializeField] AnimType anim = AnimType.Idle;
+
     [SerializeField] float hitAnimationLenth = 0.4f;
     [SerializeField] bool ishit = false;
     void Start()
@@ -19,7 +22,8 @@ public class Monster : MonoBehaviour
     }
     void Update()
     {
-        //Walk();
+        AnimForState();
+        Walk();
         Attack();
     }
 
@@ -28,10 +32,6 @@ public class Monster : MonoBehaviour
         if (ChkAttack())
         {
             animator.Play("Attack1");
-        }
-        else
-        {
-            animator.Play("Idle");
         }
     }
 
@@ -83,4 +83,79 @@ public class Monster : MonoBehaviour
         ishit = false;
     }
     #endregion OnTrigger
+
+
+    #region StateType
+    StateType State
+    {
+        get { return state; }
+        set
+        {
+            if (state == value)
+                return;
+            Debug.Log($"StateType : {state} -> {value}");
+            state = value;
+        }
+    }
+    enum StateType
+    {
+        Idle,
+        Walk,
+        Attack,
+    }
+    #endregion StateType
+    #region AnimationType
+    AnimType Anim
+    {
+        get { return anim; }
+        set
+        {
+            if (anim == value)
+                return;
+            Debug.Log($"AnimType : {anim} -> {value}");
+            anim = value;
+            AnimationPlay();
+        }
+    }
+    enum AnimType
+    {
+        Idle,
+        Walk,
+        Attack,
+    }
+    #endregion AnimationType
+    #region AnimForState
+    private void AnimForState()
+    {
+        switch (State)
+        {
+            case StateType.Idle:
+                Anim = AnimType.Idle;
+                break;
+            case StateType.Walk:
+                Anim = AnimType.Walk;
+                break;
+            case StateType.Attack:
+                Anim = AnimType.Attack;
+                break;
+        }
+    }
+    #endregion AnimForState
+    #region AnimationPlay
+    void AnimationPlay()
+    {
+        switch (Anim)
+        {
+            case AnimType.Idle:
+                animator.Play("Idle");
+                break;
+            case AnimType.Walk:
+                animator.Play("Walk");
+                break;
+            case AnimType.Attack:
+                animator.Play("Attack1");
+                break;
+        }
+    }
+    #endregion AnimationPlay
 }
