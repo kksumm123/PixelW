@@ -7,6 +7,7 @@ public class AttackBoxObj : MonoBehaviour
     BoxCollider2D boxCol2D;
     Vector2 boxCol2DSize;
     Transform parentTr;
+    [SerializeField] string tartgetTagName;
     [SerializeField] Vector2 attackForce = new Vector3(1000, 2000, 0);
 
     void Start()
@@ -18,7 +19,8 @@ public class AttackBoxObj : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Monster"))
+        Debug.Assert(tartgetTagName != null, "Å¸°Ù ÁöÁ¤¾ÈµÊ");
+        if (collision.CompareTag(tartgetTagName))
         {
             var attackDir = parentTr.forward.z;
             collision.GetComponent<Rigidbody2D>().AddForce(

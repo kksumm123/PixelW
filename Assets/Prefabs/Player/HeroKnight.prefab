@@ -177,6 +177,7 @@ MonoBehaviour:
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
   attackBoxObj: {fileID: 0}
+  hitAnimationLenth: 0.873
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3
@@ -266,4 +267,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04687b6d86a74447bb769b133f73bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tartgetTagName: Monster
   attackForce: {x: 1000, y: 2000}
