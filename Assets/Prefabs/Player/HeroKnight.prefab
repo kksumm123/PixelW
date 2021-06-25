@@ -177,7 +177,7 @@ MonoBehaviour:
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
   attackBoxObj: {fileID: 0}
-  hitAnimationLenth: 0.873
+  hitAnimationLenth: 0.273
 --- !u!95 &202740442
 Animator:
   serializedVersion: 3

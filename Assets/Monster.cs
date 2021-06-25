@@ -79,7 +79,9 @@ public class Monster : MonoBehaviour
     {
         yield return new WaitForSeconds(attackReadyMotionDelay);
         monsterAttackBoxObj.SetActive(true);
+        transform.Translate(0.001f, 0, 0);
         yield return new WaitForSeconds(delay);
+        transform.Translate(-0.001f, 0, 0);
         State = StateType.AttackExit;
         monsterAttackBoxObj.SetActive(false);
     }

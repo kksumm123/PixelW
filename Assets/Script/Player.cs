@@ -355,7 +355,9 @@ public class Player : MonoBehaviour
     {
         normalSpeed = battleSpeed;
         attackBoxObj.SetActive(true);
+        transform.Translate(0.001f, 0, 0);
         yield return new WaitForSeconds(delay);
+        transform.Translate(-0.001f, 0, 0);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
         attackBoxObj.SetActive(false);
@@ -555,7 +557,7 @@ public class Player : MonoBehaviour
             StartCoroutine(HitCo());
         }
     }
-    [SerializeField] float hitAnimationLenth = 0.873f;
+    [SerializeField] float hitAnimationLenth = 0.273f;
     IEnumerator HitCo()
     {
         State = StateType.Hit;
