@@ -9,6 +9,15 @@ public class NewMonster : MonoBehaviour
     Transform tr;
     Transform playerTr;
     Func<IEnumerator> currentCo;
+    Func<IEnumerator> CurrentCo
+    {
+        get => currentCo;
+        set
+        {
+            currentCo = value;
+            currnetCoHandle = null;
+        }
+    }
     Coroutine currnetCoHandle;
 
     Animator animator;
@@ -23,13 +32,14 @@ public class NewMonster : MonoBehaviour
         animator = GetComponent<Animator>();
 
         isAlive = true;
-        currentCo = IdleCo;
+        CurrentCo = IdleCo;
         #endregion Init
 
         while (isAlive)
         {
-            currnetCoHandle = StartCoroutine(currentCo());
-            yield return null;
+            currnetCoHandle = StartCoroutine(CurrentCo());
+            while (currnetCoHandle != null)
+                yield return null;
         }
     }
 
@@ -42,25 +52,23 @@ public class NewMonster : MonoBehaviour
 
             yield return null;
         }
-
-        currentCo = ChaseCo;
+        CurrentCo = ChaseCo;
     }
 
     Vector3 GapforPlayer;
     IEnumerator ChaseCo()
     {
-        State = StateType.Run;
+        State = StateType.Walk;
         while (ChkAttackDistance() == false)
         {
             GapforPlayer = playerTr.position - tr.position;
-
+            GapforPlayer.Normalize();
             tr.Translate(speed * Time.deltaTime * GapforPlayer, Space.World);
             tr.rotation = Quaternion.Euler(0, GapforPlayer.x > 0 ? 0 : 180, 0);
 
             yield return null;
         }
-
-        currentCo = AttackCo;
+        CurrentCo = AttackCo;
     }
     [SerializeField] float attackAnimLenth = 0.667f;
     [SerializeField] float attackPreDelay = 0.2f;
@@ -70,7 +78,7 @@ public class NewMonster : MonoBehaviour
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
         yield return new WaitForSeconds(attackAnimLenth - attackPreDelay);
-        currentCo = IdleCo;
+        CurrentCo = ChaseCo;
     }
     #region StateType
     [SerializeField] StateType state;
@@ -89,11 +97,9 @@ public class NewMonster : MonoBehaviour
     enum StateType
     {
         Idle,
-        Run,
+        Walk,
         Attack1,
         Attack2,
-        Attack3,
-        AttackExit,
         Hit,
     }
     #endregion StateType
