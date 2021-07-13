@@ -56,16 +56,31 @@ public class NewMonster : MonoBehaviour
     }
 
     Vector3 GapforPlayer;
+    float rotationY;
+    float preRotationY;
+    [SerializeField] float rotateDelay = 0.5f;
     IEnumerator ChaseCo()
     {
         State = StateType.Walk;
         while (ChkAttackDistance() == false)
         {
             GapforPlayer = playerTr.position - tr.position;
+            GapforPlayer.y = 0;
+            GapforPlayer.z = 0;
             GapforPlayer.Normalize();
+            
             tr.Translate(speed * Time.deltaTime * GapforPlayer, Space.World);
-            tr.rotation = Quaternion.Euler(0, GapforPlayer.x > 0 ? 0 : 180, 0);
+            rotationY = GapforPlayer.x > 0 ? 0 : 180;
+            
+            if (rotationY != preRotationY)
+            {
+                State = StateType.Idle;
+                yield return new WaitForSeconds(rotateDelay);
+                State = StateType.Walk;
+            }
 
+            tr.rotation = Quaternion.Euler(0, rotationY, 0);
+            preRotationY = rotationY;
             yield return null;
         }
         CurrentCo = AttackCo;
