@@ -173,6 +173,8 @@ public class NewMonster : MonoBehaviour
         Gizmos.DrawWireSphere(tr.position, detectRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(tr.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
     }
     #endregion Methods
 }
