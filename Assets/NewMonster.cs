@@ -98,14 +98,14 @@ public class NewMonster : MonoBehaviour
     #region AttackCo
     [SerializeField] float attackAnimLenth = 0.667f;
     [SerializeField] float attackPreDelay = 0.2f;
-    Collider[] hitCols;
+    Collider2D[] hitCols;
     IEnumerator AttackCo()
     {
         State = StateType.Attack1;
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
-        hitCols = Physics.OverlapSphere(
-            attackCol.transform.position, attackCol.radius, playerLayer);
+        var point = new Vector2(attackCol.transform.position.x, attackCol.transform.position.y);
+        hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
             item.GetComponent<Player>().TakeHit(damage);
