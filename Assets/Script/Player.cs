@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] Vector3 velocity;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
+    [SerializeField] int hp = 50;
     [SerializeField] float normalSpeed = 5f;
     [SerializeField] float battleSpeed = 0.5f;
     #endregion Declare
@@ -442,6 +443,9 @@ public class Player : MonoBehaviour
             case StateType.Hit:
                 Anim = AnimType.Hit;
                 break;
+            case StateType.Death:
+                Anim = AnimType.Death;
+                break;
 
         }
     }
@@ -487,6 +491,9 @@ public class Player : MonoBehaviour
             case AnimType.Hit:
                 animator.Play("Hit");
                 break;
+            case AnimType.Death:
+                animator.Play("Death");
+                break;
         }
     }
     #endregion AnimationPlay
@@ -517,7 +524,7 @@ public class Player : MonoBehaviour
         IdleBlock,
         Block,
         Hit,
-
+        Death,
     }
     #endregion StateType
     #region AnimationType
@@ -547,24 +554,36 @@ public class Player : MonoBehaviour
         IdleBlock,
         Block,
         Hit,
+        Death,
     }
     #endregion AnimationType
-    #region OnTrigger
-    void OnTriggerEnter2D(Collider2D collision)
+    #region TakeHit
+    public void TakeHit(int damage)
     {
-        if (collision.CompareTag("MonsterAttackBoxObj"))
-        {
-            StartCoroutine(HitCo());
-        }
+        hp -= damage;
+        StartCoroutine(HitCo());
     }
     [SerializeField] float hitAnimationLenth = 0.273f;
     IEnumerator HitCo()
     {
         State = StateType.Hit;
         yield return new WaitForSeconds(hitAnimationLenth);
-        State = StateType.AttackExit;
+        if (hp > 0)
+            State = StateType.AttackExit;
+        else
+        {
+            State = StateType.Death;
+            StartCoroutine(DeathCo());
+        }
     }
-    #endregion OnTrigger
+
+    [SerializeField] float deathTime = 1;
+    IEnumerator DeathCo()
+    {
+        yield return new WaitForSeconds(deathTime);
+        Destroy(gameObject);
+    }
+    #endregion TakeHit
     void StopCo(Coroutine handle)
     {
         if (handle != null)

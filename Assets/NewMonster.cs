@@ -8,6 +8,8 @@ public class NewMonster : MonoBehaviour
     // 하기시렁
     Transform tr;
     Transform playerTr;
+    CircleCollider2D attackCol;
+    Animator animator;
     Func<IEnumerator> currentCo;
     Func<IEnumerator> CurrentCo
     {
@@ -19,17 +21,21 @@ public class NewMonster : MonoBehaviour
         }
     }
     Coroutine currnetCoHandle;
+    [SerializeField] LayerMask playerLayer;
 
-    Animator animator;
 
     [SerializeField] bool isAlive = false;
+    [SerializeField] int hp = 20;
+    [SerializeField] int damage = 5;
     [SerializeField] float speed = 3;
     IEnumerator Start()
     {
         #region Init
         tr = GetComponent<Transform>();
         playerTr = GameObject.FindWithTag("Player").transform;
+        attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
+        playerLayer = 1 << LayerMask.NameToLayer("Player");
 
         isAlive = true;
         CurrentCo = IdleCo;
@@ -42,7 +48,7 @@ public class NewMonster : MonoBehaviour
                 yield return null;
         }
     }
-
+    #region IdleCo
     IEnumerator IdleCo()
     {
         State = StateType.Idle;
@@ -54,7 +60,9 @@ public class NewMonster : MonoBehaviour
         }
         CurrentCo = ChaseCo;
     }
+    #endregion IdleCo
 
+    #region ChaseCo
     Vector3 GapforPlayer;
     float rotationY;
     float preRotationY;
@@ -68,10 +76,10 @@ public class NewMonster : MonoBehaviour
             GapforPlayer.y = 0;
             GapforPlayer.z = 0;
             GapforPlayer.Normalize();
-            
+
             tr.Translate(speed * Time.deltaTime * GapforPlayer, Space.World);
             rotationY = GapforPlayer.x > 0 ? 0 : 180;
-            
+
             if (rotationY != preRotationY)
             {
                 State = StateType.Idle;
@@ -85,16 +93,28 @@ public class NewMonster : MonoBehaviour
         }
         CurrentCo = AttackCo;
     }
+    #endregion ChaseCo
+
+    #region AttackCo
     [SerializeField] float attackAnimLenth = 0.667f;
     [SerializeField] float attackPreDelay = 0.2f;
+    Collider[] hitCols;
     IEnumerator AttackCo()
     {
         State = StateType.Attack1;
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
+        hitCols = Physics.OverlapSphere(
+            attackCol.transform.position, attackCol.radius, playerLayer);
+        foreach (var item in hitCols)
+        {
+            item.GetComponent<Player>().TakeHit(damage);
+        }
         yield return new WaitForSeconds(attackAnimLenth - attackPreDelay);
         CurrentCo = ChaseCo;
     }
+    #endregion AttackCo
+
     #region StateType
     [SerializeField] StateType state;
     StateType State
@@ -132,6 +152,7 @@ public class NewMonster : MonoBehaviour
     }
     float attackDistance;
     [SerializeField] float attackRange = 1.8f;
+
     bool ChkAttackDistance()
     {
         // 범위 내에 들어오면 true
