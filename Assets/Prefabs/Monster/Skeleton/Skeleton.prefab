@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2147848405250009998}
   - component: {fileID: 237804423}
   - component: {fileID: 1043432981144184253}
+  - component: {fileID: 4446406361080358617}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Monster
@@ -232,7 +233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5020995610703227779}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7675f2e901888fb47a3c60b7af7c64ed, type: 3}
   m_Name: 
@@ -254,3 +255,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   hitAnimationLenth: 0.4
+--- !u!114 &4446406361080358617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5020995610703227779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e819f2c47d99142842edc7b1fc3147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAlive: 0
+  speed: 3
+  attackAnimLenth: 0.667
+  attackPreDelay: 0.2
+  state: 0
+  detectRange: 5
+  attackRange: 1.8

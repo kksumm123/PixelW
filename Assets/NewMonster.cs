@@ -46,16 +46,31 @@ public class NewMonster : MonoBehaviour
         currentCo = ChaseCo;
     }
 
+    Vector3 GapforPlayer;
     IEnumerator ChaseCo()
     {
         State = StateType.Run;
         while (ChkAttackDistance() == false)
         {
+            GapforPlayer = playerTr.position - tr.position;
+
+            tr.Translate(speed * Time.deltaTime * GapforPlayer, Space.World);
+            tr.rotation = Quaternion.Euler(0, GapforPlayer.x > 0 ? 0 : 180, 0);
 
             yield return null;
         }
 
-        //currentCo = AttackCo;
+        currentCo = AttackCo;
+    }
+    [SerializeField] float attackAnimLenth = 0.667f;
+    [SerializeField] float attackPreDelay = 0.2f;
+    IEnumerator AttackCo()
+    {
+        State = StateType.Attack1;
+        yield return new WaitForSeconds(attackPreDelay);
+        // 어택 적용할 곳
+        yield return new WaitForSeconds(attackAnimLenth - attackPreDelay);
+        currentCo = IdleCo;
     }
     #region StateType
     [SerializeField] StateType state;
@@ -95,7 +110,7 @@ public class NewMonster : MonoBehaviour
         return detectDistance < detectRange;
     }
     float attackDistance;
-    [SerializeField] float attackRange = 5;
+    [SerializeField] float attackRange = 1.8f;
     bool ChkAttackDistance()
     {
         // 범위 내에 들어오면 true
@@ -104,12 +119,18 @@ public class NewMonster : MonoBehaviour
         return attackDistance < attackRange;
     }
 
-
-
     void StopCo(Coroutine handle)
     {
         if (handle != null)
             StopCoroutine(handle);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(tr.position, detectRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(tr.position, attackRange);
     }
     #endregion Methods
 }
