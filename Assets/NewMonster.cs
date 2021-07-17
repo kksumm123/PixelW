@@ -142,9 +142,12 @@ public class NewMonster : MonoBehaviour
     }
     #endregion TakeHit
     #region DeathCo
+    [SerializeField] float deathDelay = 2f;
     IEnumerator DeathCo()
     {
-        yield return null;
+        State = StateType.Death;
+        yield return new WaitForSeconds(deathDelay);
+        Destroy(gameObject);
     }
     #endregion DeathCo
 
@@ -199,8 +202,8 @@ public class NewMonster : MonoBehaviour
     {
         if (hp > 0)
         {
+            Debug.Log($"으앙 아포 {hp} -> {hp - _damage}");
             hp -= _damage;
-            Debug.Log("으앙 아포");
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             if (hp > 0)
