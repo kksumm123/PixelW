@@ -151,6 +151,7 @@ MonoBehaviour:
   state: 0
   anim: 0
   hp: 50
+  damage: 50
   normalSpeed: 5
   battleSpeed: 0.5
   isUpdatePhysics: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   attackIdxResetTime: 1.2
   attackIdxResetCurTime: 0
   attackBoxObj: {fileID: 0}
+  attackBoxSize: {x: 1.9, y: 1.5}
   hitAnimationLenth: 0.273
   deathTime: 1
 --- !u!95 &202740442
@@ -210,9 +212,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5614034124283831931}
   - component: {fileID: 1360070427733819843}
-  - component: {fileID: 1258690440}
   m_Layer: 8
-  m_Name: AttackBoxObj
+  m_Name: AttackBox
   m_TagString: AttackBoxObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2837947586576825059}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.57, y: 0.88, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3652324840081335925}
@@ -239,13 +240,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2837947586576825059}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.57, y: 0.88}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -258,17 +259,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &1258690440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2837947586576825059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04687b6d86a74447bb769b133f73bfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tartgetTagName: Monster
-  attackForce: {x: 1000, y: 2000}

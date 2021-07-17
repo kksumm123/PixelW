@@ -76,6 +76,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        attackBoxTr = transform.Find("AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
@@ -370,7 +371,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    [SerializeField] Vector2 attackBoxPoint = new Vector2(4.5f, 6);
+    Transform attackBoxTr;
     [SerializeField] Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
     LayerMask enemyLayer;
     Collider2D[] attackedEnemies;
@@ -378,9 +379,13 @@ public class Player : MonoBehaviour
     {
         normalSpeed = battleSpeed;
         yield return new WaitForSeconds(attackApplyDelay);
+        attackedEnemies = null;
         // 실제 공격 적용
-        var attackedEnemies = 
-            Physics2D.OverlapBoxAll(attackBoxPoint, attackBoxSize, 90, enemyLayer);
+        var point = new Vector2(
+            attackBoxTr.transform.position.x
+            , attackBoxTr.transform.position.y);
+        attackedEnemies = 
+            Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
             item.GetComponent<NewMonster>().TakeHit(damage);
 
