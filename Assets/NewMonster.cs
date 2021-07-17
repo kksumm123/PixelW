@@ -10,13 +10,13 @@ public class NewMonster : MonoBehaviour
     Transform playerTr;
     CircleCollider2D attackCol;
     Animator animator;
-    Func<IEnumerator> currentFSM;
+    Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
     {
-        get => currentFSM;
+        get => m_currentFSM;
         set
         {
-            currentFSM = value;
+            m_currentFSM = value;
             currnetCoHandle = null;
         }
     }
@@ -44,12 +44,12 @@ public class NewMonster : MonoBehaviour
 
         while (isAlive)
         {
-            var preFSM = currentFSM;
+            var preFSM = m_currentFSM;
 
             currnetCoHandle = StartCoroutine(CurrentFSM());
 
             //FSM안에서 에러 발생시 무한 루프 도는 것 방지
-            if (currnetCoHandle == null && preFSM == currentFSM)
+            if (currnetCoHandle == null && preFSM == m_currentFSM)
                 yield return null;
 
             while (currnetCoHandle != null)
@@ -136,9 +136,10 @@ public class NewMonster : MonoBehaviour
         // Hit, Death 애니메이션
 
         State = StateType.Hit;
-        PlayAnim(State.ToString());
+        PlayAnim(State.ToString(), 0, 0);
         yield return new WaitForSeconds(hitDelay);
         State = StateType.Idle;
+        CurrentFSM = IdleCo;
     }
     #endregion TakeHit
     #region DeathCo
@@ -146,6 +147,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator DeathCo()
     {
         State = StateType.Death;
+        PlayAnim(State.ToString());
         yield return new WaitForSeconds(deathDelay);
         Destroy(gameObject);
     }
@@ -207,9 +209,9 @@ public class NewMonster : MonoBehaviour
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             if (hp > 0)
-                currentFSM = TakeHitCo; // 코루틴 TakeHit
+                CurrentFSM = TakeHitCo; // 코루틴 TakeHit
             else
-                currentFSM = DeathCo; // 코루틴 TakeHit
+                CurrentFSM = DeathCo;
         }
     }
     void StopCo(Coroutine handle)
