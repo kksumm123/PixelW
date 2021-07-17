@@ -13,7 +13,7 @@ public class MoveCam : MonoBehaviour
     [SerializeField] float camWidthHalf;
     void Start()
     {
-        playerTr = GameObject.Find("Player").GetComponent<Transform>();
+        playerTr = Player.Instance.transform;
         camViewLayer = 1 << LayerMask.NameToLayer("CamView");
         camWidthHalf = transform.GetComponent<Camera>().orthographicSize * transform.GetComponent<Camera>().aspect;
         tr = transform;

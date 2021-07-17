@@ -10,13 +10,13 @@ public class NewMonster : MonoBehaviour
     Transform playerTr;
     CircleCollider2D attackCol;
     Animator animator;
-    Func<IEnumerator> currentCo;
-    Func<IEnumerator> CurrentCo
+    Func<IEnumerator> currentFSM;
+    Func<IEnumerator> CurrentFSM
     {
-        get => currentCo;
+        get => currentFSM;
         set
         {
-            currentCo = value;
+            currentFSM = value;
             currnetCoHandle = null;
         }
     }
@@ -32,18 +32,26 @@ public class NewMonster : MonoBehaviour
     {
         #region Init
         tr = GetComponent<Transform>();
-        playerTr = GameObject.FindWithTag("Player").transform;
+        //playerTr = GameObject.FindWithTag("Player").transform;
+        playerTr = Player.Instance.transform;
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
 
         isAlive = true;
-        CurrentCo = IdleCo;
+        CurrentFSM = IdleCo;
         #endregion Init
 
         while (isAlive)
         {
-            currnetCoHandle = StartCoroutine(CurrentCo());
+            var preFSM = currentFSM;
+            
+            currnetCoHandle = StartCoroutine(CurrentFSM());
+            
+            //FSM안에서 에러 발생시 무한 루프 도는 것 방지
+            if (currnetCoHandle == null && preFSM == currentFSM)
+                yield return null;
+
             while (currnetCoHandle != null)
                 yield return null;
         }
@@ -59,7 +67,7 @@ public class NewMonster : MonoBehaviour
 
             yield return null;
         }
-        CurrentCo = ChaseCo;
+        CurrentFSM = ChaseCo;
     }
     #endregion IdleCo
 
@@ -94,7 +102,7 @@ public class NewMonster : MonoBehaviour
             preRotationY = rotationY;
             yield return null;
         }
-        CurrentCo = AttackCo;
+        CurrentFSM = AttackCo;
     }
     #endregion ChaseCo
 
@@ -116,7 +124,7 @@ public class NewMonster : MonoBehaviour
             item.GetComponent<Player>().TakeHit(damage);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
-        CurrentCo = ChaseCo;
+        CurrentFSM = ChaseCo;
     }
     #endregion AttackCo
 
