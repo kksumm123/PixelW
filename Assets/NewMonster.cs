@@ -60,7 +60,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator IdleCo()
     {
         State = StateType.Idle;
-        PlayAnim(state.ToString());
+        PlayAnim(State.ToString());
 
         while (ChkDetectDistance() == false)
         {
@@ -79,7 +79,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator ChaseCo()
     {
         State = StateType.Walk;
-        PlayAnim(state.ToString());
+        PlayAnim(State.ToString());
 
         while (ChkAttackDistance() == false)
         {
@@ -113,7 +113,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator AttackCo()
     {
         State = StateType.Attack1;
-        PlayAnim(state.ToString(), 0, 0);
+        PlayAnim(State.ToString(), 0, 0);
 
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
@@ -128,31 +128,38 @@ public class NewMonster : MonoBehaviour
     }
     #endregion AttackCo
 
+    #region TakeHit
+    [SerializeField] float hitDelay = 0.5f;
+    IEnumerator TakeHitCo()
+    {
+        // Death 구현
+        // Hit, Death 애니메이션
+
+        State = StateType.Hit;
+        PlayAnim(State.ToString());
+        yield return new WaitForSeconds(hitDelay);
+        State = StateType.Idle;
+    }
+    #endregion TakeHit
+    #region DeathCo
+    IEnumerator DeathCo()
+    {
+        yield return null;
+    }
+    #endregion DeathCo
+
     #region StateType
-    [SerializeField] StateType state;
+    [SerializeField] StateType m_state;
     StateType State
     {
-        get => state;
+        get => m_state;
         set
         {
-            if (state == value)
+            if (m_state == value)
                 return;
-            Debug.Log($"MonsterState : {state} -> {value}");
-            state = value;
+            Debug.Log($"MonsterState : {m_state} -> {value}");
+            m_state = value;
         }
-    }
-
-    private void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
-    {
-        if (layer != null)
-        {
-            if (normalizedTime != null)
-                animator.Play(stateName, (int)layer, (float)normalizedTime);
-            else
-                animator.Play(stateName, (int)layer);
-        }
-        else
-            animator.Play(stateName);
     }
 
     enum StateType
@@ -162,6 +169,7 @@ public class NewMonster : MonoBehaviour
         Attack1,
         Attack2,
         Hit,
+        Death,
     }
     #endregion StateType
 
@@ -193,16 +201,30 @@ public class NewMonster : MonoBehaviour
         {
             hp -= _damage;
             Debug.Log("으앙 아포");
-            // 코루틴 TakeHit
             // 기존 실행되던 코루틴 정지
-            // Death 구현
-            // Hit, Death 애니메이션
+            StopCo(currnetCoHandle);
+            if (hp > 0)
+                currentFSM = TakeHitCo; // 코루틴 TakeHit
+            else
+                currentFSM = DeathCo; // 코루틴 TakeHit
         }
     }
     void StopCo(Coroutine handle)
     {
         if (handle != null)
             StopCoroutine(handle);
+    }
+    void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
+    {
+        if (layer != null)
+        {
+            if (normalizedTime != null)
+                animator.Play(stateName, (int)layer, (float)normalizedTime);
+            else
+                animator.Play(stateName, (int)layer);
+        }
+        else
+            animator.Play(stateName);
     }
 
     private void OnDrawGizmos()
