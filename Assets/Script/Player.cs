@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        attackBoxObj = transform.Find("AttackBoxObj").gameObject;
         SetGroundRaySetting();
         originSpeed = normalSpeed;
 
@@ -372,13 +371,9 @@ public class Player : MonoBehaviour
     IEnumerator AttackCo(float delay)
     {
         normalSpeed = battleSpeed;
-        attackBoxObj.SetActive(true);
-        transform.Translate(0.001f, 0, 0);
         yield return new WaitForSeconds(delay);
-        transform.Translate(-0.001f, 0, 0);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
-        attackBoxObj.SetActive(false);
     }
     IEnumerator AttackDelayCo()
     {
