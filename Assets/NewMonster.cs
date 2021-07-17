@@ -45,9 +45,9 @@ public class NewMonster : MonoBehaviour
         while (isAlive)
         {
             var preFSM = currentFSM;
-            
+
             currnetCoHandle = StartCoroutine(CurrentFSM());
-            
+
             //FSM안에서 에러 발생시 무한 루프 도는 것 방지
             if (currnetCoHandle == null && preFSM == currentFSM)
                 yield return null;
@@ -187,6 +187,18 @@ public class NewMonster : MonoBehaviour
         return attackDistance < attackRange;
     }
 
+    public void TakeHit(int _damage)
+    {
+        if (hp > 0)
+        {
+            hp -= _damage;
+            Debug.Log("으앙 아포");
+            // 코루틴 TakeHit
+            // 기존 실행되던 코루틴 정지
+            // Death 구현
+            // Hit, Death 애니메이션
+        }
+    }
     void StopCo(Coroutine handle)
     {
         if (handle != null)

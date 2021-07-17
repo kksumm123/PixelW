@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int hp = 50;
+    [SerializeField] int damage = 5;
     [SerializeField] float normalSpeed = 5f;
     [SerializeField] float battleSpeed = 0.5f;
     #endregion Declare
@@ -75,6 +76,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
 
@@ -320,6 +322,7 @@ public class Player : MonoBehaviour
     #endregion Jump
 
     #region Attack
+    [SerializeField] float attackApplyDelay = 0.15f;
     [SerializeField]
     List<float> attackDelay =
         new List<float>() { 0.43f, 0.43f, 0.57f };
@@ -367,10 +370,20 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    [SerializeField] Vector2 attackBoxPoint = new Vector2(4.5f, 6);
+    [SerializeField] Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
+    LayerMask enemyLayer;
+    Collider2D[] attackedEnemies;
     IEnumerator AttackCo(float delay)
     {
         normalSpeed = battleSpeed;
+        yield return new WaitForSeconds(attackApplyDelay);
+        // 실제 공격 적용
+        var attackedEnemies = 
+            Physics2D.OverlapBoxAll(attackBoxPoint, attackBoxSize, 90, enemyLayer);
+        foreach (var item in attackedEnemies)
+            item.GetComponent<NewMonster>().TakeHit(damage);
+
         yield return new WaitForSeconds(delay);
         State = StateType.AttackExit;
         normalSpeed = originSpeed;
