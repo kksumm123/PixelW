@@ -52,6 +52,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator IdleCo()
     {
         State = StateType.Idle;
+        PlayAnim(state.ToString());
 
         while (ChkDetectDistance() == false)
         {
@@ -70,6 +71,8 @@ public class NewMonster : MonoBehaviour
     IEnumerator ChaseCo()
     {
         State = StateType.Walk;
+        PlayAnim(state.ToString());
+
         while (ChkAttackDistance() == false)
         {
             GapforPlayer = playerTr.position - tr.position;
@@ -96,12 +99,14 @@ public class NewMonster : MonoBehaviour
     #endregion ChaseCo
 
     #region AttackCo
-    [SerializeField] float attackAnimLenth = 0.667f;
-    [SerializeField] float attackPreDelay = 0.2f;
+    [SerializeField] float attackTime = 1f;
+    [SerializeField] float attackPreDelay = 0.4f;
     Collider2D[] hitCols;
     IEnumerator AttackCo()
     {
         State = StateType.Attack1;
+        PlayAnim(state.ToString(), 0, 0);
+
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
         var point = new Vector2(attackCol.transform.position.x, attackCol.transform.position.y);
@@ -110,7 +115,7 @@ public class NewMonster : MonoBehaviour
         {
             item.GetComponent<Player>().TakeHit(damage);
         }
-        yield return new WaitForSeconds(attackAnimLenth - attackPreDelay);
+        yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentCo = ChaseCo;
     }
     #endregion AttackCo
@@ -126,9 +131,22 @@ public class NewMonster : MonoBehaviour
                 return;
             Debug.Log($"MonsterState : {state} -> {value}");
             state = value;
-            animator.Play(state.ToString());
         }
     }
+
+    private void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
+    {
+        if (layer != null)
+        {
+            if (normalizedTime != null)
+                animator.Play(stateName, (int)layer, (float)normalizedTime);
+            else
+                animator.Play(stateName, (int)layer);
+        }
+        else
+            animator.Play(stateName);
+    }
+
     enum StateType
     {
         Idle,
@@ -169,12 +187,15 @@ public class NewMonster : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(tr.position, detectRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(tr.position, attackRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(tr.position, detectRange);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(tr.position, attackRange);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
+        }
     }
     #endregion Methods
 }
