@@ -23,8 +23,8 @@ public class AttackBoxObj : MonoBehaviour
         if (collision.CompareTag(tartgetTagName))
         {
             var attackDir = parentTr.forward.z;
-            collision.GetComponent<Rigidbody2D>().AddForce(
-                attackForce * new Vector2(attackDir, 1));
+            collision.GetComponent<Rigidbody2D>()
+                .AddForce(attackForce * new Vector2(attackDir, 1));
             boxCol2D.size = Vector2.zero;
         }
     }
