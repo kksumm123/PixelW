@@ -22,7 +22,7 @@ public class MoveCam : MonoBehaviour
     void Update()
     {
         var moveValue = 
-            new Vector3(playerTr.position.x - tr.position.x, 0, 0) * speed * Time.deltaTime;
+            speed * Time.deltaTime * new Vector3(playerTr.position.x - tr.position.x, 0, 0);
         if (ChkViewLayer(moveValue) == false)
         {
             transform.Translate(moveValue, Space.World);
@@ -31,10 +31,10 @@ public class MoveCam : MonoBehaviour
 
     private bool ChkViewLayer(Vector3 value)
     {
-        if (ChkRay(tr.position + value
+        if (ChkRay(playerTr.position + value
             , Vector2.left, camWidthHalf, camViewLayer))
             return true;
-        if (ChkRay(tr.position + value
+        if (ChkRay(playerTr.position + value
             , Vector2.right, camWidthHalf, camViewLayer))
             return true;
 
