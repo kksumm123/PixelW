@@ -74,7 +74,7 @@ public class NewMonster : MonoBehaviour
     #endregion IdleCo
 
     #region ChaseCo
-    Vector3 GapforPlayer;
+    Vector3 DirforPlayer;
     float rotationY;
     float preRotationY;
     [SerializeField] float rotateDelay = 0.5f;
@@ -85,13 +85,13 @@ public class NewMonster : MonoBehaviour
 
         while (ChkAttackDistance() == false)
         {
-            GapforPlayer = playerTr.position - tr.position;
-            GapforPlayer.y = 0;
-            GapforPlayer.z = 0;
-            GapforPlayer.Normalize();
+            DirforPlayer = playerTr.position - tr.position;
+            DirforPlayer.y = 0;
+            DirforPlayer.z = 0;
+            DirforPlayer.Normalize();
 
-            tr.Translate(speed * Time.deltaTime * GapforPlayer, Space.World);
-            rotationY = GapforPlayer.x > 0 ? 0 : 180;
+            tr.Translate(speed * Time.deltaTime * DirforPlayer, Space.World);
+            rotationY = DirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
             {
@@ -202,6 +202,7 @@ public class NewMonster : MonoBehaviour
         attackDistance = Vector3.Distance(tr.position, playerTr.position);
         return attackDistance < attackRange;
     }
+
 
     public void TakeHit(int _damage)
     {
