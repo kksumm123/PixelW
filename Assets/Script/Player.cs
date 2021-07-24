@@ -413,6 +413,9 @@ public class Player : MonoBehaviour
     #endregion Attack
 
     #region Block
+    float parryingTime = 0.3f;
+    bool isParrying = false;
+    Coroutine parrayingCoHendle;
     void Block()
     {
         if (ChkIdle() || ChkBlocking())
@@ -421,6 +424,8 @@ public class Player : MonoBehaviour
             {
                 State = StateType.IdleBlock;
                 normalSpeed = battleSpeed;
+                StopCo(parrayingCoHendle);
+                parrayingCoHendle = StartCoroutine(ParryingCo());
             }
             else
             {
@@ -428,6 +433,13 @@ public class Player : MonoBehaviour
                 normalSpeed = originSpeed;
             }
         }
+    }
+
+    IEnumerator ParryingCo()
+    {
+        isParrying = true;
+        yield return new WaitForSeconds(parryingTime);
+        isParrying = false;
     }
     #endregion Block
 
