@@ -627,9 +627,11 @@ public class Player : MonoBehaviour
     private bool FrontBlock(Transform monsterTr)
     {
         var mobDistance = monsterTr.position - transform.position;
-        bool isFront = transform.rotation.eulerAngles.y == 0
-                            ? mobDistance.x > 0 ? true : false
-                            : mobDistance.x < 0 ? true : false;
+        bool isFront = transform.rotation.eulerAngles.y == 0 
+                            ? // 바라보는 방향이 오른쪽이라면
+                                mobDistance.x > 0 ? true : false
+                            : // 바라보는 방향이 왼쪽이라면
+                                mobDistance.x < 0 ? true : false;
         return isFront; // true = Parrying, false = Fail Parrinying
 
     }
