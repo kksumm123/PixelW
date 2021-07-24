@@ -609,11 +609,10 @@ public class Player : MonoBehaviour
     {
         if (hp > 0)
         {
-            if (FrontBlock(monsterTr) == true)
+            if (FrontBlock(monsterTr) == true && isParrying == true)
             {
-                if (isParrying == true)
-                    Instantiate(blockFlashEffectGo
-                        , blockFlashTr.position, transform.rotation);
+                Instantiate(blockFlashEffectGo
+                    , blockFlashTr.position, transform.rotation);
             }
             else
             {
