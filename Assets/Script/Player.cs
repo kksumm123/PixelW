@@ -432,7 +432,7 @@ public class Player : MonoBehaviour
                 StopCo(parrayingCoHendle);
                 parrayingCoHendle = StartCoroutine(ParryingCo());
             }
-            else
+            else if (Input.GetMouseButton(1) == false)
             {
                 State = StateType.Ground;
                 normalSpeed = originSpeed;
