@@ -631,10 +631,10 @@ public class Player : MonoBehaviour
 
     private bool FrontBlock(Transform monsterTr)
     {// true = Parrying, false = Fail Parrinying
-        var mobDistanceX = monsterTr.position.x - transform.position.x;
+        var distanceX = monsterTr.position.x - transform.position.x;
 
         return IsZero(transform.rotation.eulerAngles.y)
-            ? IsPositive(mobDistanceX) : IsNegative(mobDistanceX);
+            ? IsPositive(distanceX) : IsNegative(distanceX);
 
         bool IsZero(float value)
         {
