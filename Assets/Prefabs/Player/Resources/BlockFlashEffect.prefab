@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4691366391541983836}
   - component: {fileID: 8229989714094105222}
   m_Layer: 0
-  m_Name: BlockFlash
+  m_Name: BlockFlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
