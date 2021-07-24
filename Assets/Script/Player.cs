@@ -628,16 +628,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    private bool FrontBlock(Transform monsterTr)
-    {
-        var mobDistance = monsterTr.position - transform.position;
-        bool isFront = transform.rotation.eulerAngles.y == 0
-                            ? // 바라보는 방향이 오른쪽이라면
-                                mobDistance.x > 0 ? true : false
-                            : // 바라보는 방향이 왼쪽이라면
-                                mobDistance.x < 0 ? true : false;
-        return isFront; // true = Parrying, false = Fail Parrinying
 
+    private bool FrontBlock(Transform monsterTr)
+    {// true = Parrying, false = Fail Parrinying
+        var mobDistanceX = monsterTr.position.x - transform.position.x;
+
+        return IsZero(transform.rotation.eulerAngles.y)
+            ? IsPositive(mobDistanceX) : IsNegative(mobDistanceX);
+
+        bool IsZero(float value)
+        {
+            return value == 0;
+        }
+        bool IsPositive(float value)
+        {
+            return value > 0;
+        }
+        bool IsNegative(float value)
+        {
+            return value < 0;
+        }
     }
 
     [SerializeField] float hitAnimationLenth = 0.273f;
