@@ -85,9 +85,7 @@ public class NewMonster : MonoBehaviour
 
         while (ChkAttackDistance() == false)
         {
-            DirForPlayer();
-
-            tr.Translate(speed * Time.deltaTime * dirforPlayer, Space.World);
+            tr.Translate(speed * Time.deltaTime * DirForPlayer(), Space.World);
             rotationY = dirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
@@ -104,12 +102,13 @@ public class NewMonster : MonoBehaviour
         CurrentFSM = AttackCo;
     }
 
-    private void DirForPlayer()
+    private Vector3 DirForPlayer()
     {
         dirforPlayer = playerTr.position - tr.position;
         dirforPlayer.y = 0;
         dirforPlayer.z = 0;
         dirforPlayer.Normalize();
+        return dirforPlayer;
     }
     #endregion ChaseCo
 
