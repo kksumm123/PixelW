@@ -74,7 +74,7 @@ public class NewMonster : MonoBehaviour
     #endregion IdleCo
 
     #region ChaseCo
-    Vector3 DirforPlayer;
+    Vector3 dirforPlayer;
     float rotationY;
     float preRotationY;
     [SerializeField] float rotateDelay = 0.5f;
@@ -85,13 +85,10 @@ public class NewMonster : MonoBehaviour
 
         while (ChkAttackDistance() == false)
         {
-            DirforPlayer = playerTr.position - tr.position;
-            DirforPlayer.y = 0;
-            DirforPlayer.z = 0;
-            DirforPlayer.Normalize();
+            DirForPlayer();
 
-            tr.Translate(speed * Time.deltaTime * DirforPlayer, Space.World);
-            rotationY = DirforPlayer.x > 0 ? 0 : 180;
+            tr.Translate(speed * Time.deltaTime * dirforPlayer, Space.World);
+            rotationY = dirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
             {
@@ -105,6 +102,14 @@ public class NewMonster : MonoBehaviour
             yield return null;
         }
         CurrentFSM = AttackCo;
+    }
+
+    private void DirForPlayer()
+    {
+        dirforPlayer = playerTr.position - tr.position;
+        dirforPlayer.y = 0;
+        dirforPlayer.z = 0;
+        dirforPlayer.Normalize();
     }
     #endregion ChaseCo
 
