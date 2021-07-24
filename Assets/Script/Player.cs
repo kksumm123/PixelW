@@ -434,6 +434,8 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetMouseButton(1) == false)
             {
+                StopCo(parrayingCoHendle);
+                isParrying = false;
                 State = StateType.Ground;
                 normalSpeed = originSpeed;
             }
