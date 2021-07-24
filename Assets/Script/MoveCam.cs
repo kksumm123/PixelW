@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveCam : MonoBehaviour
 {
-    Transform playerTr;
+    Player player;
     Transform tr;
 
     [SerializeField] float speed = 5f;
@@ -13,7 +13,7 @@ public class MoveCam : MonoBehaviour
     [SerializeField] float camWidthHalf;
     void Start()
     {
-        playerTr = Player.Instance.transform;
+        player = Player.Instance;
         camViewLayer = 1 << LayerMask.NameToLayer("CamView");
         camWidthHalf = transform.GetComponent<Camera>().orthographicSize * transform.GetComponent<Camera>().aspect;
         tr = transform;
@@ -21,11 +21,13 @@ public class MoveCam : MonoBehaviour
 
     void Update()
     {
-        var moveValue =
-            speed * Time.deltaTime * new Vector3(playerTr.position.x - tr.position.x, 0, 0);
-        if (ChkViewLayer(moveValue) == false)
+        if (player != null)
         {
-            transform.Translate(moveValue, Space.World);
+            var moveValue = speed * Time.deltaTime
+                * new Vector3(player.transform.position.x - tr.position.x, 0, 0);
+
+            if (ChkViewLayer(moveValue) == false)
+                transform.Translate(moveValue, Space.World);
         }
     }
 
