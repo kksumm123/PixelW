@@ -102,14 +102,14 @@ public class Player : MonoBehaviour
         isUpdatePhysics = true;
     }
 
-    void Update()
+    void Update() 
     {
         trForward = transform.forward;
         velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
 
-        if (State != StateType.Hit)
+        if (State != StateType.Hit && State != StateType.Death)
         {
             Move();
             Rolling();
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
         else if (isRolling == true)
             return;
 
-        if (State != StateType.Hit && ChkAttackAndBlock() == false)
+        if (State != StateType.Hit && ChkBattle() == false)
         {
             var velo = rigid.velocity;
 
@@ -153,7 +153,7 @@ public class Player : MonoBehaviour
         }
     }
     #region ChkAttackAndBlock
-    private bool ChkAttackAndBlock()
+    private bool ChkBattle()
     {
         switch (State)
         {
@@ -162,6 +162,8 @@ public class Player : MonoBehaviour
             case StateType.Attack3:
             case StateType.IdleBlock:
             case StateType.Block:
+            case StateType.Hit:
+            case StateType.Death:
                 return true;
         }
         return false;
