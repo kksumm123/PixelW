@@ -657,9 +657,16 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
     #endregion TakeHit
+
+    #region Methods
     void StopCo(Coroutine handle)
     {
         if (handle != null)
             StopCoroutine(handle);
     }
+    void OnDestroy()
+    {
+        m_instance = null;
+    }
+    #endregion Methods
 }
