@@ -609,9 +609,11 @@ public class Player : MonoBehaviour
     {
         if (hp > 0)
         {
-            if (isParrying == true)
+            if (FrontBlock(monsterTr) == true)
             {
-                FrontBlock(monsterTr);
+                if (isParrying == true)
+                    Instantiate(blockFlashEffectGo
+                        , blockFlashTr.position, transform.rotation);
             }
             else
             {
@@ -621,14 +623,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void FrontBlock(Transform monsterTr)
+    private bool FrontBlock(Transform monsterTr)
     {
         var mobDistance = monsterTr.position - transform.position;
         bool isFront = transform.rotation.eulerAngles.y == 0
                             ? mobDistance.x > 0 ? true : false
                             : mobDistance.x < 0 ? true : false;
-        if (isFront == true)
-            Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+        return isFront; // true = Parrying, false = Fail Parrinying
+
     }
 
     [SerializeField] float hitAnimationLenth = 0.273f;
