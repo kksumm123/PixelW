@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class NewMonster : MonoBehaviour
 {
-    // ÇÏ±â½Ã··
+    // ÇÏ±â½Ã·· Áö±Ýµµ ½Ã··
+    public static List<NewMonster> totalMonster = new List<NewMonster>();
     Transform tr;
     Transform playerTr;
     CircleCollider2D attackCol;
@@ -31,6 +32,7 @@ public class NewMonster : MonoBehaviour
     IEnumerator Start()
     {
         #region Init
+        totalMonster.Add(this);
         tr = GetComponent<Transform>();
         //playerTr = GameObject.FindWithTag("Player").transform;
         playerTr = Player.Instance.transform;
@@ -146,6 +148,7 @@ public class NewMonster : MonoBehaviour
     [SerializeField] float deathDelay = 2f;
     IEnumerator DeathCo()
     {
+        totalMonster.Remove(this);
         State = StateType.Death;
         PlayAnim(State.ToString());
         yield return new WaitForSeconds(deathDelay);
