@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
     Animator animator;
+    Transform blockFlashTr;
+    GameObject blockFlashEffectGo;
+    string blockFlashEffectString = "BlockFlashEffect";
 
     [SerializeField] Vector3 trForward;
     [SerializeField] Vector3 velocity;
@@ -76,6 +79,8 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCol2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        blockFlashTr = transform.Find("BlockFlashPosition");
+        blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
         attackBoxTr = transform.Find("AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
@@ -384,7 +389,7 @@ public class Player : MonoBehaviour
         var point = new Vector2(
             attackBoxTr.transform.position.x
             , attackBoxTr.transform.position.y);
-        attackedEnemies = 
+        attackedEnemies =
             Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
             item.GetComponent<NewMonster>().TakeHit(damage);
@@ -602,8 +607,18 @@ public class Player : MonoBehaviour
     #region TakeHit
     public void TakeHit(int damage)
     {
-        hp -= damage;
-        StartCoroutine(HitCo());
+        if (hp > 0)
+        {
+            if (isParrying == true)
+            {
+                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+            }
+            else
+            {
+                hp -= damage;
+                StartCoroutine(HitCo());
+            }
+        }
     }
     [SerializeField] float hitAnimationLenth = 0.273f;
     IEnumerator HitCo()
