@@ -74,7 +74,6 @@ public class NewMonster : MonoBehaviour
     #endregion IdleCo
 
     #region ChaseCo
-    Vector3 dirforPlayer;
     float rotationY;
     float preRotationY;
     [SerializeField] float rotateDelay = 0.5f;
@@ -101,15 +100,6 @@ public class NewMonster : MonoBehaviour
         }
         CurrentFSM = AttackCo;
     }
-
-    private Vector3 DirForPlayer()
-    {
-        dirforPlayer = playerTr.position - tr.position;
-        dirforPlayer.y = 0;
-        dirforPlayer.z = 0;
-        dirforPlayer.Normalize();
-        return dirforPlayer;
-    }
     #endregion ChaseCo
 
     #region AttackCo
@@ -120,7 +110,8 @@ public class NewMonster : MonoBehaviour
     {
         State = StateType.Attack1;
         PlayAnim(State.ToString(), 0, 0);
-
+        transform.rotation = // 공격전 플레이어 방향으로 회전 
+            Quaternion.Euler(0, DirForPlayer().x > 0 ? 0 : 180, 0);
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
         var point = new Vector2(attackCol.transform.position.x, attackCol.transform.position.y);
@@ -133,7 +124,7 @@ public class NewMonster : MonoBehaviour
         CurrentFSM = ChaseCo;
     }
     #endregion AttackCo
-    
+
     #region TakeHit
     [SerializeField] float hitDelay = 0.5f;
     IEnumerator TakeHitCo()
@@ -206,7 +197,15 @@ public class NewMonster : MonoBehaviour
         attackDistance = Vector3.Distance(tr.position, playerTr.position);
         return attackDistance < attackRange;
     }
-
+    Vector3 dirforPlayer;
+    private Vector3 DirForPlayer()
+    {
+        dirforPlayer = playerTr.position - tr.position;
+        dirforPlayer.y = 0;
+        dirforPlayer.z = 0;
+        dirforPlayer.Normalize();
+        return dirforPlayer;
+    }
 
     public void TakeHit(int _damage)
     {
