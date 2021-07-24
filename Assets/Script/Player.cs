@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         isUpdatePhysics = true;
     }
 
-    void Update() 
+    void Update()
     {
         trForward = transform.forward;
         velocity = rigid.velocity;
@@ -273,6 +273,7 @@ public class Player : MonoBehaviour
     #region Rolling
     [SerializeField] bool isRolling = false;
     [SerializeField] float rollTime = 0.6f;
+    bool isInvincibility = false;
     private void Rolling()
     {
         if (isRolling)
@@ -291,8 +292,10 @@ public class Player : MonoBehaviour
     private IEnumerator IsRollingCo()
     {
         isRolling = true;
+        isInvincibility = true;
         yield return new WaitForSeconds(rollTime);
         isRolling = false;
+        isInvincibility = false;
     }
     #endregion Rolling
 
@@ -614,10 +617,9 @@ public class Player : MonoBehaviour
         if (hp > 0)
         {
             if (FrontBlock(monsterTr) == true && isParrying == true)
-            {
-                Instantiate(blockFlashEffectGo
-                    , blockFlashTr.position, transform.rotation);
-            }
+                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+            else if (isInvincibility == true)
+                return;
             else
             {
                 hp -= damage;
@@ -629,7 +631,7 @@ public class Player : MonoBehaviour
     private bool FrontBlock(Transform monsterTr)
     {
         var mobDistance = monsterTr.position - transform.position;
-        bool isFront = transform.rotation.eulerAngles.y == 0 
+        bool isFront = transform.rotation.eulerAngles.y == 0
                             ? // 바라보는 방향이 오른쪽이라면
                                 mobDistance.x > 0 ? true : false
                             : // 바라보는 방향이 왼쪽이라면
