@@ -123,7 +123,7 @@ public class NewMonster : MonoBehaviour
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
-            item.GetComponent<Player>().TakeHit(damage);
+            item.GetComponent<Player>().TakeHit(damage, transform);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentFSM = ChaseCo;

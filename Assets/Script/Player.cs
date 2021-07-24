@@ -605,13 +605,13 @@ public class Player : MonoBehaviour
     }
     #endregion AnimationType
     #region TakeHit
-    public void TakeHit(int damage)
+    public void TakeHit(int damage, Transform monsterTr)
     {
         if (hp > 0)
         {
             if (isParrying == true)
             {
-                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+                FrontBlock(monsterTr);
             }
             else
             {
@@ -620,6 +620,17 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    private void FrontBlock(Transform monsterTr)
+    {
+        var mobDistance = monsterTr.position - transform.position;
+        bool isFront = transform.rotation.eulerAngles.y == 0
+                            ? mobDistance.x > 0 ? true : false
+                            : mobDistance.x < 0 ? true : false;
+        if (isFront == true)
+            Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+    }
+
     [SerializeField] float hitAnimationLenth = 0.273f;
     IEnumerator HitCo()
     {
