@@ -108,7 +108,7 @@ public class NewMonster : MonoBehaviour
 
     #region AttackCo
     [SerializeField] float attackTime = 1f;
-    [SerializeField] float attackPreDelay = 0.4f;
+    [SerializeField] float attackPreDelay = 0.5f;
     Collider2D[] hitCols;
     IEnumerator AttackCo()
     {
@@ -127,7 +127,7 @@ public class NewMonster : MonoBehaviour
         CurrentFSM = ChaseCo;
     }
     #endregion AttackCo
-
+    
     #region TakeHit
     [SerializeField] float hitDelay = 0.5f;
     IEnumerator TakeHitCo()

@@ -530,7 +530,7 @@ public class Player : MonoBehaviour
     #region StateType
     StateType State
     {
-        get { return state; }
+        get => state;
         set
         {
             if (state == value)
