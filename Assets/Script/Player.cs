@@ -425,7 +425,7 @@ public class Player : MonoBehaviour
     {
         if (ChkIdle() || ChkBlocking())
         {
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 State = StateType.IdleBlock;
                 normalSpeed = battleSpeed;
