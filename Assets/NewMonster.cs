@@ -34,8 +34,7 @@ public class NewMonster : MonoBehaviour
         #region Init
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
-        //playerTr = GameObject.FindWithTag("Player").transform;
-        playerTr = Player.Instance.transform;
+        yield return StartCoroutine(GetPlayerInstanceCo());
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
@@ -58,6 +57,7 @@ public class NewMonster : MonoBehaviour
                 yield return null;
         }
     }
+
     #region IdleCo
     IEnumerator IdleCo()
     {
@@ -65,10 +65,8 @@ public class NewMonster : MonoBehaviour
         PlayAnim(State.ToString());
 
         while (ChkDetectDistance() == false)
-        {
-
             yield return null;
-        }
+
         CurrentFSM = ChaseCo;
     }
     #endregion IdleCo
@@ -177,6 +175,24 @@ public class NewMonster : MonoBehaviour
     #endregion StateType
 
     #region Methods
+    IEnumerator GetPlayerInstanceCo()
+    {
+        while (Player.Instance == null)
+            yield return null;
+        playerTr = Player.Instance.transform;
+    }
+    Vector3 GetPlayerPosition()
+    {
+        if (playerTr != null)
+            return playerTr.position;
+        else
+        {
+            StartCoroutine(GetPlayerInstanceCo());
+            Debug.Log(1);
+            return playerTr.position;
+        }
+    }
+
     float detectDistance;
     [SerializeField] float detectRange = 5;
     bool ChkDetectDistance()
@@ -184,9 +200,11 @@ public class NewMonster : MonoBehaviour
         // Idle while 탈출판단
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
-        detectDistance = Vector3.Distance(tr.position, playerTr.position);
+        detectDistance = Vector3.Distance(tr.position, GetPlayerPosition());
         return detectDistance < detectRange;
     }
+
+
     float attackDistance;
     [SerializeField] float attackRange = 1.8f;
 

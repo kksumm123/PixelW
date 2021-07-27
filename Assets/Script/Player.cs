@@ -7,17 +7,7 @@ public class Player : MonoBehaviour
 {
     #region Declare
     static Player m_instance = null;
-    public static Player Instance
-    {
-        get
-        {
-            if (m_instance == null)
-                m_instance = new GameObject(
-                    nameof(Player), typeof(Player)
-                    ).GetComponent<Player>();
-            return m_instance;
-        }
-    }
+    public static Player Instance { get => m_instance; }
     private void Awake()
     {
         m_instance = this;
