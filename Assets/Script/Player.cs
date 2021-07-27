@@ -69,9 +69,9 @@ public class Player : MonoBehaviour
         rigid = GetComponentInChildren<Rigidbody2D>();
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
-        blockFlashTr = transform.Find("BlockFlashPosition");
+        blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
-        attackBoxTr = transform.Find("AttackBox");
+        attackBoxTr = transform.Find("Sprite/AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;

@@ -183,9 +183,9 @@ public class NewMonster : MonoBehaviour
     }
     Vector3 GetPlayerPosition()
     {
-        if (playerTr != null)
-            return playerTr.position;
-        else
+        //if (playerTr != null)
+        //    return playerTr.position;
+        //else
         {
             StartCoroutine(GetPlayerInstanceCo());
             Debug.Log(1);
@@ -200,7 +200,7 @@ public class NewMonster : MonoBehaviour
         // Idle while 탈출판단
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
-        detectDistance = Vector3.Distance(tr.position, GetPlayerPosition());
+        detectDistance = Vector3.Distance(tr.position, playerTr.position);
         return detectDistance < detectRange;
     }
 
@@ -257,17 +257,17 @@ public class NewMonster : MonoBehaviour
             animator.Play(stateName);
     }
 
-    private void OnDrawGizmos()
-    {
-        if (Application.isPlaying)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(tr.position, detectRange);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(tr.position, attackRange);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
-        }
-    }
+    //void OnDrawGizmos()
+    //{
+    //    if (Application.isPlaying)
+    //    {
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawWireSphere(tr.position, detectRange);
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawWireSphere(tr.position, attackRange);
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
+    //    }
+    //}
     #endregion Methods
 }
