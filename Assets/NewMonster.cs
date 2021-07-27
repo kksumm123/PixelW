@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NewMonster : Functions
 {
-    // ÇÏ±â½Ã·· Áö±Ýµµ ½Ã··
+    // ÇÏ±â½Ã··, Áö±Ýµµ ½Ã··, ¾ÆÁ÷µµ ½Ã··
     public static List<NewMonster> totalMonster = new List<NewMonster>();
     Transform tr;
     Transform playerTr;
@@ -34,6 +34,7 @@ public class NewMonster : Functions
     IEnumerator Start()
     {
         #region Init
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
