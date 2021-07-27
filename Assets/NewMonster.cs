@@ -183,9 +183,6 @@ public class NewMonster : MonoBehaviour
     }
     Vector3 GetPlayerPosition()
     {
-        //if (playerTr != null)
-        //    return playerTr.position;
-        //else
         {
             StartCoroutine(GetPlayerInstanceCo());
             Debug.Log(1);
