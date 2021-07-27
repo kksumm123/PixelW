@@ -6,16 +6,8 @@ using Random = UnityEngine.Random;
 
 public class MoveCam : MonoBehaviour
 {
-    MoveCam m_instance;
-    public MoveCam Instance
-    {
-        get
-        {
-            if (m_instance == null)
-                m_instance = this;
-            return m_instance;
-        }
-    }
+    static MoveCam m_instance;
+    public static MoveCam Instance { get => m_instance; }
     void Awake()
     {
         m_instance = null;
