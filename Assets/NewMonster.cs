@@ -10,6 +10,7 @@ public class NewMonster : Functions
     Transform tr;
     Transform playerTr;
     CircleCollider2D attackCol;
+    BoxCollider2D boxCol2D;
     Animator animator;
     Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
@@ -34,10 +35,11 @@ public class NewMonster : Functions
         #region Init
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
-        yield return StartCoroutine(GetPlayerInstanceCo());
+        boxCol2D = GetComponent<BoxCollider2D>();
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
+        yield return StartCoroutine(GetPlayerInstanceCo());
 
         isAlive = true;
         CurrentFSM = IdleCo;
@@ -142,6 +144,7 @@ public class NewMonster : Functions
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
+        boxCol2D.enabled = false;
         State = StateType.Death;
         PlayAnim(State.ToString());
         yield return new WaitForSeconds(deathDelay);
