@@ -9,4 +9,9 @@ public class Functions : MonoBehaviour
         if (handle != null)
             StopCoroutine(handle);
     }
+
+    protected void WiggleScreen()
+    {
+        MoveCam.Instance.FollowPlayer();
+    }
 }
