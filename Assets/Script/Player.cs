@@ -66,9 +66,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         tr = transform;
-        rigid = GetComponent<Rigidbody2D>();
-        boxCol2D = GetComponent<BoxCollider2D>();
-        animator = GetComponent<Animator>();
+        rigid = GetComponentInChildren<Rigidbody2D>();
+        boxCol2D = GetComponentInChildren<BoxCollider2D>();
+        animator = GetComponentInChildren<Animator>();
         blockFlashTr = transform.Find("BlockFlashPosition");
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
         attackBoxTr = transform.Find("AttackBox");
