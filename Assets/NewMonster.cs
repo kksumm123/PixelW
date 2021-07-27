@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewMonster : MonoBehaviour
+public class NewMonster : Functions
 {
     // ÇÏ±â½Ã·· Áö±Ýµµ ½Ã··
     public static List<NewMonster> totalMonster = new List<NewMonster>();
@@ -235,11 +235,6 @@ public class NewMonster : MonoBehaviour
             else
                 CurrentFSM = DeathCo;
         }
-    }
-    void StopCo(Coroutine handle)
-    {
-        if (handle != null)
-            StopCoroutine(handle);
     }
     void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
     {

@@ -10764,6 +10764,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   camWidthHalf: 0
+  wiggleForce: 0.1
 --- !u!1 &1919211955
 GameObject:
   m_ObjectHideFlags: 0

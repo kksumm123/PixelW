@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MoveCam : MonoBehaviour
 {
@@ -39,7 +40,6 @@ public class MoveCam : MonoBehaviour
     void Update()
     {
         FollowPlayer();
-        WiggleScreen();
     }
 
     void FollowPlayer()
@@ -53,9 +53,28 @@ public class MoveCam : MonoBehaviour
                 transform.Translate(moveValue, Space.World);
         }
     }
+
     public void WiggleScreen()
     {
-
+        StartCoroutine(WiggleScreenCo());
+    }
+    float wiggleTime = 0.1f;
+    [SerializeField] float wiggleForce = 0.1f;
+    IEnumerator WiggleScreenCo()
+    {
+        var pos = transform.position;
+        var originPos = pos;
+        float endTime = Time.time + wiggleTime;
+        float randValue;
+        while (Time.time < endTime)
+        {
+            randValue = Random.Range(-wiggleForce, wiggleForce);
+            pos = new Vector3(pos.x + randValue, pos.y + randValue, pos.z);
+            transform.position = pos;
+            yield return null;
+            pos = originPos;
+        }
+        transform.position = originPos;
     }
 
     private bool ChkViewLayer(Vector3 value)

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Functions
 {
     #region Declare
     static Player m_instance = null;
@@ -663,11 +663,7 @@ public class Player : MonoBehaviour
     #endregion TakeHit
 
     #region Methods
-    void StopCo(Coroutine handle)
-    {
-        if (handle != null)
-            StopCoroutine(handle);
-    }
+    
     void OnDestroy()
     {
         m_instance = null;
