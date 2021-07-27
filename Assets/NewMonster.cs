@@ -11,6 +11,7 @@ public class NewMonster : Functions
     Transform playerTr;
     CircleCollider2D attackCol;
     BoxCollider2D boxCol2D;
+    Rigidbody2D rigid;
     Animator animator;
     Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
@@ -36,6 +37,7 @@ public class NewMonster : Functions
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
+        rigid = GetComponent<Rigidbody2D>();
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
@@ -144,6 +146,7 @@ public class NewMonster : Functions
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
+        rigid.gravityScale = 0;
         boxCol2D.enabled = false;
         State = StateType.Death;
         PlayAnim(State.ToString());

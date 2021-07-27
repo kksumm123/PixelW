@@ -659,6 +659,7 @@ public class Player : Functions
     [SerializeField] float deathTime = 1;
     IEnumerator DeathCo()
     {
+        rigid.gravityScale = 0;
         boxCol2D.enabled = false;
         yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);
