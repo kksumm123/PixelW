@@ -384,11 +384,12 @@ public class Player : Functions
         var point = new Vector2(
             attackBoxTr.transform.position.x
             , attackBoxTr.transform.position.y);
-        attackedEnemies =
-            Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
+        attackedEnemies = Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
+        {
             item.GetComponent<NewMonster>().TakeHit(damage);
-
+            WiggleScreen();
+        }
         yield return new WaitForSeconds(delay);
         State = StateType.AttackAndHitExit;
         normalSpeed = originSpeed;
@@ -613,6 +614,7 @@ public class Player : Functions
             else
             {
                 hp -= damage;
+                WiggleScreen();
                 StartCoroutine(HitCo());
             }
         }
@@ -663,7 +665,7 @@ public class Player : Functions
     #endregion TakeHit
 
     #region Methods
-    
+
     void OnDestroy()
     {
         m_instance = null;

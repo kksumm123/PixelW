@@ -9,9 +9,12 @@ public class Functions : MonoBehaviour
         if (handle != null)
             StopCoroutine(handle);
     }
-
-    protected void WiggleScreen()
+    /// <summary>
+    /// 화면 흔들림
+    /// </summary>
+    /// <param name="time">미 입력시 기본값 0.1f</param>
+    protected void WiggleScreen(float time = 0.1f)
     {
-        MoveCam.Instance.WiggleScreen();
+        MoveCam.Instance.WiggleScreen(time);
     }
 }

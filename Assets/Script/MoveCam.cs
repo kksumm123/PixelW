@@ -10,7 +10,7 @@ public class MoveCam : MonoBehaviour
     public static MoveCam Instance { get => m_instance; }
     void Awake()
     {
-        m_instance = null;
+        m_instance = this;
     }
 
     Player player;
@@ -46,18 +46,17 @@ public class MoveCam : MonoBehaviour
         }
     }
     Coroutine wiggleScreenCoHandle;
-    public void WiggleScreen()
+    public void WiggleScreen(float time)
     {
         if (wiggleScreenCoHandle == null)
-            wiggleScreenCoHandle = StartCoroutine(WiggleScreenCo());
+            wiggleScreenCoHandle = StartCoroutine(WiggleScreenCo(time));
     }
-    float wiggleTime = 0.1f;
     [SerializeField] float wiggleForce = 0.1f;
-    IEnumerator WiggleScreenCo()
+    IEnumerator WiggleScreenCo(float time)
     {
         var pos = transform.position;
         var originPos = pos;
-        float endTime = Time.time + wiggleTime;
+        float endTime = Time.time + time;
         float randValue;
         while (Time.time < endTime)
         {
