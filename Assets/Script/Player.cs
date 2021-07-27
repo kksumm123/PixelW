@@ -400,7 +400,7 @@ public class Player : MonoBehaviour
             item.GetComponent<NewMonster>().TakeHit(damage);
 
         yield return new WaitForSeconds(delay);
-        State = StateType.AttackExit;
+        State = StateType.AttackAndHitExit;
         normalSpeed = originSpeed;
     }
     IEnumerator AttackDelayCo()
@@ -574,7 +574,7 @@ public class Player : MonoBehaviour
         Attack1,
         Attack2,
         Attack3,
-        AttackExit,
+        AttackAndHitExit,
         IdleBlock,
         Block,
         Hit,
@@ -656,7 +656,7 @@ public class Player : MonoBehaviour
         State = StateType.Hit;
         yield return new WaitForSeconds(hitAnimationLenth);
         if (hp > 0)
-            State = StateType.AttackExit;
+            State = StateType.AttackAndHitExit;
         else
         {
             State = StateType.Death;

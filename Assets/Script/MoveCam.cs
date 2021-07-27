@@ -5,12 +5,29 @@ using UnityEngine;
 
 public class MoveCam : MonoBehaviour
 {
+    MoveCam m_instance;
+    public MoveCam Instance
+    {
+        get
+        {
+            if (m_instance == null)
+                m_instance = this;
+            return m_instance;
+        }
+    }
+    void Awake()
+    {
+        m_instance = null;
+    }
+
     Player player;
     Transform tr;
 
     [SerializeField] float speed = 5f;
     [SerializeField] LayerMask camViewLayer;
     [SerializeField] float camWidthHalf;
+
+
     void Start()
     {
         player = Player.Instance;
@@ -21,6 +38,12 @@ public class MoveCam : MonoBehaviour
 
     void Update()
     {
+        FollowPlayer();
+        WiggleScreen();
+    }
+
+    void FollowPlayer()
+    {
         if (player != null)
         {
             var moveValue = speed * Time.deltaTime
@@ -29,6 +52,10 @@ public class MoveCam : MonoBehaviour
             if (ChkViewLayer(moveValue) == false)
                 transform.Translate(moveValue, Space.World);
         }
+    }
+    public void WiggleScreen()
+    {
+
     }
 
     private bool ChkViewLayer(Vector3 value)
