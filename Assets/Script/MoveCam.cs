@@ -45,10 +45,11 @@ public class MoveCam : MonoBehaviour
                 transform.Translate(moveValue, Space.World);
         }
     }
-
+    Coroutine wiggleScreenCoHandle;
     public void WiggleScreen()
     {
-        StartCoroutine(WiggleScreenCo());
+        if (wiggleScreenCoHandle == null)
+            wiggleScreenCoHandle = StartCoroutine(WiggleScreenCo());
     }
     float wiggleTime = 0.1f;
     [SerializeField] float wiggleForce = 0.1f;
@@ -67,6 +68,7 @@ public class MoveCam : MonoBehaviour
             pos = originPos;
         }
         transform.position = originPos;
+        wiggleScreenCoHandle = null;
     }
 
     private bool ChkViewLayer(Vector3 value)

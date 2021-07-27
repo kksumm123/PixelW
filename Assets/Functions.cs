@@ -12,6 +12,6 @@ public class Functions : MonoBehaviour
 
     protected void WiggleScreen()
     {
-        MoveCam.Instance.FollowPlayer();
+        MoveCam.Instance.WiggleScreen();
     }
 }
