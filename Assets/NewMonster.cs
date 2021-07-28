@@ -44,7 +44,6 @@ public class NewMonster : Functions
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         yield return StartCoroutine(GetPlayerInstanceCo());
-
         isAlive = true;
         CurrentFSM = IdleCo;
         #endregion Init
@@ -69,7 +68,6 @@ public class NewMonster : Functions
     {
         State = StateType.Idle;
         PlayAnim(State.ToString());
-
         while (ChkDetectDistance() == false)
             yield return new WaitForSeconds(Random.Range(0, 0.2f));
 
