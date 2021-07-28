@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class NewMonster : Functions
 {
@@ -70,7 +71,7 @@ public class NewMonster : Functions
         PlayAnim(State.ToString());
 
         while (ChkDetectDistance() == false)
-            yield return null;
+            yield return new WaitForSeconds(Random.Range(0, 0.2f));
 
         CurrentFSM = ChaseCo;
     }
@@ -93,7 +94,7 @@ public class NewMonster : Functions
             if (rotationY != preRotationY)
             {
                 State = StateType.Idle;
-                yield return new WaitForSeconds(rotateDelay);
+                yield return new WaitForSeconds(rotateDelay + Random.Range(0, 0.2f));
                 State = StateType.Walk;
             }
 
@@ -256,17 +257,17 @@ public class NewMonster : Functions
             animator.Play(stateName);
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    if (Application.isPlaying)
-    //    {
-    //        Gizmos.color = Color.yellow;
-    //        Gizmos.DrawWireSphere(tr.position, detectRange);
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawWireSphere(tr.position, attackRange);
-    //        Gizmos.color = Color.blue;
-    //        Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
-    //    }
-    //}
+    void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(tr.position, detectRange);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(tr.position, attackRange);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
+        }
+    }
     #endregion Methods
 }
