@@ -622,6 +622,7 @@ public class Player : Functions
     }
     void TakeKnockBack()
     {
+        rigid.velocity = Vector2.zero;
         rigid.AddForce(new Vector2(200 * myForward.z * -1, 50));
     }
 

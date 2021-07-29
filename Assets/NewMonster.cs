@@ -246,6 +246,7 @@ public class NewMonster : Functions
     }
     void TakeKnockBack()
     {
+        rigid.velocity = Vector2.zero;
         rigid.AddForce(new Vector2(200 * transform.forward.z * -1, 50));
     }
     void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
