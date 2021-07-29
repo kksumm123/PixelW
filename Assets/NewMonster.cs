@@ -146,8 +146,7 @@ public class NewMonster : Functions
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
-        rigid.velocity = Vector2.zero;
-        rigid.gravityScale = 0;
+        rigid.isKinematic = true;
         boxCol2D.enabled = false;
         State = StateType.Death;
         PlayAnim(State.ToString());
@@ -233,7 +232,6 @@ public class NewMonster : Functions
     {
         if (hp > 0)
         {
-            Debug.Log($"으앙 아포 {hp} -> {hp - _damage}");
             hp -= _damage;
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
