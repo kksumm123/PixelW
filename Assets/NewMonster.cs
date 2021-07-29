@@ -146,6 +146,7 @@ public class NewMonster : Functions
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
+        rigid.velocity = Vector2.zero;
         rigid.gravityScale = 0;
         boxCol2D.enabled = false;
         State = StateType.Death;
@@ -236,11 +237,16 @@ public class NewMonster : Functions
             hp -= _damage;
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
+            TakeKnockBack();
             if (hp > 0)
                 CurrentFSM = TakeHitCo; // 코루틴 TakeHit
             else
                 CurrentFSM = DeathCo;
         }
+    }
+    void TakeKnockBack()
+    {
+        rigid.AddForce(new Vector2(200 * transform.forward.z * -1, 50));
     }
     void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
     {

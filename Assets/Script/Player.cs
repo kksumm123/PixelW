@@ -21,7 +21,7 @@ public class Player : Functions
     GameObject blockFlashEffectGo;
     string blockFlashEffectString = "BlockFlashEffect";
 
-    [SerializeField] Vector3 trForward;
+    [SerializeField] Vector3 myForward;
     [SerializeField] Vector3 velocity;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
@@ -94,7 +94,7 @@ public class Player : Functions
 
     void Update()
     {
-        trForward = transform.forward;
+        myForward = transform.forward;
         velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
@@ -614,12 +614,16 @@ public class Player : Functions
             else
             {
                 hp -= damage;
+                TakeKnockBack();
                 WiggleScreen();
                 StartCoroutine(HitCo());
             }
         }
     }
-
+    void TakeKnockBack()
+    {
+        rigid.AddForce(new Vector2(200 * myForward.z * -1, 50));
+    }
 
     private bool FrontBlock(Transform monsterTr)
     {// true = Parrying, false = Fail Parrinying
@@ -659,6 +663,7 @@ public class Player : Functions
     [SerializeField] float deathTime = 1;
     IEnumerator DeathCo()
     {
+        rigid.velocity = Vector2.zero;
         rigid.gravityScale = 0;
         boxCol2D.enabled = false;
         yield return new WaitForSeconds(deathTime);
