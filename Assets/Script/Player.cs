@@ -691,5 +691,13 @@ public class Player : Actor
     {
         gold += value;
     }
+    public float PlayersHPRate()
+    {
+        return (float)hp / maxHp;
+    }
+    public string PlayersHpText()
+    {
+        return $"{hp} / {maxHp}";
+    }
     #endregion Methods
 }
