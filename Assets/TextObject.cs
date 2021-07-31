@@ -31,6 +31,7 @@ public class TextObject : MonoBehaviour
         var textColor = textMeshPro.color;
         while (textMeshPro.color.a > 0.01f)
         {
+            textColor = textMeshPro.color;
             textColor.a -= Time.deltaTime;
             textMeshPro.color = textColor;
             yield return null;
