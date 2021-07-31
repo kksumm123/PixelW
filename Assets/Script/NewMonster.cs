@@ -69,7 +69,7 @@ public class NewMonster : Actor
         State = StateType.Idle;
         PlayAnim(State.ToString());
         while (ChkDetectDistance() == false)
-            yield return new WaitForSeconds(RandomDelayTime());
+            yield return new WaitForSeconds(RandomDelayTime(0.5f));
 
         CurrentFSM = ChaseCo;
     }
@@ -92,7 +92,7 @@ public class NewMonster : Actor
             if (rotationY != preRotationY)
             {
                 State = StateType.Idle;
-                yield return new WaitForSeconds(rotateDelay + RandomDelayTime());
+                yield return new WaitForSeconds(rotateDelay + RandomDelayTime(0.2f));
                 State = StateType.Walk;
             }
 
@@ -110,7 +110,7 @@ public class NewMonster : Actor
     Collider2D[] hitCols;
     IEnumerator AttackCo()
     {
-        yield return new WaitForSeconds(RandomDelayTime());
+        yield return new WaitForSeconds(RandomDelayTime(0.1f));
         State = StateType.Attack1;
         PlayAnim(State.ToString(), 0, 0);
         transform.rotation = // 공격전 플레이어 방향으로 회전 
@@ -200,9 +200,9 @@ public class NewMonster : Actor
     #endregion StateType
 
     #region Methods
-    float RandomDelayTime()
+    float RandomDelayTime(float maxValue)
     {
-        return Random.Range(0, 0.2f);
+        return Random.Range(0, maxValue);
     }
     IEnumerator GetPlayerInstanceCo()
     {
