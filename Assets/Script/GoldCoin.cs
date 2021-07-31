@@ -91,7 +91,7 @@ public class GoldCoin : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {
+        { 
             transform.rotation = Quaternion.identity;
             Player.Instance.GetGold(value);
             animator.Play("Disappear");
