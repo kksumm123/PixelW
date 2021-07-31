@@ -9,26 +9,24 @@ using UnityEngine;
 // todo : 공격시 앞으로 조금 전진하도록 (플레이어, 몬스터)
 // todo : 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
 
-public class Player : Functions
+public class Player : Actor
 {
     #region Declare
     static Player m_instance = null;
     public static Player Instance { get => m_instance; }
-    private void Awake()
+    new void Awake()
     {
+        base.Awake();
         m_instance = this;
     }
 
     Transform tr;
-    Rigidbody2D rigid;
     BoxCollider2D boxCol2D;
     Animator animator;
     Transform blockFlashTr;
     GameObject blockFlashEffectGo;
-    string blockFlashEffectString = "BlockFlashEffect";
+    readonly string blockFlashEffectString = "BlockFlashEffect";
 
-    [SerializeField] Vector3 myForward;
-    [SerializeField] Vector3 velocity;
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int hp = 50;
@@ -72,7 +70,6 @@ public class Player : Functions
     void Start()
     {
         tr = transform;
-        rigid = GetComponentInChildren<Rigidbody2D>();
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
@@ -100,8 +97,6 @@ public class Player : Functions
 
     void Update()
     {
-        myForward = transform.forward;
-        velocity = rigid.velocity;
         StateUpdate();
         AnimForState();
 
@@ -242,7 +237,7 @@ public class Player : Functions
     {
         if (State == StateType.WallSlide)
             return;
-        else if (Mathf.Abs(velocity.x) > 4.9)
+        else if (Mathf.Abs(rigid.velocity.x) > 4.9)
             return;
         else if (isRolling == true)
             return;
@@ -392,7 +387,7 @@ public class Player : Functions
         attackedEnemies = Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
         {
-            item.GetComponent<NewMonster>().TakeHit(damage);
+            item.GetComponent<NewMonster>().TakeHit(damage, tr.forward);
             WiggleScreen();
         }
         yield return new WaitForSeconds(delay);
@@ -468,11 +463,6 @@ public class Player : Functions
                 StartCoroutine(HitCo());
             }
         }
-    }
-    void TakeKnockBack(Vector3 forward)
-    {
-        rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(200 * forward.z, 50));
     }
 
     private bool FrontBlock(Transform monsterTr)

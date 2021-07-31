@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NewMonster : Functions
+public class NewMonster : Actor
 {
     // 하기시렁, 지금도 시렁, 아직도 시렁
     public static List<NewMonster> totalMonster = new List<NewMonster>();
+
     Transform tr;
     Transform playerTr;
     CircleCollider2D attackCol;
     BoxCollider2D boxCol2D;
-    Rigidbody2D rigid;
     Animator animator;
     Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
@@ -39,7 +39,6 @@ public class NewMonster : Functions
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        rigid = GetComponent<Rigidbody2D>();
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
@@ -187,14 +186,6 @@ public class NewMonster : Functions
             yield return null;
         playerTr = Player.Instance.transform;
     }
-    Vector3 GetPlayerPosition()
-    {
-        {
-            StartCoroutine(GetPlayerInstanceCo());
-            Debug.Log(1);
-            return playerTr.position;
-        }
-    }
 
     float detectDistance;
     [SerializeField] float detectRange = 5;
@@ -228,25 +219,21 @@ public class NewMonster : Functions
         return dirforPlayer;
     }
 
-    public void TakeHit(int _damage)
+    public void TakeHit(int _damage, Vector3 playerForward)
     {
         if (hp > 0)
         {
             hp -= _damage;
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
-            TakeKnockBack();
+            TakeKnockBack(playerForward);
             if (hp > 0)
                 CurrentFSM = TakeHitCo; // 코루틴 TakeHit
             else
                 CurrentFSM = DeathCo;
         }
     }
-    void TakeKnockBack()
-    {
-        rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(200 * transform.forward.z * -1, 50));
-    }
+
     void PlayAnim(string stateName, int? layer = null, float? normalizedTime = null)
     {
         if (layer != null)
