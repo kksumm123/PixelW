@@ -35,7 +35,7 @@ public class TextObject : MonoBehaviour
             textMeshPro.color = textColor;
             yield return null;
         }
-        Destroy(gameObject);
+        Destroy(gameObject, 2);
     }
 
     public IEnumerator SetText(string value)

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,14 +29,39 @@ public class GoldUI : MonoBehaviour
             goldValueText.text = Player.Instance.PlayersGold();
         }
     }
-
-    float addValueShowTime = 1f;
-    float addValueShowFadeTime = 1f;
+    Coroutine TextColorFadeCoHandle;
     public void AddValueText(int addValue)
     {
         goldAddValueText.DOKill();
-        goldAddValueText.DOFade(1, 0.001f);
         goldAddValueText.text = $" + {addValue} G";
-        goldAddValueText.DOFade(0, addValueShowFadeTime).SetDelay(addValueShowTime);
+
+        TextColorFadeCoHandle = StopAndStartCoroutine(TextColorFadeCoHandle, TextColorFadeCo());
+    }
+
+    float addValueShowTime = 1f;
+    float addValueFadeTime = 1f;
+    IEnumerator TextColorFadeCo()
+    {
+        var textColor = goldAddValueText.color;
+        float endtime = Time.time + addValueShowTime;
+        var fadeTime = 1 / addValueFadeTime;
+
+        textColor.a = 1;
+        goldAddValueText.color = textColor;
+        while (Time.time < endtime)
+        {
+            textColor.a -= fadeTime * Time.deltaTime;
+            goldAddValueText.color = textColor;
+            yield return null;
+        }
+        textColor.a = 0;
+        goldAddValueText.color = textColor;
+    }
+
+    Coroutine StopAndStartCoroutine(Coroutine handle, IEnumerator function)
+    {
+        if (handle != null)
+            StopCoroutine(handle);
+        return StartCoroutine(function);
     }
 }
