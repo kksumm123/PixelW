@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 // todo : HP UI만들기 및 연동
 // maxHp 만들고, 좌측 상단에 만들기
 // todo : 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
@@ -30,6 +31,7 @@ public class Player : Actor
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int hp = 50;
     [SerializeField] int damage = 5;
+    [SerializeField] int gold = 0;
     float normalSpeed = 5f;
     float battleSpeed = 0.5f;
     #endregion Declare
@@ -682,6 +684,11 @@ public class Player : Actor
     void OnDestroy()
     {
         m_instance = null;
+    }
+
+    public void GetGold(int value)
+    {
+        gold += value;
     }
     #endregion Methods
 }

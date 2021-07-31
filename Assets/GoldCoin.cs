@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class GoldCoin : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Animator animator;
+
+    int value;
     void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>();
+        value = Random.Range(0, 50);
+        animator.Play("Idle");
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player"))
+        {
+            Player.Instance.GetGold(value);
+            animator.Play("Disappear");
+            Destroy(gameObject, 1);
+        }
     }
 }
