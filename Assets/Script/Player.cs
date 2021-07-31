@@ -120,32 +120,39 @@ public class Player : Actor
         else if (isRolling == true)
             return;
 
-        if (State != StateType.Hit && ChkBattle() == false)
+        if (State != StateType.Hit && IsBattle() == false)
         {
             var velo = rigid.velocity;
 
-            if (ChkGound())
+            if (IsGound())
             {
-                State = StateType.Ground;
-                rigid.velocity = Vector2.zero;
+                if (State != StateType.Ground && State != StateType.Run)
+                {
+                    State = StateType.Ground;
+                    rigid.velocity = Vector2.zero;
+                }
             }
+            else
+            {
+                if (State != StateType.WallSlide)
+                {
+                    if (velo.y < 0)
+                        State = StateType.Fall;
 
+                    if (velo.y > 0)
+                        State = StateType.Jump;
+                }
+
+                if (IsWall())
+                    State = StateType.WallSlide;
+            }
             if (State != StateType.Jump && State != StateType.Fall
                 && State != StateType.WallSlide && moveX != 0)
                 State = StateType.Run;
-
-            if (velo.y < 0)
-                State = StateType.Fall;
-
-            if (velo.y > 0)
-                State = StateType.Jump;
-
-            if (ChkWall())
-                State = StateType.WallSlide;
         }
     }
-    #region ChkAttackAndBlock
-    private bool ChkBattle()
+    #region IsAttackAndBlock
+    private bool IsBattle()
     {
         switch (State)
         {
@@ -160,9 +167,9 @@ public class Player : Actor
         }
         return false;
     }
-    #endregion ChkAttackAndBlock
-    #region ChkIdle
-    private bool ChkIdle()
+    #endregion IsAttackAndBlock
+    #region IsIdle
+    private bool IsIdle()
     {
         switch (State)
         {
@@ -172,9 +179,9 @@ public class Player : Actor
         }
         return false;
     }
-    #endregion ChkIdle
-    #region ChkBlocking
-    private bool ChkBlocking()
+    #endregion IsIdle
+    #region IsBlocking
+    private bool IsBlocking()
     {
         switch (State)
         {
@@ -184,13 +191,13 @@ public class Player : Actor
         }
         return false;
     }
-    #endregion ChkBlocking
-    #region ChkGound
+    #endregion IsBlocking
+    #region IsGound
     float groundRayOffsetX = 0.2f;
     float groundRayOffsetY = 0.2f;
     float groundRayLength = 0.2f;
     LayerMask groundLayer;
-    private bool ChkGound()
+    private bool IsGound()
     {
         var pos = transform.position;
         if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
@@ -204,12 +211,12 @@ public class Player : Actor
             return true;
         return false;
     }
-    #endregion ChkGound
-    #region ChkWall
+    #endregion IsGound
+    #region IsWall
     float slideRayOffsetX = 0;
     float slideRayOffsetY = 0;
     float slideRayLength = 0.01f;
-    private bool ChkWall()
+    private bool IsWall()
     {
         if (State == StateType.Jump || State == StateType.Fall)
         {
@@ -228,7 +235,7 @@ public class Player : Actor
         }
         return false;
     }
-    #endregion ChkWall
+    #endregion IsWall
 
     #endregion StateUpdate
 
@@ -251,13 +258,16 @@ public class Player : Actor
 
         if (moveX != 0)
         {
-            if (ChkBlocking() == false)
+            if (IsBlocking() == false)
                 base.transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
 
+            State = StateType.Run;
             var pos = transform.position;
             pos.x += moveX * normalSpeed * Time.deltaTime;
             transform.position = pos;
         }
+        else
+            State = StateType.Ground;
     }
     #endregion Move
 
@@ -273,7 +283,7 @@ public class Player : Actor
             pos.x += base.transform.forward.z * normalSpeed * Time.deltaTime;
             transform.position = pos;
         }
-        else if (ChkGound() && Input.GetKey(KeyCode.LeftShift))
+        else if (IsGound() && Input.GetKey(KeyCode.LeftShift))
         {
             State = StateType.Roll;
             StartCoroutine(IsRollingCo());
@@ -299,7 +309,7 @@ public class Player : Actor
         if (Input.GetKeyDown(KeyCode.W))
         {
             // Normal Jump
-            if (ChkGound())
+            if (IsGound())
             {
                 isUpdatePhysics = false;
                 State = StateType.Jump;
@@ -338,7 +348,7 @@ public class Player : Actor
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (ChkGound() && attackCurDelay <= 0)
+            if (IsGound() && attackCurDelay <= 0)
             {
                 if (attackIdx < attackMaxIdx)
                 {
@@ -433,7 +443,7 @@ public class Player : Actor
     Coroutine parrayingCoHendle;
     void Block()
     {
-        if (ChkIdle() || ChkBlocking())
+        if (IsIdle() || IsBlocking())
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -444,10 +454,13 @@ public class Player : Actor
             }
             else if (Input.GetMouseButton(1) == false)
             {
-                StopCo(parrayingCoHendle);
-                isParrying = false;
-                State = StateType.Ground;
-                normalSpeed = originSpeed;
+                if (IsBlocking() == true)
+                {
+                    StopCo(parrayingCoHendle);
+                    isParrying = false;
+                    State = StateType.Ground;
+                    normalSpeed = originSpeed;
+                }
             }
         }
     }
@@ -690,6 +703,7 @@ public class Player : Actor
     public void GetGold(int value)
     {
         gold += value;
+        GoldUI.instance.AddValueText(value);
     }
     public float PlayersHPRate()
     {
