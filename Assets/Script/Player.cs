@@ -6,7 +6,7 @@ using UnityEngine;
 // maxHp 만들고, 좌측 상단에 만들기
 // todo : 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
 // todo : 현재 소지 골드 표시하기
-// todo : 공격시 앞으로 조금 전진하도록 (플레이어, 몬스터)
+// clear 공격시 앞으로 조금 전진하도록 (플레이어)
 // clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
 
 public class Player : Actor
@@ -30,8 +30,8 @@ public class Player : Actor
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int hp = 50;
     [SerializeField] int damage = 5;
-    [SerializeField] float normalSpeed = 5f;
-    [SerializeField] float battleSpeed = 0.5f;
+    float normalSpeed = 5f;
+    float battleSpeed = 0.5f;
     #endregion Declare
 
     #region AboutRay
@@ -87,7 +87,7 @@ public class Player : Actor
     #endregion Start()
 
     #region Update()
-    [SerializeField] bool isUpdatePhysics = false;
+    bool isUpdatePhysics = false;
     void FixedUpdate()
     {
         isUpdatePhysics = true;
@@ -183,10 +183,10 @@ public class Player : Actor
     }
     #endregion ChkBlocking
     #region ChkGound
-    [SerializeField] float groundRayOffsetX = 0.2f;
-    [SerializeField] float groundRayOffsetY = 0.2f;
-    [SerializeField] float groundRayLength = 0.2f;
-    [SerializeField] LayerMask groundLayer;
+    float groundRayOffsetX = 0.2f;
+    float groundRayOffsetY = 0.2f;
+    float groundRayLength = 0.2f;
+    LayerMask groundLayer;
     private bool ChkGound()
     {
         var pos = transform.position;
@@ -203,9 +203,9 @@ public class Player : Actor
     }
     #endregion ChkGound
     #region ChkWall
-    [SerializeField] float slideRayOffsetX = 0;
-    [SerializeField] float slideRayOffsetY = 0;
-    [SerializeField] float slideRayLength = 0.01f;
+    float slideRayOffsetX = 0;
+    float slideRayOffsetY = 0;
+    float slideRayLength = 0.01f;
     private bool ChkWall()
     {
         if (State == StateType.Jump || State == StateType.Fall)
@@ -259,8 +259,8 @@ public class Player : Actor
     #endregion Move
 
     #region Rolling
-    [SerializeField] bool isRolling = false;
-    [SerializeField] float rollTime = 0.6f;
+    bool isRolling = false;
+    float rollTime = 0.6f;
     bool isInvincibility = false;
     private void Rolling()
     {
@@ -288,9 +288,9 @@ public class Player : Actor
     #endregion Rolling
 
     #region Jump
-    [SerializeField] float jumpForce = 900f;
-    [SerializeField] float slideJumpForceX = 250f;
-    [SerializeField] float slideJumpForceY = 900f;
+    float jumpForce = 900f;
+    float slideJumpForceX = 250f;
+    float slideJumpForceY = 900f;
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.W))
@@ -321,16 +321,13 @@ public class Player : Actor
     #endregion Jump
 
     #region Attack
-    [SerializeField] float attackApplyDelay = 0.15f;
-    [SerializeField]
-    List<float> attackDelay =
-        new List<float>() { 0.43f, 0.43f, 0.57f };
-    [SerializeField] float attackCurDelay = 0;
-    [SerializeField] int attackIdx = 0;
-    [SerializeField] int attackMaxIdx = 3;
-    [SerializeField] float attackIdxResetTime = 1.2f;
-    [SerializeField] float attackIdxResetCurTime = 0f;
-    [SerializeField] GameObject attackBoxObj;
+    float attackApplyDelay = 0.15f;
+    List<float> attackDelay = new List<float>() { 0.43f, 0.43f, 0.57f };
+    float attackCurDelay = 0;
+    int attackIdx = 0;
+    int attackMaxIdx = 3;
+    float attackIdxResetTime = 1.2f;
+    float attackIdxResetCurTime = 0f;
     Coroutine attackCoHandle;
     Coroutine attackDelayCoHandle;
     Coroutine attackIndxResetCoHandle;
@@ -370,7 +367,7 @@ public class Player : Actor
         }
     }
     Transform attackBoxTr;
-    [SerializeField] Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
+    Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
     LayerMask enemyLayer;
     Collider2D[] attackedEnemies;
 
@@ -500,7 +497,7 @@ public class Player : Actor
         }
     }
 
-    [SerializeField] float hitAnimationLenth = 0.273f;
+    float hitAnimationLenth = 0.273f;
     IEnumerator HitCo()
     {
         State = StateType.Hit;
@@ -514,7 +511,7 @@ public class Player : Actor
         }
     }
 
-    [SerializeField] float deathTime = 1;
+    float deathTime = 1;
     IEnumerator DeathCo()
     {
         rigid.isKinematic = true;
