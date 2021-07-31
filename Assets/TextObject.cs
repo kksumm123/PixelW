@@ -29,6 +29,8 @@ public class TextObject : MonoBehaviour
 
         transform.DOLocalMoveY(1, 2);
         var textColor = textMeshPro.color;
+
+        yield return new WaitForSeconds(0.2f);
         while (textMeshPro.color.a > 0.01f)
         {
             textColor = textMeshPro.color;
