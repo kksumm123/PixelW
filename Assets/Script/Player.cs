@@ -509,6 +509,7 @@ public class Player : Actor
             else
             {
                 hp -= damage;
+                TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
                 TakeKnockBack(monsterTr.forward);
                 WiggleScreen();
                 StartCoroutine(HitCo());

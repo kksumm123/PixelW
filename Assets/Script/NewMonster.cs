@@ -30,7 +30,7 @@ public class NewMonster : Actor
 
     [SerializeField] bool isAlive = false;
     [SerializeField] int hp = 20;
-    [SerializeField] int damage = 5;
+    [SerializeField] int power = 5;
     [SerializeField] float speed = 3;
     #endregion Init
     IEnumerator Start()
@@ -121,7 +121,7 @@ public class NewMonster : Actor
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
-            item.GetComponent<Player>().TakeHit(damage, transform);
+            item.GetComponent<Player>().TakeHit(power, transform);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentFSM = ChaseCo;
@@ -129,11 +129,12 @@ public class NewMonster : Actor
     #endregion AttackCo
 
     #region TakeHit
-    public void TakeHit(int _damage, Vector3 playerForward)
+    public void TakeHit(int damage, Vector3 playerForward)
     {
         if (hp > 0)
         {
-            hp -= _damage;
+            hp -= damage;
+            TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             TakeKnockBack(playerForward);
