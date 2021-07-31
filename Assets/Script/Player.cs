@@ -373,6 +373,7 @@ public class Player : Actor
     [SerializeField] Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
     LayerMask enemyLayer;
     Collider2D[] attackedEnemies;
+
     IEnumerator AttackCo(float delay)
     {
         normalSpeed = battleSpeed;
@@ -382,6 +383,7 @@ public class Player : Actor
         var point = new Vector2(attackBoxTr.transform.position.x
                         , attackBoxTr.transform.position.y);
         attackedEnemies = Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
+        StartCoroutine(AttackMoveCo());
         foreach (var item in attackedEnemies)
         {
             item.GetComponent<NewMonster>().TakeHit(damage, transform.forward);
@@ -391,6 +393,21 @@ public class Player : Actor
         State = StateType.AttackAndHitExit;
         normalSpeed = originSpeed;
     }
+
+    float attackTranslateSpeed = 4f;
+    float attackTranslateTime = 0.1f;
+    Vector3 attackMove;
+    IEnumerator AttackMoveCo()
+    {
+        var endTime = Time.time + attackTranslateTime;
+        while (Time.time < endTime)
+        {
+            attackMove = new Vector3(attackTranslateSpeed * Time.deltaTime * transform.forward.z, 0, 0);
+            transform.Translate(attackMove, Space.World);
+            yield return null;
+        }
+    }
+
     IEnumerator AttackDelayCo()
     {
         while (attackCurDelay > 0)
