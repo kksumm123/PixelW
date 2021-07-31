@@ -463,16 +463,16 @@ public class Player : Functions
             else
             {
                 hp -= damage;
-                TakeKnockBack();
+                TakeKnockBack(monsterTr.forward);
                 WiggleScreen();
                 StartCoroutine(HitCo());
             }
         }
     }
-    void TakeKnockBack()
+    void TakeKnockBack(Vector3 forward)
     {
         rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(200 * myForward.z * -1, 50));
+        rigid.AddForce(new Vector2(200 * forward.z, 50));
     }
 
     private bool FrontBlock(Transform monsterTr)
