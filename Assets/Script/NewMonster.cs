@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class NewMonster : Actor
 {
-    // ÇÏ±â½Ã··, Áö±Ýµµ ½Ã··, ¾ÆÁ÷µµ ½Ã··
+    #region Init
     public static List<NewMonster> totalMonster = new List<NewMonster>();
 
     Transform tr;
@@ -32,6 +32,7 @@ public class NewMonster : Actor
     [SerializeField] int hp = 20;
     [SerializeField] int damage = 5;
     [SerializeField] float speed = 3;
+    #endregion Init
     IEnumerator Start()
     {
         #region Init
@@ -140,6 +141,7 @@ public class NewMonster : Actor
         CurrentFSM = IdleCo;
     }
     #endregion TakeHit
+
     #region DeathCo
     [SerializeField] float deathDelay = 2f;
     IEnumerator DeathCo()
