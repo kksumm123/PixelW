@@ -180,43 +180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77e4cb3a64b191c4caacb6cf85802bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trForward: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
   state: 0
   anim: 0
-  hp: 50
+  hp: 5555555
   damage: 5
-  normalSpeed: 5
-  battleSpeed: 0.5
-  isUpdatePhysics: 0
-  groundRayOffsetX: 0.2
-  groundRayOffsetY: 0.2
-  groundRayLength: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  slideRayOffsetX: 0
-  slideRayOffsetY: 0
-  slideRayLength: 0.01
-  isRolling: 0
-  rollTime: 0.6
-  jumpForce: 900
-  slideJumpForceX: 250
-  slideJumpForceY: 900
-  attackApplyDelay: 0.15
-  attackDelay:
-  - 0.43
-  - 0.43
-  - 0.57
-  attackCurDelay: 0
-  attackIdx: 0
-  attackMaxIdx: 3
-  attackIdxResetTime: 1.2
-  attackIdxResetCurTime: 0
-  attackBoxObj: {fileID: 0}
-  attackBoxSize: {x: 1.9, y: 1.5}
-  hitAnimationLenth: 0.273
-  deathTime: 1
+  gold: 0
 --- !u!50 &665133592
 Rigidbody2D:
   serializedVersion: 4

@@ -20,34 +20,41 @@ public class GoldCoin : MonoBehaviour
 
     IEnumerator Start()
     {
-        Init();
+        GravityInit();
 
         circleCol2D = GetComponent<CircleCollider2D>();
         rayDistance = 0.01f;
         wallLayer = 1 << LayerMask.NameToLayer("Ground");
         Debug.Assert(wallLayer != 0, "·¹ÀÌ¾î ÁöÁ¤¾ÈµÊ");
-
         animator = GetComponentInChildren<Animator>();
-        value = Random.Range(0, 50);
+
+        value = Mathf.RoundToInt(Random.Range(0, 25));
+        transform.position += new Vector3(0, 0.25f, 0);
         transform.rotation = Quaternion.Euler(
-                        transform.rotation.eulerAngles 
+                        transform.rotation.eulerAngles
                         + new Vector3(0, 0, Random.Range(-rotationZValue, rotationZValue))
                         );
         // Rising
         var endTime = Time.time + risingTime;
         while (Time.time < endTime)
         {
+            if (IsReachUpLeftDown() == true)
+                yield break;
+
             transform.Translate(risingSpeed * Time.deltaTime * Vector2.up);
             yield return null;
         }
         // Fly as parabola(Æ÷¹°¼±)
         while (IsGround() == false)
         {
+            if (IsReachUpLeftDown() == true)
+                yield break;
+
             transform.Translate(flySpeed * Time.deltaTime * Vector2.up);
             yield return null;
         }
     }
-    void Init()
+    void GravityInit()
     {
         gravityAcceleration = 9.81f;
         gravityVelocity = 0;
@@ -60,7 +67,7 @@ public class GoldCoin : MonoBehaviour
         if (IsGround() == false)
             gravityAccelerationMove(); // ¶¥¿¡ ¾È´ê¾ÒÀ¸¸é
         else
-            Init(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
+            GravityInit(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
     }
 
     Vector2 rayStartPos;
@@ -69,6 +76,20 @@ public class GoldCoin : MonoBehaviour
         rayStartPos = transform.position - new Vector3(0, circleCol2D.radius, 0);
         ray = Physics2D.Raycast(rayStartPos, Vector2.down, rayDistance, wallLayer);
         return ray.transform;
+    }
+    bool IsReachUpLeftDown()
+    { // true = ¶¥¿¡ ´êÀ½, false = ¶¥¿¡ ¾È´êÀ½
+        rayStartPos = transform.position - new Vector3(circleCol2D.radius, 0, 0);
+        if (Physics2D.Raycast(rayStartPos, Vector2.left, rayDistance, wallLayer))
+            return true;
+        rayStartPos = transform.position + new Vector3(circleCol2D.radius, 0, 0);
+        if (Physics2D.Raycast(rayStartPos, Vector2.right, rayDistance, wallLayer))
+            return true;
+        rayStartPos = transform.position + new Vector3(0, circleCol2D.radius, 0);
+        if (Physics2D.Raycast(rayStartPos, Vector2.up, rayDistance, wallLayer))
+            return true;
+
+        return false;
     }
 
     float t;
@@ -85,14 +106,23 @@ public class GoldCoin : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, rayDistance * Vector3.down);
+        if (Application.isPlaying == true)
+        {
+            Gizmos.color = Color.red;
+            rayStartPos = transform.position + new Vector3(0, circleCol2D.radius, 0);
+            Gizmos.DrawRay(rayStartPos, rayDistance * Vector3.down);
+            rayStartPos = transform.position - new Vector3(circleCol2D.radius, 0, 0);
+            Gizmos.DrawRay(rayStartPos, rayDistance * Vector3.left);
+            rayStartPos = transform.position + new Vector3(circleCol2D.radius, 0, 0);
+            Gizmos.DrawRay(rayStartPos, rayDistance * Vector3.right);
+
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        { 
+        {
             transform.rotation = Quaternion.identity;
             Player.Instance.GetGold(value);
             animator.Play("Disappear");

@@ -93,7 +93,7 @@ public class Player : Actor
     {
         isUpdatePhysics = true;
     }
-    
+
     void Update()
     {
         StateUpdate();
