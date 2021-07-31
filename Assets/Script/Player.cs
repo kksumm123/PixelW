@@ -68,7 +68,6 @@ public class Player : Actor
     float originSpeed;
     void Start()
     {
-        transform = base.transform;
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         blockFlashTr = base.transform.Find("Sprite/BlockFlashPosition");
