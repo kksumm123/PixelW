@@ -28,7 +28,8 @@ public class Player : Actor
 
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-    [SerializeField] int hp = 50;
+    [SerializeField] int hp;
+    int maxHp = 500;
     [SerializeField] int damage = 5;
     [SerializeField] int gold = 0;
     float normalSpeed = 5f;
@@ -77,6 +78,7 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
+        hp = maxHp;
 
         void SetGroundRaySetting()
         {
