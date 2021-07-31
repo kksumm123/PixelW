@@ -128,6 +128,21 @@ public class NewMonster : Actor
     #endregion AttackCo
 
     #region TakeHit
+    public void TakeHit(int _damage, Vector3 playerForward)
+    {
+        if (hp > 0)
+        {
+            hp -= _damage;
+            // 기존 실행되던 코루틴 정지
+            StopCo(currnetCoHandle);
+            TakeKnockBack(playerForward);
+            if (hp > 0)
+                CurrentFSM = TakeHitCo; // 코루틴 TakeHit
+            else
+                CurrentFSM = DeathCo;
+        }
+    }
+
     [SerializeField] float hitDelay = 0.5f;
     IEnumerator TakeHitCo()
     {
@@ -152,6 +167,7 @@ public class NewMonster : Actor
         boxCol2D.enabled = false;
         State = StateType.Death;
         PlayAnim(State.ToString());
+        SpawnCoins();
         yield return new WaitForSeconds(deathDelay);
         Destroy(gameObject);
     }
@@ -222,18 +238,15 @@ public class NewMonster : Actor
         return dirforPlayer;
     }
 
-    public void TakeHit(int _damage, Vector3 playerForward)
+    readonly string goldCoinString = "GoldCoin";
+    int coinMaxCount = 5;
+    void SpawnCoins()
     {
-        if (hp > 0)
+        var coinCount = Mathf.Round(Random.Range(0, coinMaxCount));
+        var coinGo = (GameObject)Resources.Load(goldCoinString); ;
+        for (int i = 0; i < coinCount; i++)
         {
-            hp -= _damage;
-            // 기존 실행되던 코루틴 정지
-            StopCo(currnetCoHandle);
-            TakeKnockBack(playerForward);
-            if (hp > 0)
-                CurrentFSM = TakeHitCo; // 코루틴 TakeHit
-            else
-                CurrentFSM = DeathCo;
+            Instantiate(coinGo, transform.position, transform.rotation);
         }
     }
 
