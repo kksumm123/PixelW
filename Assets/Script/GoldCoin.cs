@@ -124,7 +124,7 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.enabled = false;
+            this.circleCol2D.enabled = false;
             TextObjectManager.instance.NewTextObject(transform, value.ToString(), Color.yellow);
             transform.rotation = Quaternion.identity;
             Player.Instance.GetGold(value);
