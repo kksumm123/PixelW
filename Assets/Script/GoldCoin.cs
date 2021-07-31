@@ -10,6 +10,8 @@ public class GoldCoin : MonoBehaviour
 
     float rayDistance = 0;
     int value;
+    int minValue = 5;
+    int maxValue = 25;
     float gravityAcceleration = 9.81f;
     float gravityVelocity;
     float s;
@@ -17,7 +19,6 @@ public class GoldCoin : MonoBehaviour
     float risingSpeed = 10;
     float flySpeed = 5;
     float rotationZValue = 20;
-
     IEnumerator Start()
     {
         GravityInit();
@@ -28,7 +29,7 @@ public class GoldCoin : MonoBehaviour
         Debug.Assert(wallLayer != 0, "레이어 지정안됨");
         animator = GetComponentInChildren<Animator>();
 
-        value = Mathf.RoundToInt(Random.Range(0, 25));
+        value = Random.Range(minValue, maxValue + 1);
         transform.position += new Vector3(0, 0.25f, 0);
         transform.rotation = Quaternion.Euler(
                         transform.rotation.eulerAngles
