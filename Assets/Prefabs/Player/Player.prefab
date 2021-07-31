@@ -185,9 +185,6 @@ MonoBehaviour:
   hp: 5555555
   damage: 5
   gold: 0
-  groundRayOffsetX: 0.3
-  groundRayOffsetY: 0.2
-  groundRayLength: 0.2
 --- !u!50 &665133592
 Rigidbody2D:
   serializedVersion: 4

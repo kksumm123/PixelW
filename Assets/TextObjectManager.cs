@@ -15,9 +15,11 @@ public class TextObjectManager : MonoBehaviour
         textObjectOnMemory = (GameObject)Resources.Load(textObjectString);
     }
 
+    float randPosValueX = 0.5f;
+    float randPosValueY = 0.2f;
     public void NewTextObject(Transform tr, string text, Color color)
     {
-        var randomPosValue = new Vector3(Random.Range(-0.3f, 0.3f), Random.Range(-0.1f, 0.1f), 0);
+        var randomPosValue = new Vector3(Random.Range(-randPosValueX, randPosValueX), Random.Range(-randPosValueY, randPosValueY), 0);
         var newGo = Instantiate(textObjectOnMemory, tr.position + randomPosValue, Quaternion.identity, tr.parent);
         var newGoCS = newGo.GetComponent<TextObject>();
         StartCoroutine(newGoCS.SetText(text));
