@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 257180730005964460}
   - component: {fileID: 257180730005964463}
   - component: {fileID: 257180730005964462}
+  - component: {fileID: 7678082318764840747}
   m_Layer: 0
   m_Name: GoldCoin
   m_TagString: Untagged
@@ -163,3 +164,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.192
+--- !u!114 &7678082318764840747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257180730005964465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10422a0a8efc1284bb3de950e8e54ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
