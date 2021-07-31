@@ -14,10 +14,9 @@ public class TextObject : MonoBehaviour
     {
         renderer = GetComponent<Renderer>();
         textMeshPro = GetComponent<TextMeshPro>();
-        Debug.Log("여기 만든다~");
         if (transform.parent)
         {
-            var parentRenderer = transform.parent.GetComponent<Renderer>();
+            var parentRenderer = transform.parent.GetComponentInChildren<Renderer>();
             if (parentRenderer)
             {
                 renderer.sortingLayerID = parentRenderer.sortingLayerID;
