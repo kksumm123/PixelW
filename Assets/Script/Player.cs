@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 // todo : HP UI만들기 및 연동
 // maxHp 만들고, 좌측 상단에 만들기
-// todo : 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
+// clear 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
 // todo : 현재 소지 골드 표시하기
 // clear 공격시 앞으로 조금 전진하도록 (플레이어)
 // clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
