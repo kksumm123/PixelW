@@ -1,0 +1,404 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.13f1 (71691879b7f5) revision 7432472'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19043.1110; Version 2009; 64bit' Language: 'ko' Physical Memory: 32676 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+E:\Unity\2020.3.13f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/UnityProject/MyOwn/PixelW
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+8898
+Successfully changed project path to: C:/UnityProject/MyOwn/PixelW
+C:/UnityProject/MyOwn/PixelW
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 30.10 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.13f1 (71691879b7f5)
+[Subsystems] Discovering subsystems at path E:/Unity/2020.3.13f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/UnityProject/MyOwn/PixelW/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 3GB (ID=0x1b84)
+    Vendor:   
+    VRAM:     2988 MB
+    Driver:   27.21.14.5671
+Initialize mono
+Mono path[0] = 'E:/Unity/2020.3.13f1/Editor/Data/Managed'
+Mono path[1] = 'E:/Unity/2020.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'E:/Unity/2020.3.13f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56176
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: E:/Unity/2020.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.000703 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 32.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.211 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.002721 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 31.85 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.722 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.44 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2102 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 96.4 MB.
+System memory in use after: 96.4 MB.
+
+Unloading 33 unused Assets to reduce memory usage. Loaded Objects now: 2538.
+Total: 1.905900 ms (FindLiveObjects: 0.198800 ms CreateObjectMapping: 0.048300 ms MarkObjects: 1.558000 ms  DeleteObjects: 0.100100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/ColorSkies/Demo
+  artifactKey: Guid(ca1531e5c1b94b148aa5c5b445ba0a81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Demo using Guid(ca1531e5c1b94b148aa5c5b445ba0a81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfdc96fa2fa62d3450ab01809f894c3d') in 0.004062 seconds 
+  Import took 0.006357 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.965914 seconds.
+  path: Assets/ColorSkies/Textures
+  artifactKey: Guid(a69df2f7be3e8db409b1b980e31b9741) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures using Guid(a69df2f7be3e8db409b1b980e31b9741) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6a2bf173c781077ec82b5e80eadd8be') in 0.001817 seconds 
+  Import took 0.004363 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.755367 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Back_Tex.png
+  artifactKey: Guid(faa8113ee0b82404d87c52547a10cc91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Back_Tex.png using Guid(faa8113ee0b82404d87c52547a10cc91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd6a34663da4e525bded4908f8c80600') in 0.059729 seconds 
+  Import took 0.062322 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000118 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Right_Tex.png
+  artifactKey: Guid(aca887f2ebec15e47a0162f8ce72295f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Right_Tex.png using Guid(aca887f2ebec15e47a0162f8ce72295f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acae9e9a57936fe96a28c62c7606e08f') in 0.009316 seconds 
+  Import took 0.011360 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000109 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Up_Tex.png
+  artifactKey: Guid(d5c5dafb97f2e2e4aa4084c0857fc3f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Up_Tex.png using Guid(d5c5dafb97f2e2e4aa4084c0857fc3f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09187b32b54d25d485410a73278fca15') in 0.014341 seconds 
+  Import took 0.016374 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000103 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Front_Tex.png
+  artifactKey: Guid(0ff3184f83c61694f88e71685b7681cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Front_Tex.png using Guid(0ff3184f83c61694f88e71685b7681cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '128a62635c27b751c1e16864d5d3cde0') in 0.009580 seconds 
+  Import took 0.011761 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000110 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Left_Tex.png
+  artifactKey: Guid(521ba01b98a34334b97fe8fb50582cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Left_Tex.png using Guid(521ba01b98a34334b97fe8fb50582cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dae0a6100a082f8571eab720e4cbc1c9') in 0.007412 seconds 
+  Import took 0.009204 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000092 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Down_Tex.png
+  artifactKey: Guid(a890e4d5bb98bbc4f9a16e0db8faa8c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Down_Tex.png using Guid(a890e4d5bb98bbc4f9a16e0db8faa8c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6259f582230bc3803e100d4f9d4f743') in 0.006779 seconds 
+  Import took 0.008687 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.008534 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_5/Left_Tex.png
+  artifactKey: Guid(521ba01b98a34334b97fe8fb50582cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_5/Left_Tex.png using Guid(521ba01b98a34334b97fe8fb50582cf9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dae0a6100a082f8571eab720e4cbc1c9') in 0.005462 seconds 
+  Import took 0.007857 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.664726 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Back_Tex.png
+  artifactKey: Guid(4ce002b4dccc29342862558ba9ea05d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Back_Tex.png using Guid(4ce002b4dccc29342862558ba9ea05d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac6d075c3900226f4f80b9a16878e95f') in 0.006666 seconds 
+  Import took 0.009042 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000127 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Left_Tex.png
+  artifactKey: Guid(54c85a2234eacb242b4ee561ac995f0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Left_Tex.png using Guid(54c85a2234eacb242b4ee561ac995f0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea587db6743e8d77c99ced1cbe6c7579') in 0.006662 seconds 
+  Import took 0.008755 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000108 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Right_Tex.png
+  artifactKey: Guid(dab48f6609da7be4aae65265198dde18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Right_Tex.png using Guid(dab48f6609da7be4aae65265198dde18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b813b546a4e6d0a0f9004d9ce38fd214') in 0.007230 seconds 
+  Import took 0.009205 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000100 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Front_Tex.png
+  artifactKey: Guid(71de4bd32f3aa0d43b999affb1c3b38b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Front_Tex.png using Guid(71de4bd32f3aa0d43b999affb1c3b38b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a0b0918f1c54d0178ef392cf8b1ada7') in 0.006313 seconds 
+  Import took 0.008363 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000099 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Down_Tex.png
+  artifactKey: Guid(98078ce5a530b404ebfcf21998603672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Down_Tex.png using Guid(98078ce5a530b404ebfcf21998603672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bdd96cce72d6e8551103977f8f91f2e') in 0.006840 seconds 
+  Import took 0.009145 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000132 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Up_Tex.png
+  artifactKey: Guid(a8416f33edf509944a163c8fe94d24fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Up_Tex.png using Guid(a8416f33edf509944a163c8fe94d24fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f350aba9da55766922b41ad4efc0439') in 0.007355 seconds 
+  Import took 0.009511 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000584 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_4/Front_Tex.png
+  artifactKey: Guid(71de4bd32f3aa0d43b999affb1c3b38b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_4/Front_Tex.png using Guid(71de4bd32f3aa0d43b999affb1c3b38b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a0b0918f1c54d0178ef392cf8b1ada7') in 0.004551 seconds 
+  Import took 0.006744 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.321549 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Back_Tex.png
+  artifactKey: Guid(e88d0da9f62c13d40904c838a6dd00b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Back_Tex.png using Guid(e88d0da9f62c13d40904c838a6dd00b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb6b8b27477635997f9a624954abd6c1') in 0.007818 seconds 
+  Import took 0.010148 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000103 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Right_Tex.png
+  artifactKey: Guid(9cec472ff7443044ea6ec18c82bd0923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Right_Tex.png using Guid(9cec472ff7443044ea6ec18c82bd0923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f747eaed38d52e7970839dca06c8e3b') in 0.006323 seconds 
+  Import took 0.008212 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000106 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Front_Tex.png
+  artifactKey: Guid(ff763b7d888f8dc449d241f19294106b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Front_Tex.png using Guid(ff763b7d888f8dc449d241f19294106b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58698dbd3855c3b5b95052e00b2f73ff') in 0.006171 seconds 
+  Import took 0.008052 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000100 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Down_Tex.png
+  artifactKey: Guid(f5c10e8155f7ef2429f4ecfed1e81a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Down_Tex.png using Guid(f5c10e8155f7ef2429f4ecfed1e81a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1dc2d43bbce9ff387ac337005886661') in 0.006692 seconds 
+  Import took 0.008884 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000103 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Left_Tex.png
+  artifactKey: Guid(36b1e02dd68d74c40ab47d997320867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Left_Tex.png using Guid(36b1e02dd68d74c40ab47d997320867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '715a89cbbbcf95552aae0cafbee27bce') in 0.006103 seconds 
+  Import took 0.008015 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Up_Tex.png
+  artifactKey: Guid(43c6d7f45c9cb0247a1eb2a589bfa4df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Up_Tex.png using Guid(43c6d7f45c9cb0247a1eb2a589bfa4df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c26d807692bf38d31ff618593836e11') in 0.006241 seconds 
+  Import took 0.008292 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002371 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_3/Left_Tex.png
+  artifactKey: Guid(36b1e02dd68d74c40ab47d997320867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_3/Left_Tex.png using Guid(36b1e02dd68d74c40ab47d997320867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '715a89cbbbcf95552aae0cafbee27bce') in 0.004658 seconds 
+  Import took 0.007062 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.660889 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Back_Tex.png
+  artifactKey: Guid(ccf6463c9748e3641969f0675ca31557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Back_Tex.png using Guid(ccf6463c9748e3641969f0675ca31557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9be6a44f862cabde3fc443ffe3b2abe3') in 0.007059 seconds 
+  Import took 0.009507 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000102 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Right_Tex.png
+  artifactKey: Guid(19b2b1a141020bd43b39b581f1c66dcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Right_Tex.png using Guid(19b2b1a141020bd43b39b581f1c66dcb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96bdd132adf271a811d5e0754587e22b') in 0.006071 seconds 
+  Import took 0.007824 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000093 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Down_Tex.png
+  artifactKey: Guid(60256e2f8227cee4ab28d230b5abbc35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Down_Tex.png using Guid(60256e2f8227cee4ab28d230b5abbc35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e6ff32158268edb5a96ffb9b7784630') in 0.006286 seconds 
+  Import took 0.008143 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000105 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Front_Tex.png
+  artifactKey: Guid(73792e4787969994bb4c97e418591c41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Front_Tex.png using Guid(73792e4787969994bb4c97e418591c41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcd057a60123cbc73677c7aad243b9e1') in 0.006799 seconds 
+  Import took 0.008703 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000110 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Up_Tex.png
+  artifactKey: Guid(ce2c5305fe145864f9a6d953f6d091e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Up_Tex.png using Guid(ce2c5305fe145864f9a6d953f6d091e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a3d2ed7e7c55efe888faa51025613ee') in 0.007165 seconds 
+  Import took 0.009710 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000113 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_2/Left_Tex.png
+  artifactKey: Guid(5d49dc08e367f8d469f95ed9b795a73d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_2/Left_Tex.png using Guid(5d49dc08e367f8d469f95ed9b795a73d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd7ec16aa3206619b39d0aeea15964b') in 0.006633 seconds 
+  Import took 0.008493 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.658507 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Back_Tex.png
+  artifactKey: Guid(7f68f02c95f5a3c4e8232a5a2047a717) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Back_Tex.png using Guid(7f68f02c95f5a3c4e8232a5a2047a717) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c74817b835024837c8c0c6f26d304b48') in 0.006875 seconds 
+  Import took 0.009257 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000099 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Front_Tex.png
+  artifactKey: Guid(3f9dd857e107eea4dbc8fab7ebd80a13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Front_Tex.png using Guid(3f9dd857e107eea4dbc8fab7ebd80a13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1026b1dec4b7ecf867f950a1bb2479d') in 0.006666 seconds 
+  Import took 0.008599 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000095 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Up_Tex.png
+  artifactKey: Guid(58a9b7b6b89b47e48a9fb6017d34fe54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Up_Tex.png using Guid(58a9b7b6b89b47e48a9fb6017d34fe54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22301303a7431c2f2e44bbaac4b6c106') in 0.006830 seconds 
+  Import took 0.008752 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000100 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Left_Tex.png
+  artifactKey: Guid(e80644f2945153b4cbec6ea25b00bd87) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Left_Tex.png using Guid(e80644f2945153b4cbec6ea25b00bd87) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fe7a8a2cace34bc566b8719011dd439') in 0.006662 seconds 
+  Import took 0.008689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000124 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Down_Tex.png
+  artifactKey: Guid(b20a4e86d9bc1014081950eee3a2f5d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Down_Tex.png using Guid(b20a4e86d9bc1014081950eee3a2f5d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84de6d859059b7e7f1442816e53d1769') in 0.006299 seconds 
+  Import took 0.008414 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000132 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Right_Tex.png
+  artifactKey: Guid(29ebee78b691b3d4bb701eb7e8438b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Right_Tex.png using Guid(29ebee78b691b3d4bb701eb7e8438b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7268c86f3cc3f4af456a468ab8f79a4') in 0.006422 seconds 
+  Import took 0.008541 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003808 seconds.
+  path: Assets/ColorSkies/Textures/Skybox_8/Right_Tex.png
+  artifactKey: Guid(29ebee78b691b3d4bb701eb7e8438b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Textures/Skybox_8/Right_Tex.png using Guid(29ebee78b691b3d4bb701eb7e8438b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7268c86f3cc3f4af456a468ab8f79a4') in 0.004669 seconds 
+  Import took 0.006801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.442308 seconds.
+  path: Assets/ColorSkies/Demo/Scripts
+  artifactKey: Guid(7080738d246006747964bbce844203b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ColorSkies/Demo/Scripts using Guid(7080738d246006747964bbce844203b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66b1b6eb0e8c755f69fd27692cb1abea') in 0.002093 seconds 
+  Import took 0.004885 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003037 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.46 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.660 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.42 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2094 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 96.3 MB.
+System memory in use after: 96.2 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2541.
+Total: 2.270100 ms (FindLiveObjects: 0.190800 ms CreateObjectMapping: 0.040200 ms MarkObjects: 1.912900 ms  DeleteObjects: 0.125400 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
