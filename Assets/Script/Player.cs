@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // clear : HP UI만들기 및 연동 - maxHp 만들고, 좌측 상단에 만들기
 // clear 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
-// todo : 현재 소지 골드 표시하기
+// clear 현재 소지 골드 표시하기
 // todo : 골드 먹을 때 value text 보여주기
 // clear 공격시 앞으로 조금 전진하도록 (플레이어)
 // clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
@@ -698,6 +698,11 @@ public class Player : Actor
     public string PlayersHpText()
     {
         return $"{hp} / {maxHp}";
+    }
+
+    public string PlayersGold()
+    {
+        return $"{string.Format("{0:n0}", gold)} G";
     }
     #endregion Methods
 }
