@@ -39,6 +39,10 @@ public class TextObject : MonoBehaviour
         }
         Destroy(gameObject, 2);
     }
+    void Update()
+    {
+        transform.rotation = Quaternion.identity;
+    }
 
     public IEnumerator SetText(string value)
     {
