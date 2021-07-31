@@ -14,11 +14,11 @@ public class TextObjectManager : MonoBehaviour
         textObjectOnMemory = (GameObject)Resources.Load(textObjectString);
     }
 
-    void NewTextObject(Vector3 position, string text, Color color)
+    public void NewTextObject(Transform tr, string text, Color color)
     {
-        var newGo = Instantiate(textObjectOnMemory, position, Quaternion.identity);
+        var newGo = Instantiate(textObjectOnMemory, tr.position, Quaternion.identity, tr.parent);
         var newGoCS = newGo.GetComponent<TextObject>();
-        newGoCS.SetText(text);
-        newGoCS.SetColor(color);
+        StartCoroutine(newGoCS.SetText(text));
+        StartCoroutine(newGoCS.SetColor(color));
     }
 }

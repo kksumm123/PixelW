@@ -123,6 +123,7 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            TextObjectManager.instance.NewTextObject(transform, value.ToString(), Color.yellow);
             transform.rotation = Quaternion.identity;
             Player.Instance.GetGold(value);
             animator.Play("Disappear");
