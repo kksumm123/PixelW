@@ -15,11 +15,11 @@ public class GoldCoin : MonoBehaviour
     float gravityAcceleration = 9.81f;
     float gravityVelocity;
     float s;
-    float risingMinTime = 0.1f;
-    float risingMaxTime = 0.3f;
+    float risingMinTime = 0.05f;
+    float risingMaxTime = 0.1f;
     float risingSpeed = 10;
     float flySpeed = 5;
-    float rotationZValue = 20;
+    float rotationZValue = 30;
     IEnumerator Start()
     {
         GravityInit();
