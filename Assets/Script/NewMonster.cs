@@ -242,7 +242,7 @@ public class NewMonster : Actor
     int coinMaxCount = 5;
     void SpawnCoins()
     {
-        var coinCount = Mathf.Round(Random.Range(0, coinMaxCount));
+        var coinCount = Mathf.RoundToInt(Random.Range(0, coinMaxCount));
         var coinGo = (GameObject)Resources.Load(goldCoinString);
         for (int i = 0; i < coinCount; i++)
         {
