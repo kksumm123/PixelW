@@ -24,7 +24,7 @@ public class Actor : MonoBehaviour
     }
     protected void TakeKnockBack(Vector3 enemyForward)
     {
-        rigid.velocity = Vector2.zero;
+        rigid.Sleep();
         rigid.AddForce(new Vector2(200 * enemyForward.z, 50));
     }
 }
