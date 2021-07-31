@@ -7,7 +7,7 @@ using UnityEngine;
 // todo : 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
 // todo : 현재 소지 골드 표시하기
 // todo : 공격시 앞으로 조금 전진하도록 (플레이어, 몬스터)
-// todo : 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
+// clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
 
 public class Player : Actor
 {
@@ -20,7 +20,6 @@ public class Player : Actor
         m_instance = this;
     }
 
-    Transform tr;
     BoxCollider2D boxCol2D;
     Animator animator;
     Transform blockFlashTr;
@@ -38,21 +37,21 @@ public class Player : Actor
     #region AboutRay
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position
+        Gizmos.DrawRay(base.transform.position
             + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
-        Gizmos.DrawRay(transform.position
+        Gizmos.DrawRay(base.transform.position
             + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
-        Gizmos.DrawRay(transform.position
+        Gizmos.DrawRay(base.transform.position
             + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position
+        Gizmos.DrawRay(base.transform.position
             + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
             , Vector2.left * slideRayLength);
-        Gizmos.DrawRay(transform.position
+        Gizmos.DrawRay(base.transform.position
             + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
                  , Vector2.right * slideRayLength);
     }
@@ -69,12 +68,12 @@ public class Player : Actor
     float originSpeed;
     void Start()
     {
-        tr = transform;
+        transform = base.transform;
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
-        blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
+        blockFlashTr = base.transform.Find("Sprite/BlockFlashPosition");
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
-        attackBoxTr = transform.Find("Sprite/AttackBox");
+        attackBoxTr = base.transform.Find("Sprite/AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
@@ -191,7 +190,7 @@ public class Player : Actor
     [SerializeField] LayerMask groundLayer;
     private bool ChkGound()
     {
-        var pos = tr.position;
+        var pos = transform.position;
         if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down, groundRayLength, groundLayer))
             return true;
@@ -212,15 +211,15 @@ public class Player : Actor
     {
         if (State == StateType.Jump || State == StateType.Fall)
         {
-            if (transform.forward.z == 1)
+            if (base.transform.forward.z == 1)
             {
-                if (ChkRay(tr.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                if (ChkRay(transform.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
                     , Vector2.right, slideRayLength, groundLayer))
                     return true;
             }
             else
             {
-                if (ChkRay(tr.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
+                if (ChkRay(transform.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
                 , Vector2.left, slideRayLength, groundLayer))
                     return true;
             }
@@ -251,11 +250,11 @@ public class Player : Actor
         if (moveX != 0)
         {
             if (ChkBlocking() == false)
-                transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
+                base.transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
 
-            var pos = tr.position;
+            var pos = transform.position;
             pos.x += moveX * normalSpeed * Time.deltaTime;
-            tr.position = pos;
+            transform.position = pos;
         }
     }
     #endregion Move
@@ -268,9 +267,9 @@ public class Player : Actor
     {
         if (isRolling)
         {
-            var pos = tr.position;
-            pos.x += transform.forward.z * normalSpeed * Time.deltaTime;
-            tr.position = pos;
+            var pos = transform.position;
+            pos.x += base.transform.forward.z * normalSpeed * Time.deltaTime;
+            transform.position = pos;
         }
         else if (ChkGound() && Input.GetKey(KeyCode.LeftShift))
         {
@@ -312,11 +311,11 @@ public class Player : Actor
 
                 rigid.velocity = Vector2.zero;
 
-                var forZ = transform.forward.z;
+                var forZ = base.transform.forward.z;
                 rigid.AddForce(
                     new Vector2(slideJumpForceX * forZ * -1, slideJumpForceY));
-                transform.rotation =
-                    new Quaternion(0, transform.rotation.y == 0 ? 180 : 0, 0, 0);
+                base.transform.rotation =
+                    new Quaternion(0, base.transform.rotation.y == 0 ? 180 : 0, 0, 0);
             }
         }
     }
@@ -387,7 +386,7 @@ public class Player : Actor
         attackedEnemies = Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
         {
-            item.GetComponent<NewMonster>().TakeHit(damage, tr.forward);
+            item.GetComponent<NewMonster>().TakeHit(damage, transform.forward);
             WiggleScreen();
         }
         yield return new WaitForSeconds(delay);
@@ -452,7 +451,7 @@ public class Player : Actor
         if (hp > 0)
         {
             if (FrontBlock(monsterTr) == true && isParrying == true)
-                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+                Instantiate(blockFlashEffectGo, blockFlashTr.position, base.transform.rotation);
             else if (isInvincibility == true)
                 return;
             else
@@ -467,7 +466,7 @@ public class Player : Actor
 
     private bool FrontBlock(Transform monsterTr)
     {// true = Parrying, false = Fail Parrinying
-        var distanceX = monsterTr.position.x - transform.position.x;
+        var distanceX = monsterTr.position.x - base.transform.position.x;
 
         return IsZero(transform.rotation.eulerAngles.y)
             ? IsPositive(distanceX) : IsNegative(distanceX);
