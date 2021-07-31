@@ -20,7 +20,7 @@ public class TextObjectManager : MonoBehaviour
     public void NewTextObject(Transform tr, string text, Color color)
     {
         var randomPosValue = new Vector3(Random.Range(-randPosValueX, randPosValueX), Random.Range(-randPosValueY, randPosValueY), 0);
-        var newGo = Instantiate(textObjectOnMemory, tr.position + randomPosValue, Quaternion.identity, tr.parent);
+        var newGo = Instantiate(textObjectOnMemory, tr.position + randomPosValue, Quaternion.identity, tr);
         var newGoCS = newGo.GetComponent<TextObject>();
         StartCoroutine(newGoCS.SetText(text));
         StartCoroutine(newGoCS.SetColor(color));
