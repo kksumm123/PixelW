@@ -33,6 +33,7 @@ public class GoldUI : MonoBehaviour
     float addValueShowFadeTime = 1f;
     public void AddValueText(int addValue)
     {
+        goldAddValueText.DOKill();
         goldAddValueText.DOFade(1, 0.001f);
         goldAddValueText.text = $" + {addValue} G";
         goldAddValueText.DOFade(0, addValueShowFadeTime).SetDelay(addValueShowTime);
