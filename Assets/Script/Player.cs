@@ -515,6 +515,7 @@ public class Player : Actor
     IEnumerator DeathCo()
     {
         rigid.isKinematic = true;
+        rigid.velocity = Vector2.zero;
         boxCol2D.enabled = false;
         yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);

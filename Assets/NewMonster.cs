@@ -146,6 +146,7 @@ public class NewMonster : Actor
     {
         totalMonster.Remove(this);
         rigid.isKinematic = true;
+        rigid.velocity = Vector2.zero;
         boxCol2D.enabled = false;
         State = StateType.Death;
         PlayAnim(State.ToString());
