@@ -23,7 +23,7 @@ public class GoldCoin : MonoBehaviour
         Init();
 
         circleCol2D = GetComponent<CircleCollider2D>();
-        rayDistance = circleCol2D.radius + 0.01f;
+        rayDistance = 0.01f;
         wallLayer = 1 << LayerMask.NameToLayer("Ground");
         Debug.Assert(wallLayer != 0, "·¹ÀÌ¾î ÁöÁ¤¾ÈµÊ");
 
@@ -63,10 +63,11 @@ public class GoldCoin : MonoBehaviour
             Init(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
     }
 
+    Vector2 rayStartPos;
     bool IsGround()
     { // true = ¶¥¿¡ ´êÀ½, false = ¶¥¿¡ ¾È´êÀ½
-        ray = Physics2D.Raycast(
-                    transform.position, Vector2.down, rayDistance, wallLayer);
+        rayStartPos = transform.position - new Vector3(0, circleCol2D.radius, 0);
+        ray = Physics2D.Raycast(rayStartPos, Vector2.down, rayDistance, wallLayer);
         return ray.transform;
     }
 
