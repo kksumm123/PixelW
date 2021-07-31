@@ -7,11 +7,19 @@ public class GoldCoin : MonoBehaviour
     Animator animator;
 
     int value;
-    void Start()
+    [SerializeField] float risingTime = 0.5f;
+    [SerializeField] float risingSpeed = 3;
+    IEnumerator Start()
     {
         animator = GetComponentInChildren<Animator>();
         value = Random.Range(0, 50);
         animator.Play("Idle");
+        var endTime = Time.time + risingTime;
+        while (Time.time < endTime)
+        {
+            transform.Translate(risingSpeed * Time.deltaTime * Vector2.up);
+            yield return null;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
