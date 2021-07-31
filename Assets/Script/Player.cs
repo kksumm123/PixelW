@@ -379,9 +379,8 @@ public class Player : Actor
         yield return new WaitForSeconds(attackApplyDelay);
         attackedEnemies = null;
         // 실제 공격 적용
-        var point = new Vector2(
-            attackBoxTr.transform.position.x
-            , attackBoxTr.transform.position.y);
+        var point = new Vector2(attackBoxTr.transform.position.x
+                        , attackBoxTr.transform.position.y);
         attackedEnemies = Physics2D.OverlapBoxAll(point, attackBoxSize, 90, enemyLayer);
         foreach (var item in attackedEnemies)
         {
