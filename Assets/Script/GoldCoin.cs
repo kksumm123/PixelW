@@ -9,13 +9,14 @@ public class GoldCoin : MonoBehaviour
     Animator animator;
 
     float rayDistance = 0;
-    int value;
-    int minValue = 5;
-    int maxValue = 25;
+    int goldValue;
+    int goldMinValue = 5;
+    int goldMaxValue = 25;
     float gravityAcceleration = 9.81f;
     float gravityVelocity;
     float s;
-    float risingTime = 0.2f;
+    float risingMinTime = 0.1f;
+    float risingMaxTime = 0.3f;
     float risingSpeed = 10;
     float flySpeed = 5;
     float rotationZValue = 20;
@@ -29,14 +30,14 @@ public class GoldCoin : MonoBehaviour
         Debug.Assert(wallLayer != 0, "레이어 지정안됨");
         animator = GetComponentInChildren<Animator>();
 
-        value = Random.Range(minValue, maxValue + 1);
+        goldValue = Random.Range(goldMinValue, goldMaxValue + 1);
         transform.position += new Vector3(0, 0.25f, 0);
         transform.rotation = Quaternion.Euler(
                         transform.rotation.eulerAngles
                         + new Vector3(0, 0, Random.Range(-rotationZValue, rotationZValue))
                         );
         // Rising
-        var endTime = Time.time + risingTime;
+        var endTime = Time.time + Random.Range(risingMinTime, risingMaxTime);
         while (Time.time < endTime)
         {
             if (IsReachUpLeftDown() == true)
@@ -125,9 +126,9 @@ public class GoldCoin : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             this.circleCol2D.enabled = false;
-            TextObjectManager.instance.NewTextObject(transform, value.ToString(), Color.yellow);
+            TextObjectManager.instance.NewTextObject(transform, goldValue.ToString(), Color.yellow);
             transform.rotation = Quaternion.identity;
-            Player.Instance.GetGold(value);
+            Player.Instance.GetGold(goldValue);
             animator.Play("Disappear");
             Destroy(gameObject, 3);
         }
