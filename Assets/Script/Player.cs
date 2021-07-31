@@ -2,6 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// todo : HP UI만들기 및 연동
+// maxHp 만들고, 좌측 상단에 만들기
+// todo : 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
+// todo : 현재 소지 골드 표시하기
+// todo : 공격시 앞으로 조금 전진하도록 (플레이어, 몬스터)
+// todo : 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
 
 public class Player : Functions
 {
@@ -230,7 +236,6 @@ public class Player : Functions
 
     #endregion StateUpdate
 
-
     #region Move
     float moveX = 0;
     private void Move()
@@ -446,6 +451,74 @@ public class Player : Functions
     }
     #endregion Block
 
+    #region TakeHit
+    public void TakeHit(int damage, Transform monsterTr)
+    {
+        if (hp > 0)
+        {
+            if (FrontBlock(monsterTr) == true && isParrying == true)
+                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+            else if (isInvincibility == true)
+                return;
+            else
+            {
+                hp -= damage;
+                TakeKnockBack();
+                WiggleScreen();
+                StartCoroutine(HitCo());
+            }
+        }
+    }
+    void TakeKnockBack()
+    {
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(new Vector2(200 * myForward.z * -1, 50));
+    }
+
+    private bool FrontBlock(Transform monsterTr)
+    {// true = Parrying, false = Fail Parrinying
+        var distanceX = monsterTr.position.x - transform.position.x;
+
+        return IsZero(transform.rotation.eulerAngles.y)
+            ? IsPositive(distanceX) : IsNegative(distanceX);
+
+        bool IsZero(float value)
+        {
+            return value == 0;
+        }
+        bool IsPositive(float value)
+        {
+            return value > 0;
+        }
+        bool IsNegative(float value)
+        {
+            return value < 0;
+        }
+    }
+
+    [SerializeField] float hitAnimationLenth = 0.273f;
+    IEnumerator HitCo()
+    {
+        State = StateType.Hit;
+        yield return new WaitForSeconds(hitAnimationLenth);
+        if (hp > 0)
+            State = StateType.AttackAndHitExit;
+        else
+        {
+            State = StateType.Death;
+            StartCoroutine(DeathCo());
+        }
+    }
+
+    [SerializeField] float deathTime = 1;
+    IEnumerator DeathCo()
+    {
+        rigid.isKinematic = true;
+        boxCol2D.enabled = false;
+        yield return new WaitForSeconds(deathTime);
+        Destroy(gameObject);
+    }
+    #endregion TakeHit
 
     #region AnimForState
     private void AnimForState()
@@ -602,77 +675,8 @@ public class Player : Functions
         Death,
     }
     #endregion AnimationType
-    #region TakeHit
-    public void TakeHit(int damage, Transform monsterTr)
-    {
-        if (hp > 0)
-        {
-            if (FrontBlock(monsterTr) == true && isParrying == true)
-                Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
-            else if (isInvincibility == true)
-                return;
-            else
-            {
-                hp -= damage;
-                TakeKnockBack();
-                WiggleScreen();
-                StartCoroutine(HitCo());
-            }
-        }
-    }
-    void TakeKnockBack()
-    {
-        rigid.velocity = Vector2.zero;
-        rigid.AddForce(new Vector2(200 * myForward.z * -1, 50));
-    }
-
-    private bool FrontBlock(Transform monsterTr)
-    {// true = Parrying, false = Fail Parrinying
-        var distanceX = monsterTr.position.x - transform.position.x;
-
-        return IsZero(transform.rotation.eulerAngles.y)
-            ? IsPositive(distanceX) : IsNegative(distanceX);
-
-        bool IsZero(float value)
-        {
-            return value == 0;
-        }
-        bool IsPositive(float value)
-        {
-            return value > 0;
-        }
-        bool IsNegative(float value)
-        {
-            return value < 0;
-        }
-    }
-
-    [SerializeField] float hitAnimationLenth = 0.273f;
-    IEnumerator HitCo()
-    {
-        State = StateType.Hit;
-        yield return new WaitForSeconds(hitAnimationLenth);
-        if (hp > 0)
-            State = StateType.AttackAndHitExit;
-        else
-        {
-            State = StateType.Death;
-            StartCoroutine(DeathCo());
-        }
-    }
-
-    [SerializeField] float deathTime = 1;
-    IEnumerator DeathCo()
-    {
-        rigid.isKinematic = true;
-        boxCol2D.enabled = false;
-        yield return new WaitForSeconds(deathTime);
-        Destroy(gameObject);
-    }
-    #endregion TakeHit
 
     #region Methods
-
     void OnDestroy()
     {
         m_instance = null;
