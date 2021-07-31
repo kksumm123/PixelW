@@ -126,11 +126,13 @@ public class Player : Actor
 
             if (IsGound())
             {
-                if (State != StateType.Ground && State != StateType.Run)
+                if (moveX == 0)
                 {
                     State = StateType.Ground;
                     rigid.velocity = Vector2.zero;
                 }
+                else
+                    State = StateType.Run;
             }
             else
             {
@@ -143,7 +145,7 @@ public class Player : Actor
                         State = StateType.Jump;
                 }
 
-                if (IsWall())
+                if (IsWallSlide())
                     State = StateType.WallSlide;
             }
             if (State != StateType.Jump && State != StateType.Fall
@@ -193,7 +195,7 @@ public class Player : Actor
     }
     #endregion IsBlocking
     #region IsGound
-    float groundRayOffsetX = 0.2f;
+    float groundRayOffsetX = 0.3f;
     float groundRayOffsetY = 0.2f;
     float groundRayLength = 0.2f;
     LayerMask groundLayer;
@@ -216,23 +218,44 @@ public class Player : Actor
     float slideRayOffsetX = 0;
     float slideRayOffsetY = 0;
     float slideRayLength = 0.01f;
-    private bool IsWall()
+    private bool IsWallSlide()
     {
         if (State == StateType.Jump || State == StateType.Fall)
         {
-            if (base.transform.forward.z == 1)
-            {
-                if (ChkRay(transform.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
-                    , Vector2.right, slideRayLength, groundLayer))
-                    return true;
-            }
-            else
-            {
-                if (ChkRay(transform.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
-                , Vector2.left, slideRayLength, groundLayer))
-                    return true;
-            }
+            if (IsWall())
+                return true;
         }
+
+        return false;
+    }
+
+    bool IsWall()
+    {
+        if (transform.forward.z == 1)
+        {
+            if (IsWallRight())
+                return true;
+        }
+        else
+        {
+            if (IsWallLeft())
+                return true;
+        }
+
+        return false;
+    }
+    bool IsWallRight()
+    {
+        if (ChkRay(transform.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                , Vector2.right, slideRayLength, groundLayer))
+            return true;
+        return false;
+    }
+    bool IsWallLeft()
+    {
+        if (ChkRay(transform.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
+            , Vector2.left, slideRayLength, groundLayer))
+            return true;
         return false;
     }
     #endregion IsWall
@@ -258,16 +281,17 @@ public class Player : Actor
 
         if (moveX != 0)
         {
+            if (moveX == -1 && IsWallLeft() == true)
+                return;
+            if (moveX == 1 && IsWallRight() == true)
+                return;
+
             if (IsBlocking() == false)
                 base.transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
-
-            State = StateType.Run;
             var pos = transform.position;
             pos.x += moveX * normalSpeed * Time.deltaTime;
             transform.position = pos;
         }
-        else
-            State = StateType.Ground;
     }
     #endregion Move
 

@@ -185,6 +185,9 @@ MonoBehaviour:
   hp: 5555555
   damage: 5
   gold: 0
+  groundRayOffsetX: 0.3
+  groundRayOffsetY: 0.2
+  groundRayLength: 0.2
 --- !u!50 &665133592
 Rigidbody2D:
   serializedVersion: 4
@@ -230,7 +233,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 1.2}
+  m_Size: {x: 0.65, y: 1.2}
   m_EdgeRadius: 0
 --- !u!1 &4501081578273244979
 GameObject:
