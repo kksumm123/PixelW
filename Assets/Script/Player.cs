@@ -16,6 +16,9 @@ using UnityEngine;
 // clear 버그 - WallSlide 발동 후 풀리지않음 
 // clear 데미지 수치 랜덤화
 // clear WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
+// clear 맵 크기 좀더 키움
+// clear 몬스터가 플레이어 발견시 바로 rotate 하도록 수정
+// clear 몬스터 마릿수 카운트 UI 완성
 
 public class Player : Actor
 {
