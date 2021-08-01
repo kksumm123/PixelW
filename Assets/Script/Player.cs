@@ -19,6 +19,10 @@ using UnityEngine;
 // clear 맵 크기 좀더 키움
 // clear 몬스터가 플레이어 발견시 바로 rotate 하도록 수정
 // clear 몬스터 마릿수 카운트 UI 완성
+// todo 몬스터 HPBar 추가
+// todo 몬스터 다양하게
+// todo 조작키 알림 UI 만들기
+// todo 다음 맵으로 넘어가기
 
 public class Player : Actor
 {
