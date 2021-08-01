@@ -5,10 +5,42 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     protected Rigidbody2D rigid;
+    [SerializeField] protected int hp;
+    int m_maxHp;
+    protected int MaxHp
+    {
+        get
+        {
+            Debug.Assert(m_maxHp != 0, "SetMaxHpAndHp()호출할 것, maxHp 할당 해줘야 함");
+            return m_maxHp;
+        }
+        set => m_maxHp = value;
+    }
+
+    [SerializeField] int m_power;
+    protected int Power
+    {
+        get
+        {
+            Debug.Assert(m_power != 0, "power 할당 해줘야 함");
+            return CalcPower(m_power);
+        }
+        set
+        {
+            m_power = value;
+        }
+    }
+
     protected void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody2D>();
     }
+
+    protected void SetMaxHpAndHp(int _maxHpValue)
+    {
+        hp = MaxHp = _maxHpValue;
+    }
+
     protected void StopCo(Coroutine handle)
     {
         if (handle != null)
@@ -26,5 +58,14 @@ public class Actor : MonoBehaviour
     {
         rigid.Sleep();
         rigid.AddForce(new Vector2(200 * enemyForward.z, 50));
+    }
+
+    protected int CalcPower(int power)
+    {
+        var calcValue = (power * 0.2f);
+        var minPower = power - calcValue;
+        var maxPower = power + calcValue;
+
+        return Mathf.RoundToInt(Random.Range(minPower, maxPower));
     }
 }

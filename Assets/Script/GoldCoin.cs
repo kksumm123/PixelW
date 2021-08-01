@@ -67,7 +67,7 @@ public class GoldCoin : MonoBehaviour
     void Update()
     {
         if (IsGround() == false)
-            gravityAccelerationMove(); // ¶¥¿¡ ¾È´ê¾ÒÀ¸¸é
+            GravityAccelerationMove(); // ¶¥¿¡ ¾È´ê¾ÒÀ¸¸é
         else
             GravityInit(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
     }
@@ -95,7 +95,7 @@ public class GoldCoin : MonoBehaviour
     }
 
     float t;
-    void gravityAccelerationMove()
+    void GravityAccelerationMove()
     {
         t = Time.deltaTime;
 

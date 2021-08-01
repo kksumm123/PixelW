@@ -33,12 +33,9 @@ public class Player : Actor
     Transform blockFlashTr;
     GameObject blockFlashEffectGo;
     readonly string blockFlashEffectString = "BlockFlashEffect";
-
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-    [SerializeField] int hp;
-    int maxHp = 500;
-    [SerializeField] int damage = 5;
+    [SerializeField] int maxHp = 500;
     [SerializeField] int gold = 0;
     float normalSpeed = 5f;
     float battleSpeed = 0.5f;
@@ -80,16 +77,16 @@ public class Player : Actor
     #region Start()
     float originSpeed;
     void Start()
-    {
+    {   
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
-        blockFlashTr = base.transform.Find("Sprite/BlockFlashPosition");
+        blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
-        attackBoxTr = base.transform.Find("Sprite/AttackBox");
+        attackBoxTr = transform.Find("Sprite/AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
-        hp = maxHp;
+        SetMaxHpAndHp(maxHp);
 
         void SetGroundRaySetting()
         {
@@ -440,7 +437,7 @@ public class Player : Actor
         StartCoroutine(AttackMoveCo());
         foreach (var item in attackedEnemies)
         {
-            item.GetComponent<NewMonster>().TakeHit(damage, transform.forward);
+            item.GetComponent<NewMonster>().TakeHit(Power, transform.forward);
             WiggleScreen();
         }
         yield return new WaitForSeconds(delay);
@@ -752,11 +749,11 @@ public class Player : Actor
     }
     public float PlayersHPRate()
     {
-        return (float)hp / maxHp;
+        return (float)hp / MaxHp;
     }
     public string PlayersHpText()
     {
-        return $"{hp} / {maxHp}";
+        return $"{hp} / {MaxHp}";
     }
 
     public string PlayersGold()

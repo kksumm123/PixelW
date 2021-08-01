@@ -26,11 +26,8 @@ public class NewMonster : Actor
     }
     Coroutine currnetCoHandle;
     [SerializeField] LayerMask playerLayer;
-
-
     [SerializeField] bool isAlive = false;
-    [SerializeField] int hp = 20;
-    [SerializeField] int power = 5;
+    [SerializeField] int maxHp = 500;
     [SerializeField] float speed = 3;
     #endregion Init
     IEnumerator Start()
@@ -43,6 +40,7 @@ public class NewMonster : Actor
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
+        SetMaxHpAndHp(maxHp);
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
         CurrentFSM = IdleCo;
@@ -121,7 +119,7 @@ public class NewMonster : Actor
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
-            item.GetComponent<Player>().TakeHit(power, transform);
+            item.GetComponent<Player>().TakeHit(Power, transform);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentFSM = ChaseCo;
