@@ -13,7 +13,7 @@ using UnityEngine;
 //-------------
 // 일요일
 // clear 버그 - 방패 올린 상태로 구를시, 속도가 안돌아옴 
-// todo : 버그 - WallSlide 발동 후 풀리지않음 
+// clear 버그 - WallSlide 발동 후 풀리지않음 
 // todo : 데미지 수치 랜덤화
 // todo : WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
 
@@ -130,8 +130,6 @@ public class Player : Actor
 
         if (State != StateType.Hit && IsBattle() == false)
         {
-            var velo = rigid.velocity;
-
             if (IsGound())
             {
                 if (moveX == 0)
@@ -144,21 +142,23 @@ public class Player : Actor
             }
             else
             {
-                if (State != StateType.WallSlide)
+                if (IsWall() == false)
                 {
-                    if (velo.y < 0)
-                        State = StateType.Fall;
+                    var velo = rigid.velocity;
 
                     if (velo.y > 0)
                         State = StateType.Jump;
+
+                    if (velo.y < 0)
+                        State = StateType.Fall;
                 }
 
                 if (IsWallSlide())
                     State = StateType.WallSlide;
             }
-            if (State != StateType.Jump && State != StateType.Fall
-                && State != StateType.WallSlide && moveX != 0)
-                State = StateType.Run;
+            //if (State != StateType.Jump && State != StateType.Fall
+            //    && State != StateType.WallSlide && moveX != 0)
+            //    State = StateType.Run;
         }
     }
     #region IsAttackAndBlock
@@ -209,16 +209,20 @@ public class Player : Actor
     LayerMask groundLayer;
     private bool IsGound()
     {
-        var pos = transform.position;
-        if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
-        if (ChkRay(pos + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
-        if (ChkRay(pos + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
-            , Vector2.down, groundRayLength, groundLayer))
-            return true;
+        var velo = rigid.velocity;
+        if (Mathf.Approximately(velo.y, 0) == true)
+        {
+            var pos = transform.position;
+            if (ChkRay(pos + new Vector3(0, groundRayOffsetY, 0)
+                , Vector2.down, groundRayLength, groundLayer))
+                return true;
+            if (ChkRay(pos + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
+                , Vector2.down, groundRayLength, groundLayer))
+                return true;
+            if (ChkRay(pos + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
+                , Vector2.down, groundRayLength, groundLayer))
+                return true;
+        }
         return false;
     }
     #endregion IsGound
