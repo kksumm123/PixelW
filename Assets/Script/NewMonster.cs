@@ -81,6 +81,9 @@ public class NewMonster : Actor
     [SerializeField] float rotateDelay = 0.5f;
     IEnumerator ChaseCo()
     {
+        rotationY = dirforPlayer.x > 0 ? 0 : 180;
+        yield return new WaitForSeconds(RandomDelayTime(0.5f));
+
         State = StateType.Walk;
         PlayAnim(State.ToString());
 
