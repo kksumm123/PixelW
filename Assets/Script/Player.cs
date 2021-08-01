@@ -12,6 +12,8 @@ using UnityEngine;
 // clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
 //-------------
 // 일요일
+// clear 버그 - 방패 올린 상태로 구를시, 속도가 안돌아옴 
+// todo : 버그 - WallSlide 발동 후 풀리지않음 
 // todo : 데미지 수치 랜덤화
 // todo : WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
 
@@ -316,6 +318,7 @@ public class Player : Actor
         else if (IsGound() && Input.GetKey(KeyCode.LeftShift))
         {
             State = StateType.Roll;
+            normalSpeed = originSpeed;
             StartCoroutine(IsRollingCo());
         }
     }
