@@ -36,6 +36,8 @@ public class Player : Actor
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int maxHp = 500;
+    [SerializeField] int m_power = 5;
+    int Power { get => CalcPower(m_power); }
     [SerializeField] int gold = 0;
     float normalSpeed = 5f;
     float battleSpeed = 0.5f;

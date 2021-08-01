@@ -16,21 +16,6 @@ public class Actor : MonoBehaviour
         }
         set => m_maxHp = value;
     }
-
-    [SerializeField] int m_power;
-    protected int Power
-    {
-        get
-        {
-            Debug.Assert(m_power != 0, "power 할당 해줘야 함");
-            return CalcPower(m_power);
-        }
-        set
-        {
-            m_power = value;
-        }
-    }
-
     protected void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody2D>();
