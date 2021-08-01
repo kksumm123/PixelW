@@ -82,6 +82,7 @@ public class NewMonster : Actor
     IEnumerator ChaseCo()
     {
         rotationY = dirforPlayer.x > 0 ? 0 : 180;
+        tr.rotation = Quaternion.Euler(0, rotationY, 0);
         yield return new WaitForSeconds(RandomDelayTime(0.5f));
 
         State = StateType.Walk;
