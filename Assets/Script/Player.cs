@@ -14,7 +14,7 @@ using UnityEngine;
 // 일요일
 // clear 버그 - 방패 올린 상태로 구를시, 속도가 안돌아옴 
 // clear 버그 - WallSlide 발동 후 풀리지않음 
-// todo : 데미지 수치 랜덤화
+// clear 데미지 수치 랜덤화
 // clear WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
 
 public class Player : Actor

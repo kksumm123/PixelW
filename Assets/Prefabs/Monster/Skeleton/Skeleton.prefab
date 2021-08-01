@@ -242,12 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e819f2c47d99142842edc7b1fc3147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 20
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
   isAlive: 0
-  hp: 20
-  damage: 5
+  maxHp: 20
+  m_power: 5
   speed: 3
   rotateDelay: 0.5
   attackTime: 1
