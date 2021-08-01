@@ -15,7 +15,7 @@ using UnityEngine;
 // clear 버그 - 방패 올린 상태로 구를시, 속도가 안돌아옴 
 // clear 버그 - WallSlide 발동 후 풀리지않음 
 // todo : 데미지 수치 랜덤화
-// todo : WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
+// clear WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
 
 public class Player : Actor
 {
@@ -47,22 +47,25 @@ public class Player : Actor
     #region AboutRay
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(base.transform.position
+        Gizmos.DrawRay(transform.position
             + new Vector3(0, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
-        Gizmos.DrawRay(base.transform.position
+        Gizmos.DrawRay(transform.position
             + new Vector3(-groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
-        Gizmos.DrawRay(base.transform.position
+        Gizmos.DrawRay(transform.position
             + new Vector3(groundRayOffsetX, groundRayOffsetY, 0)
             , Vector2.down * groundRayLength);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(base.transform.position
-            + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
+        Gizmos.DrawRay(transform.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
             , Vector2.left * slideRayLength);
-        Gizmos.DrawRay(base.transform.position
-            + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+        Gizmos.DrawRay(transform.position + new Vector3(-slideRayOffsetX, 0, 0)
+            , Vector2.left * slideRayLength);
+
+        Gizmos.DrawRay(transform.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
+                 , Vector2.right * slideRayLength);
+        Gizmos.DrawRay(transform.position + new Vector3(slideRayOffsetX, 0, 0)
                  , Vector2.right * slideRayLength);
     }
 
@@ -142,8 +145,8 @@ public class Player : Actor
             }
             else
             {
-                if (IsWall() == false)
-                {
+                if (IsWall() == false)  
+                {   
                     var velo = rigid.velocity;
 
                     if (velo.y > 0)
@@ -260,14 +263,18 @@ public class Player : Actor
     {
         if (ChkRay(transform.position + new Vector3(slideRayOffsetX, slideRayOffsetY, 0)
                 , Vector2.right, slideRayLength, groundLayer))
-            return true;
+            if (ChkRay(transform.position + new Vector3(slideRayOffsetX, 0, 0)
+                , Vector2.right, slideRayLength, groundLayer))
+                return true;
         return false;
     }
     bool IsWallLeft()
     {
         if (ChkRay(transform.position + new Vector3(-slideRayOffsetX, slideRayOffsetY, 0)
             , Vector2.left, slideRayLength, groundLayer))
-            return true;
+            if (ChkRay(transform.position + new Vector3(-slideRayOffsetX, 0, 0)
+            , Vector2.left, slideRayLength, groundLayer))
+                return true;
         return false;
     }
     #endregion IsWall
