@@ -37,6 +37,12 @@ public class Actor : MonoBehaviour
         if (handle != null)
             StopCoroutine(handle);
     }
+    protected Coroutine StopAndStartCoroutine(Coroutine handle, IEnumerator function)
+    {
+        if (handle != null)
+            StopCoroutine(handle);
+        return StartCoroutine(function);
+    }
     /// <summary>
     /// È­¸é Èçµé¸²
     /// </summary>

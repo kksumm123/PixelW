@@ -422,12 +422,9 @@ public class Player : Actor
                             State = StateType.Attack3;
                             break;
                     }
-                    StopCo(attackCoHandle);
-                    StopCo(attackDelayCoHandle);
-                    StopCo(attackIndxResetCoHandle);
-                    attackCoHandle = StartCoroutine(AttackCo(attackCurDelay));
-                    attackDelayCoHandle = StartCoroutine(AttackDelayCo());
-                    attackIndxResetCoHandle = StartCoroutine(AttackIndxResetCo());
+                    attackCoHandle = StopAndStartCoroutine(attackCoHandle, AttackCo(attackCurDelay));
+                    attackDelayCoHandle = StopAndStartCoroutine(attackDelayCoHandle, AttackDelayCo());
+                    attackIndxResetCoHandle = StopAndStartCoroutine(attackIndxResetCoHandle, AttackIndxResetCo());
                     attackIdx++;
                 }
                 else
@@ -505,8 +502,7 @@ public class Player : Actor
             {
                 State = StateType.IdleBlock;
                 normalSpeed = battleSpeed;
-                StopCo(parrayingCoHendle);
-                parrayingCoHendle = StartCoroutine(ParryingCo());
+                parrayingCoHendle = StopAndStartCoroutine(parrayingCoHendle, ParryingCo());
             }
             else if (Input.GetMouseButton(1) == false)
             {

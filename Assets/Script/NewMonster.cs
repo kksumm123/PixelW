@@ -14,6 +14,9 @@ public class NewMonster : Actor
     CircleCollider2D attackCol;
     BoxCollider2D boxCol2D;
     Animator animator;
+    GameObject hpBarGo;
+    Transform hpBarGauge;
+
     Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
     {
@@ -40,6 +43,9 @@ public class NewMonster : Actor
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         SetMaxHpAndHp(20);
+        hpBarGo = transform.Find("HPBar").gameObject;
+        hpBarGauge = transform.Find("HPBar/Gauge");
+
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
         CurrentFSM = IdleCo;
@@ -149,15 +155,31 @@ public class NewMonster : Actor
     [SerializeField] float hitDelay = 0.5f;
     IEnumerator TakeHitCo()
     {
-        // Death 구현
-        // Hit, Death 애니메이션
-
         State = StateType.Hit;
         PlayAnim(State.ToString(), 0, 0);
+        UpdateHPBar();
         yield return new WaitForSeconds(hitDelay);
         State = StateType.Idle;
         CurrentFSM = IdleCo;
     }
+
+    Vector3 hpBarGaugeScale;
+    void UpdateHPBar()
+    {
+        hpBarGaugeScale = hpBarGauge.localScale;
+        hpBarGaugeScale.x = (float)hp / MaxHp;
+        hpBarGauge.localScale = hpBarGaugeScale;
+        StartCoroutine(HPBarCo());
+    }
+
+    float hpBarVisibleTime = 2f;
+    IEnumerator HPBarCo()
+    {
+        hpBarGo.SetActive(true);
+        yield return new WaitForSeconds(hpBarVisibleTime);
+        hpBarGo.SetActive(false);
+    }
+
     #endregion TakeHit
 
     #region DeathCo
