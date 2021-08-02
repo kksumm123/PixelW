@@ -19,7 +19,12 @@ using UnityEngine;
 // clear 맵 크기 좀더 키움
 // clear 몬스터가 플레이어 발견시 바로 rotate 하도록 수정
 // clear 몬스터 마릿수 카운트 UI 완성
+//------------
+// 화요일
+// clear Rolling 무적시간 축소
+// clear 방패 올리고있으면 10% 데미지 받도록
 // todo 몬스터 HPBar 추가
+//   ㄴ> 기본적으로 안보임, 피격시 2초 간 노출, 이후 다시 안보임
 // todo 몬스터 다양하게
 // todo 조작키 알림 UI 만들기
 // todo 다음 맵으로 넘어가기
@@ -92,7 +97,7 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
-        SetMaxHpAndHp(500);
+        SetMaxHpAndHp(250);
 
         void SetGroundRaySetting()
         {

@@ -7,13 +7,6 @@ public class Actor : MonoBehaviour
     protected Rigidbody2D rigid;
     [SerializeField] protected int hp;
     int m_maxHp;
-    [SerializeField] int m_power = 5;
-    protected int Power
-    {
-        get => CalcPower(m_power);
-        set => m_power = value;
-    }
-
     protected int MaxHp
     {
         get
@@ -21,8 +14,14 @@ public class Actor : MonoBehaviour
             Debug.Assert(m_maxHp != 0, "SetMaxHpAndHp()호출할 것, maxHp 할당 해줘야 함");
             return m_maxHp;
         }
-        set => m_maxHp = value;
     }
+    [SerializeField] int m_power = 5;
+    protected int Power
+    {
+        get => CalcPower(m_power);
+        set => m_power = value;
+    }
+
     protected void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody2D>();
@@ -30,7 +29,7 @@ public class Actor : MonoBehaviour
 
     protected void SetMaxHpAndHp(int _maxHpValue)
     {
-        hp = MaxHp = _maxHpValue;
+        hp = m_maxHp = _maxHpValue;
     }
 
     protected void StopCo(Coroutine handle)
