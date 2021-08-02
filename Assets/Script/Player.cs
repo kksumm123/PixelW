@@ -83,7 +83,7 @@ public class Player : Actor
     #region Start()
     float originSpeed;
     void Start()
-    {   
+    {
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
         animator = GetComponentInChildren<Animator>();
         blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
@@ -148,8 +148,8 @@ public class Player : Actor
             }
             else
             {
-                if (IsWall() == false)  
-                {   
+                if (IsWall() == false)
+                {
                     var velo = rigid.velocity;
 
                     if (velo.y > 0)
@@ -319,30 +319,36 @@ public class Player : Actor
 
     #region Rolling
     bool isRolling = false;
-    float rollTime = 0.6f;
     bool isInvincibility = false;
     private void Rolling()
     {
         if (isRolling)
         {
             var pos = transform.position;
-            pos.x += base.transform.forward.z * normalSpeed * Time.deltaTime;
+            pos.x += transform.forward.z * normalSpeed * Time.deltaTime;
             transform.position = pos;
         }
         else if (IsGound() && Input.GetKey(KeyCode.LeftShift))
         {
             State = StateType.Roll;
             normalSpeed = originSpeed;
-            StartCoroutine(IsRollingCo());
+            StartCoroutine(RollingCo());
+            StartCoroutine(RollingInvincibilityCo());
         }
     }
 
-    private IEnumerator IsRollingCo()
+    float rollTime = 0.6f;
+    private IEnumerator RollingCo()
     {
         isRolling = true;
-        isInvincibility = true;
         yield return new WaitForSeconds(rollTime);
         isRolling = false;
+    }
+    float rollInvincibilityTime = 0.3f;
+    IEnumerator RollingInvincibilityCo()
+    {
+        isInvincibility = true;
+        yield return new WaitForSeconds(rollInvincibilityTime);
         isInvincibility = false;
     }
     #endregion Rolling
@@ -525,10 +531,24 @@ public class Player : Actor
     {
         if (hp > 0)
         {
-            if (FrontBlock(monsterTr) == true && isParrying == true)
-                Instantiate(blockFlashEffectGo, blockFlashTr.position, base.transform.rotation);
-            else if (isInvincibility == true)
+            // 무적이면 리턴
+            if (isInvincibility == true)
                 return;
+
+            // 방패를 들어올리고, 정면이면
+            if (IsBlocking() == true && FrontBlock(monsterTr) == true)
+            {
+                // 패링타임이면
+                if (isParrying == true)
+                    Instantiate(blockFlashEffectGo, blockFlashTr.position, base.transform.rotation);
+                else
+                { // 패링타임이 지났으면
+                    var roundDamage = Mathf.RoundToInt(damage * 0.1f);
+                    hp -= roundDamage;
+                    TextObjectManager.instance.NewTextObject(transform, roundDamage.ToString(), Color.red);
+                    TakeKnockBack(monsterTr.forward);
+                }
+            }
             else
             {
                 hp -= damage;

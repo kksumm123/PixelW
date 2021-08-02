@@ -27,8 +27,6 @@ public class NewMonster : Actor
     Coroutine currnetCoHandle;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] bool isAlive = false;
-    [SerializeField] int m_power = 5;
-    int Power { get => CalcPower(m_power); }
     [SerializeField] float speed = 3;
     #endregion Init
     IEnumerator Start()
