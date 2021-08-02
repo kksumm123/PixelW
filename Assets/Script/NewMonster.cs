@@ -16,7 +16,7 @@ public class NewMonster : Actor
     Animator animator;
     GameObject hpBarGo;
     Transform hpBarGauge;
-
+    Coroutine hpBarCoHandle;
     Func<IEnumerator> m_currentFSM;
     Func<IEnumerator> CurrentFSM
     {
@@ -144,6 +144,8 @@ public class NewMonster : Actor
             TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
+            UpdateHPBar();
+            hpBarCoHandle = StopAndStartCoroutine(hpBarCoHandle, HPBarCo());
             TakeKnockBack(playerForward);
             if (hp > 0)
                 CurrentFSM = TakeHitCo; // 코루틴 TakeHit
@@ -157,7 +159,7 @@ public class NewMonster : Actor
     {
         State = StateType.Hit;
         PlayAnim(State.ToString(), 0, 0);
-        UpdateHPBar();
+
         yield return new WaitForSeconds(hitDelay);
         State = StateType.Idle;
         CurrentFSM = IdleCo;
@@ -169,12 +171,12 @@ public class NewMonster : Actor
         hpBarGaugeScale = hpBarGauge.localScale;
         hpBarGaugeScale.x = (float)hp / MaxHp;
         hpBarGauge.localScale = hpBarGaugeScale;
-        StartCoroutine(HPBarCo());
     }
 
     float hpBarVisibleTime = 2f;
     IEnumerator HPBarCo()
     {
+        //hpBarGo.transform.rotation = Quaternion.identity;
         hpBarGo.SetActive(true);
         yield return new WaitForSeconds(hpBarVisibleTime);
         hpBarGo.SetActive(false);
@@ -187,6 +189,7 @@ public class NewMonster : Actor
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
+        hpBarGo.SetActive(false);
         rigid.isKinematic = true;
         rigid.velocity = Vector2.zero;
         boxCol2D.enabled = false;
