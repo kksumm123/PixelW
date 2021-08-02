@@ -309,7 +309,7 @@ public class Player : Actor
                 return;
 
             if (IsBlocking() == false)
-                base.transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
+                transform.rotation = new Quaternion(0, moveX == -1 ? 180 : 0, 0, 0);
             var pos = transform.position;
             pos.x += moveX * normalSpeed * Time.deltaTime;
             transform.position = pos;
@@ -376,11 +376,9 @@ public class Player : Actor
 
                 rigid.velocity = Vector2.zero;
 
-                var forZ = base.transform.forward.z;
-                rigid.AddForce(
-                    new Vector2(slideJumpForceX * forZ * -1, slideJumpForceY));
-                base.transform.rotation =
-                    new Quaternion(0, base.transform.rotation.y == 0 ? 180 : 0, 0, 0);
+                var forZ = transform.forward.z;
+                rigid.AddForce(new Vector2(slideJumpForceX * forZ * -1, slideJumpForceY));
+                transform.rotation = Quaternion.Euler(0, transform.rotation.y == 0 ? 180 : 0, 0);
             }
         }
     }
@@ -540,7 +538,7 @@ public class Player : Actor
             {
                 // 패링타임이면
                 if (isParrying == true)
-                    Instantiate(blockFlashEffectGo, blockFlashTr.position, base.transform.rotation);
+                    Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
                 else
                 { // 패링타임이 지났으면
                     var roundDamage = Mathf.RoundToInt(damage * 0.1f);
@@ -562,7 +560,7 @@ public class Player : Actor
 
     private bool FrontBlock(Transform monsterTr)
     {// true = Parrying, false = Fail Parrinying
-        var distanceX = monsterTr.position.x - base.transform.position.x;
+        var distanceX = monsterTr.position.x - transform.position.x;
 
         return IsZero(transform.rotation.eulerAngles.y)
             ? IsPositive(distanceX) : IsNegative(distanceX);
