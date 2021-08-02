@@ -42,9 +42,6 @@ public class Player : Actor
     readonly string blockFlashEffectString = "BlockFlashEffect";
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
-    [SerializeField] int maxHp = 500;
-    [SerializeField] int m_power = 5;
-    int Power { get => CalcPower(m_power); }
     [SerializeField] int gold = 0;
     float normalSpeed = 5f;
     float battleSpeed = 0.5f;
@@ -95,7 +92,7 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
-        SetMaxHpAndHp(maxHp);
+        SetMaxHpAndHp(500);
 
         void SetGroundRaySetting()
         {

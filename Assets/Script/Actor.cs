@@ -7,6 +7,13 @@ public class Actor : MonoBehaviour
     protected Rigidbody2D rigid;
     [SerializeField] protected int hp;
     int m_maxHp;
+    [SerializeField] int m_power = 5;
+    protected int Power
+    {
+        get => CalcPower(m_power);
+        set => m_power = value;
+    }
+
     protected int MaxHp
     {
         get

@@ -27,7 +27,6 @@ public class NewMonster : Actor
     Coroutine currnetCoHandle;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] bool isAlive = false;
-    [SerializeField] int maxHp = 20;
     [SerializeField] int m_power = 5;
     int Power { get => CalcPower(m_power); }
     [SerializeField] float speed = 3;
@@ -42,7 +41,7 @@ public class NewMonster : Actor
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
-        SetMaxHpAndHp(maxHp);
+        SetMaxHpAndHp(20);
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
         CurrentFSM = IdleCo;
