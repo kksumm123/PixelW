@@ -30,9 +30,20 @@ public class NewMonster : Actor
     [SerializeField] LayerMask playerLayer;
     [SerializeField] bool isAlive = false;
     [SerializeField] int initMaxHp = 20;
-    [SerializeField] float speed = 3;
+    private float m_speed;
+
+    protected float Speed
+    {
+        get
+        {
+            Debug.Assert(m_speed != 0, "m_speed 설정해줘야함");
+            return m_speed;
+        }
+        set => m_speed = value;
+    }
+
     #endregion Init
-    new IEnumerator Start()
+    new protected IEnumerator Start()
     {
         #region Init
         base.Start();
@@ -93,7 +104,7 @@ public class NewMonster : Actor
 
         while (ChkAttackDistance() == false)
         {
-            tr.Translate(speed * Time.deltaTime * DirForPlayer(), Space.World);
+            tr.Translate(Speed * Time.deltaTime * DirForPlayer(), Space.World);
             rotationY = dirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
