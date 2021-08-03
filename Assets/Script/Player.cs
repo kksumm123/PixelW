@@ -23,8 +23,10 @@ using UnityEngine;
 // 화요일
 // clear Rolling 무적시간 축소
 // clear 방패 올리고있으면 10% 데미지 받도록
-// todo 몬스터 HPBar 추가
+// Clear 몬스터 HPBar 추가
 //   ㄴ> 기본적으로 안보임, 피격시 2초 간 노출, 이후 다시 안보임
+//------------
+// 수요일
 // todo 몬스터 다양하게
 // todo 조작키 알림 UI 만들기
 // todo 다음 맵으로 넘어가기
