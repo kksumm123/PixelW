@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 8516984990746666817}
   - component: {fileID: 1822884623}
   - component: {fileID: 1822884622}
-  - component: {fileID: 1822884621}
+  - component: {fileID: 4205101400587319683}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Monster
@@ -394,7 +394,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1822884621
+--- !u!114 &4205101400587319683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,17 +403,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8516984990746666822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71e819f2c47d99142842edc7b1fc3147, type: 3}
+  m_Script: {fileID: 11500000, guid: a70f4a39ae69a594585408d318189d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 0
   m_power: 5
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
   isAlive: 0
   initMaxHp: 20
-  speed: 3
   rotateDelay: 0.5
   attackTime: 1
   attackPreDelay: 0.5
