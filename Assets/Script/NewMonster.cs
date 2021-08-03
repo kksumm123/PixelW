@@ -30,6 +30,7 @@ public class NewMonster : Actor
     Coroutine currnetCoHandle;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] bool isAlive = false;
+    [SerializeField] int initMaxHp = 20;
     [SerializeField] float speed = 3;
     #endregion Init
     IEnumerator Start()
@@ -42,7 +43,7 @@ public class NewMonster : Actor
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
         animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
-        SetMaxHpAndHp(20);
+        SetMaxHpAndHp(initMaxHp);
         hpBarGo = transform.Find("HPBar").gameObject;
         hpBarGauge = transform.Find("HPBar/Gauge");
 
@@ -176,7 +177,6 @@ public class NewMonster : Actor
     float hpBarVisibleTime = 2f;
     IEnumerator HPBarCo()
     {
-        //hpBarGo.transform.rotation = Quaternion.identity;
         hpBarGo.SetActive(true);
         yield return new WaitForSeconds(hpBarVisibleTime);
         hpBarGo.SetActive(false);

@@ -87,6 +87,8 @@ public class Player : Actor
 
     #region Start()
     float originSpeed;
+
+    [SerializeField] int initMaxHp = 250;
     void Start()
     {
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
@@ -97,7 +99,7 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         SetGroundRaySetting();
         originSpeed = normalSpeed;
-        SetMaxHpAndHp(250);
+        SetMaxHpAndHp(initMaxHp);
 
         void SetGroundRaySetting()
         {
