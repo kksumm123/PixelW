@@ -102,10 +102,10 @@ MonoBehaviour:
     m_Bits: 0
   isAlive: 0
   initMaxHp: 20
-  speed: 3
+  speed: 5
   rotateDelay: 0.5
-  attackTime: 1
-  attackPreDelay: 0.5
+  attackTime: 0.7
+  attackPreDelay: 0.25
   hitDelay: 0.5
   deathDelay: 2
   m_state: 0
