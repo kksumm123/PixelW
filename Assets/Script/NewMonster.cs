@@ -42,6 +42,7 @@ public class NewMonster : Actor
         tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
+        attackRange = Mathf.Abs(attackCol.transform.localPosition.x) + Mathf.Abs(attackCol.radius);
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         SetMaxHpAndHp(initMaxHp);
         hpBarGo = transform.Find("HPBar").gameObject;
@@ -251,8 +252,7 @@ public class NewMonster : Actor
 
 
     float attackDistance;
-    [SerializeField] float attackRange = 1.8f;
-
+    [SerializeField] float attackRange;
     bool ChkAttackDistance()
     {
         // 범위 내에 들어오면 true
