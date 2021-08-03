@@ -43,7 +43,6 @@ public class Player : Actor
     }
 
     BoxCollider2D boxCol2D;
-    Animator animator;
     Transform blockFlashTr;
     GameObject blockFlashEffectGo;
     readonly string blockFlashEffectString = "BlockFlashEffect";
@@ -91,10 +90,10 @@ public class Player : Actor
     float originSpeed;
 
     [SerializeField] int initMaxHp = 250;
-    void Start()
+    new void Start()
     {
+        base.Start();
         boxCol2D = GetComponentInChildren<BoxCollider2D>();
-        animator = GetComponentInChildren<Animator>();
         blockFlashTr = transform.Find("Sprite/BlockFlashPosition");
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
         attackBoxTr = transform.Find("Sprite/AttackBox");

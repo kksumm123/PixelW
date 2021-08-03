@@ -13,7 +13,6 @@ public class NewMonster : Actor
     Transform playerTr;
     CircleCollider2D attackCol;
     BoxCollider2D boxCol2D;
-    Animator animator;
     GameObject hpBarGo;
     Transform hpBarGauge;
     Coroutine hpBarCoHandle;
@@ -33,15 +32,15 @@ public class NewMonster : Actor
     [SerializeField] int initMaxHp = 20;
     [SerializeField] float speed = 3;
     #endregion Init
-    IEnumerator Start()
+    new IEnumerator Start()
     {
         #region Init
+        base.Start();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
         totalMonster.Add(this);
         tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
         attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
-        animator = GetComponent<Animator>();
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         SetMaxHpAndHp(initMaxHp);
         hpBarGo = transform.Find("HPBar").gameObject;
@@ -119,7 +118,7 @@ public class NewMonster : Actor
     IEnumerator AttackCo()
     {
         yield return new WaitForSeconds(RandomDelayTime(0.1f));
-        State = StateType.Attack1;
+        State = Random.Range(0, 2) == 0 ? StateType.Attack1 : StateType.Attack2;
         PlayAnim(State.ToString(), 0, 0);
         transform.rotation = // 공격전 플레이어 방향으로 회전 
             Quaternion.Euler(0, DirForPlayer().x > 0 ? 0 : 180, 0);

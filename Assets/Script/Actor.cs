@@ -5,6 +5,7 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     protected Rigidbody2D rigid;
+    protected Animator animator;
     [SerializeField] protected int hp;
     int m_maxHp;
     protected int MaxHp
@@ -25,6 +26,10 @@ public class Actor : MonoBehaviour
     protected void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody2D>();
+    }
+    protected void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected void SetMaxHpAndHp(int _maxHpValue)

@@ -1,0 +1,352 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.13f1 (71691879b7f5) revision 7432472'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Pro; OS build 19043.1110; Version 2009; 64bit' Language: 'ko' Physical Memory: 32676 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+E:\Unity\2020.3.13f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/UnityProject/MyOwn/PixelW
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+8896
+Successfully changed project path to: C:/UnityProject/MyOwn/PixelW
+C:/UnityProject/MyOwn/PixelW
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 31.70 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.13f1 (71691879b7f5)
+[Subsystems] Discovering subsystems at path E:/Unity/2020.3.13f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/UnityProject/MyOwn/PixelW/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 3GB (ID=0x1b84)
+    Vendor:   
+    VRAM:     2988 MB
+    Driver:   27.21.14.5671
+Initialize mono
+Mono path[0] = 'E:/Unity/2020.3.13f1/Editor/Data/Managed'
+Mono path[1] = 'E:/Unity/2020.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'E:/Unity/2020.3.13f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56332
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: E:/Unity/2020.3.13f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.000669 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 32.96 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.194 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.003338 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 30.18 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.713 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2165 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 100.0 MB.
+System memory in use after: 99.9 MB.
+
+Unloading 34 unused Assets to reduce memory usage. Loaded Objects now: 2605.
+Total: 1.838400 ms (FindLiveObjects: 0.149300 ms CreateObjectMapping: 0.040700 ms MarkObjects: 1.555400 ms  DeleteObjects: 0.092600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2_0.controller
+  artifactKey: Guid(459114223b969d148a54ff46daf9c472) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2_0.controller using Guid(459114223b969d148a54ff46daf9c472) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65aaa5a0caa8f88b695a36c4ce108634') in 0.024661 seconds 
+  Import took 0.027169 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.907319 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack_0.controller
+  artifactKey: Guid(e07df72bbda460c438a700b06781bd19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack_0.controller using Guid(e07df72bbda460c438a700b06781bd19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fceb512c17e95441a1cf8c0bd0936a5') in 0.002255 seconds 
+  Import took 0.005204 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.900495 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Death_0.controller
+  artifactKey: Guid(0c1d8902db754104e91a4eab5f9e6143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Death_0.controller using Guid(0c1d8902db754104e91a4eab5f9e6143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bf322bc59eec3517cd1590e977f8a7d') in 0.002022 seconds 
+  Import took 0.004871 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.766505 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Run_0.controller
+  artifactKey: Guid(67c1387e02b85ac4e8672c914ad68639) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Run_0.controller using Guid(67c1387e02b85ac4e8672c914ad68639) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00c7245fadb23821170fd3895e18db49') in 0.002009 seconds 
+  Import took 0.004498 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.143162 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Take Hit_0.controller
+  artifactKey: Guid(098a22ff0b171564fa138455e495cbb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Take Hit_0.controller using Guid(098a22ff0b171564fa138455e495cbb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76240b5dd1478da495a0ad17ff87eed8') in 0.001981 seconds 
+  Import took 0.004466 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.351220 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim
+  artifactKey: Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim using Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8daeee91a9c83ee0e261890ef6277a50') in 0.003294 seconds 
+  Import took 0.005776 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002635 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim
+  artifactKey: Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim using Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8daeee91a9c83ee0e261890ef6277a50') in 0.002308 seconds 
+  Import took 0.004439 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.330230 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2.anim
+  artifactKey: Guid(1a380bf859b6b8b44a86026b4747c9a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2.anim using Guid(1a380bf859b6b8b44a86026b4747c9a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fe7883ca5f35c20af89ea307b0ffd6c') in 0.001995 seconds 
+  Import took 0.004280 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.253420 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit.anim
+  artifactKey: Guid(97cb3b72758219d4babe11186cb5cb9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit.anim using Guid(97cb3b72758219d4babe11186cb5cb9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45ed3f0f4cded9e423ab97b53671eb80') in 0.002195 seconds 
+  Import took 0.004639 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.609515 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit.anim
+  artifactKey: Guid(97cb3b72758219d4babe11186cb5cb9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit.anim using Guid(97cb3b72758219d4babe11186cb5cb9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c96fe12d9dde4d47fef897e75a28f316') in 0.002011 seconds 
+  Import took 0.004823 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.953839 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Death 1.anim
+  artifactKey: Guid(104e3d393b0ae0b4fbb65f64181b4fb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Death 1.anim using Guid(104e3d393b0ae0b4fbb65f64181b4fb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66139dc2a3958ae0066bbccead850df5') in 0.002019 seconds 
+  Import took 0.004521 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.159020 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit 1.anim
+  artifactKey: Guid(44a400e2b4025fa4c934265787daf187) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/TakeHit 1.anim using Guid(44a400e2b4025fa4c934265787daf187) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfed0637fd840711b6216830498f524d') in 0.002059 seconds 
+  Import took 0.004501 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.677893 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2 1.anim
+  artifactKey: Guid(7633835b3324d8a4d87b0ce84a4b615a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2 1.anim using Guid(7633835b3324d8a4d87b0ce84a4b615a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f309c943f513800b07cf14167eab6c3d') in 0.002145 seconds 
+  Import took 0.004779 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.775246 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1 1.anim
+  artifactKey: Guid(1584fed3eb2fcdb4095be6eb448a3448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1 1.anim using Guid(1584fed3eb2fcdb4095be6eb448a3448) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3bf9e7b781e39739788d6cc068de8d13') in 0.002212 seconds 
+  Import took 0.004966 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.241647 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim
+  artifactKey: Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack1.anim using Guid(e49048c38f558fd419bca4dbe0521141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bd76326cd8c9f37c4c898e219dd0e5a') in 0.001950 seconds 
+  Import took 0.004408 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.558995 seconds.
+  path: Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2.anim
+  artifactKey: Guid(1a380bf859b6b8b44a86026b4747c9a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Monsters Creatures Fantasy/Sprites/Goblin/Attack2.anim using Guid(1a380bf859b6b8b44a86026b4747c9a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e38b3b857ded5889677fae25b2cc157c') in 0.001947 seconds 
+  Import took 0.004614 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.579595 seconds.
+  path: Assets/Prefabs/Monster/Goblin/Animation
+  artifactKey: Guid(8f1d46252e8ddf9439357afcaef1b071) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Goblin/Animation using Guid(8f1d46252e8ddf9439357afcaef1b071) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4349f10662a3d36cb066a6a48e4a8c80') in 0.001689 seconds 
+  Import took 0.004034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.019252 seconds.
+  path: Assets/Prefabs/Monster/Goblin/Animation/Idle_0.controller
+  artifactKey: Guid(f0dff59114bf23c4d8d80363535bc976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Goblin/Animation/Idle_0.controller using Guid(f0dff59114bf23c4d8d80363535bc976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7794d82884fc18593485d68f722d4393') in 0.002594 seconds 
+  Import took 0.005116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.328068 seconds.
+  path: Assets/Prefabs/Monster/Goblin/Animation/Controller.controller
+  artifactKey: Guid(f0dff59114bf23c4d8d80363535bc976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Goblin/Animation/Controller.controller using Guid(f0dff59114bf23c4d8d80363535bc976) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bfb132713fdc470d2f64a1651bf6e40') in 0.002307 seconds 
+  Import took 0.004950 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 118.451172 seconds.
+  path: Assets/Prefabs/Monster/Skeleton/Skeleton.prefab
+  artifactKey: Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Skeleton/Skeleton.prefab using Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc867775a589afdb0e718b4b4846d710') in 0.048245 seconds 
+  Import took 0.051265 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.164028 seconds.
+  path: Assets/Prefabs/Monster/Skeleton/Skeleton.prefab
+  artifactKey: Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Skeleton/Skeleton.prefab using Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc8c5a6113b780444902a4d3f3d6c9f2') in 0.008492 seconds 
+  Import took 0.011436 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004278 seconds.
+  path: Assets/Prefabs/Monster/Skeleton/Skeleton.prefab
+  artifactKey: Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Skeleton/Skeleton.prefab using Guid(1f0e9264e192c4b4eae17b0be14129b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc8c5a6113b780444902a4d3f3d6c9f2') in 0.009396 seconds 
+  Import took 0.012280 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003190 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.50 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.675 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.48 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2145 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 101.5 MB.
+System memory in use after: 101.5 MB.
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 2615.
+Total: 2.223400 ms (FindLiveObjects: 0.283300 ms CreateObjectMapping: 0.076800 ms MarkObjects: 1.784700 ms  DeleteObjects: 0.077800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 144.992185 seconds.
+  path: Assets/Prefabs/Monster/Goblin
+  artifactKey: Guid(a1e8b85968243714eb8461fcd66d4302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Monster/Goblin using Guid(a1e8b85968243714eb8461fcd66d4302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ab14bea9c9bc283d90b8b0a1a7b5be1') in 0.005857 seconds 
+  Import took 0.008923 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003123 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.51 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.647 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.41 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2145 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 101.5 MB.
+System memory in use after: 101.5 MB.
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 2618.
+Total: 1.713600 ms (FindLiveObjects: 0.151700 ms CreateObjectMapping: 0.051200 ms MarkObjects: 1.444900 ms  DeleteObjects: 0.065100 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003155 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.47 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.658 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.44 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2145 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 101.5 MB.
+System memory in use after: 101.5 MB.
+
+Unloading 22 unused Assets to reduce memory usage. Loaded Objects now: 2621.
+Total: 1.755400 ms (FindLiveObjects: 0.160100 ms CreateObjectMapping: 0.047900 ms MarkObjects: 1.481600 ms  DeleteObjects: 0.065200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
