@@ -428,7 +428,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   isAlive: 0
-  initMaxHp: 250
+  initMaxHp: 20
   speed: 3
   rotateDelay: 0.5
   attackTime: 1
