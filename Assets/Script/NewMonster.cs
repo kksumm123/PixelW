@@ -37,6 +37,7 @@ public class NewMonster : Actor
     [SerializeField] int initMaxHp = 20;
     [SerializeField] float speed = 3;
 
+    LayerMask wallLayer;
     #endregion Init
     new IEnumerator Start()
     {
@@ -51,7 +52,7 @@ public class NewMonster : Actor
         SetMaxHpAndHp(initMaxHp);
         hpBarGo = transform.Find("HPBar").gameObject;
         hpBarGauge = transform.Find("HPBar/Gauge");
-
+        wallLayer = 1 << LayerMask.NameToLayer("Ground");
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
         CurrentFSM = IdleCo;
@@ -95,7 +96,7 @@ public class NewMonster : Actor
                     State = StateType.Walk;
                     PlayAnim(State.ToString());
                     Vector3 idleMoveVector3 = new Vector3(speed * Time.deltaTime * 1, 0, 0);
-                    transform.Translate(idleMoveVector3);
+                    trTranslate(idleMoveVector3);
                     yield return null;
                 }
             }
@@ -120,7 +121,7 @@ public class NewMonster : Actor
 
         while (ChkAttackDistance() == false)
         {
-            transform.Translate(speed * Time.deltaTime * DirForPlayer(), Space.World);
+            trTranslate(speed * Time.deltaTime * DirForPlayer(), Space.World);
             rotationY = dirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
@@ -253,6 +254,15 @@ public class NewMonster : Actor
     #endregion StateType
 
     #region Methods
+    Vector3 isMoveRayPosition;
+    private void trTranslate(Vector3 moveDir, Space spaceDir = Space.Self)
+    {
+        isMoveRayPosition = transform.position - new Vector3((boxCol2D.size.x * 0.5f + boxCol2D.offset.x + 0.1f) * -transform.forward.z
+                                             , boxCol2D.size.y * 0.5f - boxCol2D.offset.y + 0.1f);
+        var hit = Physics2D.Raycast(isMoveRayPosition, new Vector2(transform.forward.z, 0), 0.1f, wallLayer);
+        if (hit.transform != null)
+            transform.Translate(moveDir, Space.Self);
+    }
     float RandomDelayTime(float maxValue)
     {
         return Random.Range(0, maxValue);
@@ -275,7 +285,6 @@ public class NewMonster : Actor
         return detectDistance < detectRange;
     }
 
-
     float attackDistance;
     [SerializeField] float attackRange;
     bool ChkAttackDistance()
@@ -297,6 +306,7 @@ public class NewMonster : Actor
 
     readonly string goldCoinString = "GoldCoin";
     int coinMaxCount = 5;
+
     void SpawnCoins()
     {
         var coinCount = Mathf.RoundToInt(Random.Range(0, coinMaxCount));
@@ -330,6 +340,8 @@ public class NewMonster : Actor
             Gizmos.DrawWireSphere(transform.position, attackRange);
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
+            Gizmos.color = Color.white;
+            Gizmos.DrawRay(isMoveRayPosition, new Vector2(Mathf.Abs(transform.forward.z * 0.2f), 0));
         }
     }
     #endregion Methods

@@ -17996,6 +17996,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1686056186}
     m_Modifications:
+    - target: {fileID: 5071732517678445426, guid: 52f263861bec3e74a9027203aec4f5d2, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.28
+      objectReference: {fileID: 0}
     - target: {fileID: 5071732517678445428, guid: 52f263861bec3e74a9027203aec4f5d2, type: 3}
       propertyPath: m_RootOrder
       value: 1
