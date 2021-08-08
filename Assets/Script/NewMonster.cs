@@ -49,8 +49,8 @@ public class NewMonster : Actor
         attackRange = Mathf.Abs(attackCol.transform.localPosition.x) + Mathf.Abs(attackCol.radius);
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         SetMaxHpAndHp(initMaxHp);
-        hpBarGo = base.transform.Find("HPBar").gameObject;
-        hpBarGauge = base.transform.Find("HPBar/Gauge");
+        hpBarGo = transform.Find("HPBar").gameObject;
+        hpBarGauge = transform.Find("HPBar/Gauge");
 
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
@@ -95,7 +95,7 @@ public class NewMonster : Actor
                     State = StateType.Walk;
                     PlayAnim(State.ToString());
                     Vector3 idleMoveVector3 = new Vector3(speed * Time.deltaTime * 1, 0, 0);
-                    base.transform.Translate(idleMoveVector3);
+                    transform.Translate(idleMoveVector3);
                     yield return null;
                 }
             }
@@ -147,7 +147,7 @@ public class NewMonster : Actor
         yield return new WaitForSeconds(RandomDelayTime(0.1f));
         State = Random.Range(0, 2) == 0 ? StateType.Attack1 : StateType.Attack2;
         PlayAnim(State.ToString(), 0, 0);
-        base.transform.rotation = // 공격전 플레이어 방향으로 회전 
+        transform.rotation = // 공격전 플레이어 방향으로 회전 
             Quaternion.Euler(0, DirForPlayer().x > 0 ? 0 : 180, 0);
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
@@ -155,7 +155,7 @@ public class NewMonster : Actor
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
-            item.GetComponent<Player>().TakeHit(Power, base.transform);
+            item.GetComponent<Player>().TakeHit(Power, transform);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentFSM = ChaseCo;
@@ -168,7 +168,7 @@ public class NewMonster : Actor
         if (hp > 0)
         {
             hp -= damage;
-            TextObjectManager.instance.NewTextObject(base.transform, damage.ToString(), Color.red);
+            TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             UpdateHPBar();
@@ -303,7 +303,7 @@ public class NewMonster : Actor
         var coinGo = (GameObject)Resources.Load(goldCoinString);
         for (int i = 0; i < coinCount; i++)
         {
-            Instantiate(coinGo, base.transform.position, base.transform.rotation);
+            Instantiate(coinGo, transform.position, transform.rotation);
         }
     }
 
