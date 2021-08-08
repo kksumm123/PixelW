@@ -25,6 +25,9 @@ public class CenterNotifyUI : MonoBehaviour
 
     public void ShowNotice(string content, float visibleTime = 3)
     {
+        rectTransform.DOKill();
+        canvasGroup.DOKill();
+
         gameObject.SetActive(true);
         canvasGroup.alpha = 0;
         rectTransform.DOScaleX(0, 0);
