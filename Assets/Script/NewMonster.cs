@@ -3,7 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
+// Goblin
+// 이속 빠름, 공속 빠름
+// 스켈레톤
+// 이속 느림, 공속 느림
+// 버섯
+// 맛잇음
 public class NewMonster : Actor
 {
     #region Init
@@ -29,6 +34,7 @@ public class NewMonster : Actor
     Coroutine currnetCoHandle;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] bool isAlive = false;
+    [Header("최대체력")]
     [SerializeField] int initMaxHp = 20;
     [SerializeField] float speed = 3;
 

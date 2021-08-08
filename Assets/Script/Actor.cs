@@ -6,6 +6,7 @@ public class Actor : MonoBehaviour
 {
     protected Rigidbody2D rigid;
     protected Animator animator;
+    [Header("Ã¼·Â")]
     [SerializeField] protected int hp;
     int m_maxHp;
     protected int MaxHp

@@ -26,9 +26,9 @@ using UnityEngine;
 // Clear 몬스터 HPBar 추가
 //   ㄴ> 기본적으로 안보임, 피격시 2초 간 노출, 이후 다시 안보임
 //------------
-// 수요일
-// todo 몬스터 다양하게
-//   ㄴ Skeleton(0), Goblin(0), Mushroon(...)
+// 일요일
+// clear 몬스터 다양하게
+//   ㄴ Skeleton(0), Goblin(0), Mushroon(O)
 // todo 조작키 알림 UI 만들기
 // todo 다음 맵으로 넘어가기
 
