@@ -27,7 +27,7 @@ public class StageSculpture : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.S))
                     {
                         CenterNotifyUI.instance.ShowNotice("여신상에서 S 눌러따 ! 다음맵 넘어갈꺼다 !", 3);
-                        isClear = false;
+                        isClear = true;
                     }
                 }
             }

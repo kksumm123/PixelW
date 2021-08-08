@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 // Goblin
-// 이속 빠름, 공속 빠름
+// 이속 빠름, 공속 빠름, 피격 회복 빠름
 // 스켈레톤
-// 이속 느림, 공속 느림
+// 이속 느림, 공속 느림, 피격 회복 보통
 // 버섯
-// 맛잇음
+// 맛잇음, 이속 느림, 공속 느림, 피격 회복 보통
 public class NewMonster : Actor
 {
     #region Init

@@ -106,7 +106,7 @@ MonoBehaviour:
   rotateDelay: 0.5
   attackTime: 0.7
   attackPreDelay: 0.25
-  hitDelay: 0.5
+  hitDelay: 0.3
   deathDelay: 2
   m_state: 0
   detectRange: 5
