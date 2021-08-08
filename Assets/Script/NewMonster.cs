@@ -77,10 +77,31 @@ public class NewMonster : Actor
     #region IdleCo
     IEnumerator IdleCo()
     {
-        State = StateType.Idle;
-        PlayAnim(State.ToString());
+
         while (ChkDetectDistance() == false)
-            yield return new WaitForSeconds(RandomDelayTime(0.5f));
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                State = StateType.Idle;
+                PlayAnim(State.ToString());
+                yield return new WaitForSeconds(RandomDelayTime(0.5f));
+            }
+            else
+            {
+                int idleMoveDir = Random.Range(0, 2) == 0 ? 1 : -1;
+                rotationY = idleMoveDir == 1 ? 0 : 180;
+                tr.rotation = Quaternion.Euler(0, rotationY, 0);
+                var endTime = Time.time + RandomDelayTime(0.5f);
+                while (Time.time < endTime)
+                {
+                    State = StateType.Walk;
+                    PlayAnim(State.ToString());
+                    Vector3 idleMoveVector3 = new Vector3(speed * Time.deltaTime * 1, 0, 0);
+                    transform.Translate(idleMoveVector3);
+                    yield return null;
+                }
+            }
+        }
 
         CurrentFSM = ChaseCo;
     }
