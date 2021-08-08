@@ -23,7 +23,7 @@ public class CenterNotifyUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void ShowNotice(string content, float visibleTime)
+    public void ShowNotice(string content, float visibleTime = 3)
     {
         gameObject.SetActive(true);
         canvasGroup.alpha = 0;
