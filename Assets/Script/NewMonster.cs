@@ -216,6 +216,9 @@ public class NewMonster : Actor
     IEnumerator DeathCo()
     {
         totalMonster.Remove(this);
+        if (totalMonster.Count == 0)
+            StageManager.instance.OnStageClear();
+
         hpBarGo.SetActive(false);
         rigid.isKinematic = true;
         rigid.velocity = Vector2.zero;
