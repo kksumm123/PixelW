@@ -7,7 +7,16 @@ public class Actor : MonoBehaviour
     protected Rigidbody2D rigid;
     protected Animator animator;
     [Header("Ã¼·Â")]
-    [SerializeField] protected int hp;
+    [SerializeField] int m_Hp;
+    protected int Hp
+    {
+        get => m_Hp;
+        set
+        {
+            if (m_Hp < 0)
+                m_Hp = 0;
+        }
+    }
     int m_maxHp;
     protected int MaxHp
     {
@@ -35,7 +44,7 @@ public class Actor : MonoBehaviour
 
     protected void SetMaxHpAndHp(int _maxHpValue)
     {
-        hp = m_maxHp = _maxHpValue;
+        Hp = m_maxHp = _maxHpValue;
     }
 
     protected void StopCo(Coroutine handle)

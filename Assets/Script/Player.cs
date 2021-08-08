@@ -30,7 +30,8 @@ using UnityEngine;
 // clear 몬스터 다양하게
 //   ㄴ Skeleton(0), Goblin(0), Mushroon(O)
 // clear 몬스터 발판 아래로 안떨어지도록
-// todo 조작키 알림 UI 만들기
+// clear 조작키 알림 UI 만들기
+//   ㄴ CenterNotifyUI 완성
 // todo 다음 맵으로 넘어가기
 
 public class Player : Actor
@@ -533,7 +534,7 @@ public class Player : Actor
     #region TakeHit
     public void TakeHit(int damage, Transform monsterTr)
     {
-        if (hp > 0)
+        if (Hp > 0)
         {
             // 무적이면 리턴
             if (isInvincibility == true)
@@ -548,14 +549,14 @@ public class Player : Actor
                 else
                 { // 패링타임이 지났으면
                     var roundDamage = Mathf.RoundToInt(damage * 0.1f);
-                    hp -= roundDamage;
+                    Hp -= roundDamage;
                     TextObjectManager.instance.NewTextObject(transform, roundDamage.ToString(), Color.red);
                     TakeKnockBack(monsterTr.forward);
                 }
             }
             else
             {
-                hp -= damage;
+                Hp -= damage;
                 TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
                 TakeKnockBack(monsterTr.forward);
                 WiggleScreen();
@@ -590,7 +591,7 @@ public class Player : Actor
     {
         State = StateType.Hit;
         yield return new WaitForSeconds(hitAnimationLenth);
-        if (hp > 0)
+        if (Hp > 0)
             State = StateType.AttackAndHitExit;
         else
         {
@@ -779,11 +780,11 @@ public class Player : Actor
     }
     public float PlayersHPRate()
     {
-        return (float)hp / MaxHp;
+        return (float)Hp / MaxHp;
     }
     public string PlayersHpText()
     {
-        return $"{hp} / {MaxHp}";
+        return $"{Hp} / {MaxHp}";
     }
 
     public string PlayersGold()

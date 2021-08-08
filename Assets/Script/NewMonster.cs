@@ -166,16 +166,16 @@ public class NewMonster : Actor
     #region TakeHit
     public void TakeHit(int damage, Vector3 playerForward)
     {
-        if (hp > 0)
+        if (Hp > 0)
         {
-            hp -= damage;
+            Hp -= damage;
             TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             UpdateHPBar();
             hpBarCoHandle = StopAndStartCoroutine(hpBarCoHandle, HPBarCo());
             TakeKnockBack(playerForward);
-            if (hp > 0)
+            if (Hp > 0)
                 CurrentFSM = TakeHitCo; // 코루틴 TakeHit
             else
                 CurrentFSM = DeathCo;
@@ -197,7 +197,7 @@ public class NewMonster : Actor
     void UpdateHPBar()
     {
         hpBarGaugeScale = hpBarGauge.localScale;
-        hpBarGaugeScale.x = (float)hp / MaxHp;
+        hpBarGaugeScale.x = (float)Hp / MaxHp;
         hpBarGauge.localScale = hpBarGaugeScale;
     }
 
