@@ -261,7 +261,7 @@ public class NewMonster : Actor
                                              , boxCol2D.size.y * 0.5f - boxCol2D.offset.y + 0.1f);
         var hit = Physics2D.Raycast(isMoveRayPosition, new Vector2(transform.forward.z, 0), 0.1f, wallLayer);
         if (hit.transform != null)
-            transform.Translate(moveDir, Space.Self);
+            transform.Translate(moveDir, spaceDir);
     }
     float RandomDelayTime(float maxValue)
     {

@@ -29,6 +29,7 @@ using UnityEngine;
 // 일요일
 // clear 몬스터 다양하게
 //   ㄴ Skeleton(0), Goblin(0), Mushroon(O)
+// clear 몬스터 발판 아래로 안떨어지도록
 // todo 조작키 알림 UI 만들기
 // todo 다음 맵으로 넘어가기
 
