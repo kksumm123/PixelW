@@ -12,25 +12,24 @@ public class CenterNotifyUI : MonoBehaviour
         instance = this;
     }
     RectTransform rectTransform;
-    Vector2 rectSizeDelta;
     CanvasGroup canvasGroup;
     Text centerNotifyText;
 
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        rectSizeDelta = rectTransform.sizeDelta;
         canvasGroup = GetComponent<CanvasGroup>();
-        centerNotifyText = transform.Find("CenterNotifyUI/Text").GetComponent<Text>();
+        centerNotifyText = transform.Find("Text").GetComponent<Text>();
+        gameObject.SetActive(false);
     }
 
-    void ShowNotice(string content, float visibleTime)
+    public void ShowNotice(string content, float visibleTime)
     {
         gameObject.SetActive(true);
         canvasGroup.alpha = 0;
-        rectSizeDelta.x = 0;
+        rectTransform.DOScaleX(0, 0);
         rectTransform.DOScaleX(1, 1).SetEase(Ease.OutBounce);
-        canvasGroup.DOFade(0, 1);
+        canvasGroup.DOFade(1, 0.5f);
 
         centerNotifyText.text = content;
         canvasGroup.DOFade(0, 1)

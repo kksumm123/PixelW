@@ -18,5 +18,8 @@ public class StageManager : MonoBehaviour
     public void OnStageClear()
     {
         // CenterNotifyUI 호출 ("스테이지 클리어 !", 3초)
+        CenterNotifyUI.instance.ShowNotice("몬스터 다 자바따 !\n스테이지 끌리아 !", 3);
+
+        // 여신석상 활성화 (S누르면 맵 넘어갈 수 있도록 해야함)
     }
 }
