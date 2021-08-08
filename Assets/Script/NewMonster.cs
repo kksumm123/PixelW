@@ -14,7 +14,6 @@ public class NewMonster : Actor
     #region Init
     public static List<NewMonster> totalMonster = new List<NewMonster>();
 
-    Transform tr;
     Transform playerTr;
     CircleCollider2D attackCol;
     BoxCollider2D boxCol2D;
@@ -45,14 +44,13 @@ public class NewMonster : Actor
         base.Start();
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Monster"), LayerMask.NameToLayer("Monster"), true);
         totalMonster.Add(this);
-        tr = GetComponent<Transform>();
         boxCol2D = GetComponent<BoxCollider2D>();
-        attackCol = tr.Find("AttackCol").GetComponent<CircleCollider2D>();
+        attackCol = transform.Find("AttackCol").GetComponent<CircleCollider2D>();
         attackRange = Mathf.Abs(attackCol.transform.localPosition.x) + Mathf.Abs(attackCol.radius);
         playerLayer = 1 << LayerMask.NameToLayer("Player");
         SetMaxHpAndHp(initMaxHp);
-        hpBarGo = transform.Find("HPBar").gameObject;
-        hpBarGauge = transform.Find("HPBar/Gauge");
+        hpBarGo = base.transform.Find("HPBar").gameObject;
+        hpBarGauge = base.transform.Find("HPBar/Gauge");
 
         yield return StartCoroutine(GetPlayerInstanceCo());
         isAlive = true;
@@ -90,14 +88,14 @@ public class NewMonster : Actor
             {
                 int idleMoveDir = Random.Range(0, 2) == 0 ? 1 : -1;
                 rotationY = idleMoveDir == 1 ? 0 : 180;
-                tr.rotation = Quaternion.Euler(0, rotationY, 0);
+                transform.rotation = Quaternion.Euler(0, rotationY, 0);
                 var endTime = Time.time + RandomDelayTime(0.5f);
                 while (Time.time < endTime)
                 {
                     State = StateType.Walk;
                     PlayAnim(State.ToString());
                     Vector3 idleMoveVector3 = new Vector3(speed * Time.deltaTime * 1, 0, 0);
-                    transform.Translate(idleMoveVector3);
+                    base.transform.Translate(idleMoveVector3);
                     yield return null;
                 }
             }
@@ -114,7 +112,7 @@ public class NewMonster : Actor
     IEnumerator ChaseCo()
     {
         rotationY = dirforPlayer.x > 0 ? 0 : 180;
-        tr.rotation = Quaternion.Euler(0, rotationY, 0);
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
         yield return new WaitForSeconds(RandomDelayTime(0.5f));
 
         State = StateType.Walk;
@@ -122,7 +120,7 @@ public class NewMonster : Actor
 
         while (ChkAttackDistance() == false)
         {
-            tr.Translate(speed * Time.deltaTime * DirForPlayer(), Space.World);
+            transform.Translate(speed * Time.deltaTime * DirForPlayer(), Space.World);
             rotationY = dirforPlayer.x > 0 ? 0 : 180;
 
             if (rotationY != preRotationY)
@@ -132,7 +130,7 @@ public class NewMonster : Actor
                 State = StateType.Walk;
             }
 
-            tr.rotation = Quaternion.Euler(0, rotationY, 0);
+            transform.rotation = Quaternion.Euler(0, rotationY, 0);
             preRotationY = rotationY;
             yield return null;
         }
@@ -149,7 +147,7 @@ public class NewMonster : Actor
         yield return new WaitForSeconds(RandomDelayTime(0.1f));
         State = Random.Range(0, 2) == 0 ? StateType.Attack1 : StateType.Attack2;
         PlayAnim(State.ToString(), 0, 0);
-        transform.rotation = // 공격전 플레이어 방향으로 회전 
+        base.transform.rotation = // 공격전 플레이어 방향으로 회전 
             Quaternion.Euler(0, DirForPlayer().x > 0 ? 0 : 180, 0);
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
@@ -157,7 +155,7 @@ public class NewMonster : Actor
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
         {
-            item.GetComponent<Player>().TakeHit(Power, transform);
+            item.GetComponent<Player>().TakeHit(Power, base.transform);
         }
         yield return new WaitForSeconds(attackTime - attackPreDelay);
         CurrentFSM = ChaseCo;
@@ -170,7 +168,7 @@ public class NewMonster : Actor
         if (hp > 0)
         {
             hp -= damage;
-            TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
+            TextObjectManager.instance.NewTextObject(base.transform, damage.ToString(), Color.red);
             // 기존 실행되던 코루틴 정지
             StopCo(currnetCoHandle);
             UpdateHPBar();
@@ -273,7 +271,7 @@ public class NewMonster : Actor
         // Idle while 탈출판단
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
-        detectDistance = Vector3.Distance(tr.position, playerTr.position);
+        detectDistance = Vector3.Distance(transform.position, playerTr.position);
         return detectDistance < detectRange;
     }
 
@@ -284,13 +282,13 @@ public class NewMonster : Actor
     {
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
-        attackDistance = Vector3.Distance(tr.position, playerTr.position);
+        attackDistance = Vector3.Distance(transform.position, playerTr.position);
         return attackDistance < attackRange;
     }
     Vector3 dirforPlayer;
     private Vector3 DirForPlayer()
     {
-        dirforPlayer = playerTr.position - tr.position;
+        dirforPlayer = playerTr.position - transform.position;
         dirforPlayer.y = 0;
         dirforPlayer.z = 0;
         dirforPlayer.Normalize();
@@ -305,7 +303,7 @@ public class NewMonster : Actor
         var coinGo = (GameObject)Resources.Load(goldCoinString);
         for (int i = 0; i < coinCount; i++)
         {
-            Instantiate(coinGo, transform.position, transform.rotation);
+            Instantiate(coinGo, base.transform.position, base.transform.rotation);
         }
     }
 
@@ -327,9 +325,9 @@ public class NewMonster : Actor
         if (Application.isPlaying)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(tr.position, detectRange);
+            Gizmos.DrawWireSphere(transform.position, detectRange);
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(tr.position, attackRange);
+            Gizmos.DrawWireSphere(transform.position, attackRange);
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(attackCol.transform.position, attackCol.radius);
         }
