@@ -15,6 +15,20 @@ public class StageManager : MonoBehaviour
         instance = this;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            CenterNotifyUI.instance.ShowNotice("한번 눌러서 정상적으로 끝날 때", 2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            CenterNotifyUI.instance.ShowNotice("기존 UI가 꺼지기 전에 다시 호출할 때", 3);
+        }
+
+
+    }
+
     public void OnStageClear()
     {
         // CenterNotifyUI 호출 ("스테이지 클리어 !", 3초)

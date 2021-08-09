@@ -13,6 +13,7 @@ public class Actor : MonoBehaviour
         get => m_Hp;
         set
         {
+            m_Hp = value;
             if (m_Hp < 0)
                 m_Hp = 0;
         }
