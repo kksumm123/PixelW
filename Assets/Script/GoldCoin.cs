@@ -72,7 +72,6 @@ public class GoldCoin : MonoBehaviour
         {
             GravityInit(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
             PlayIdleAnim();
-            enabled = false;
         }
     }
 
@@ -135,6 +134,7 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            enabled = false;
             this.circleCol2D.enabled = false;
             TextObjectManager.instance.NewTextObject(transform, goldValue.ToString(), Color.yellow);
             transform.rotation = Quaternion.identity;
