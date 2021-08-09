@@ -72,6 +72,7 @@ public class GoldCoin : MonoBehaviour
         {
             GravityInit(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
             PlayIdleAnim();
+            enabled = false;
         }
     }
 
