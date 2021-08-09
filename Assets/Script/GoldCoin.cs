@@ -69,7 +69,17 @@ public class GoldCoin : MonoBehaviour
         if (IsGround() == false)
             GravityAccelerationMove(); // ¶¥¿¡ ¾È´ê¾ÒÀ¸¸é
         else
+        {
             GravityInit(); //¶¥¿¡ ´ê¾ÒÀ¸¸é
+            PlayIdleAnim();
+            enabled = false;
+        }
+    }
+
+    void PlayIdleAnim()
+    {
+        transform.rotation = Quaternion.identity;
+        animator.Play("Idle");
     }
 
     Vector2 rayStartPos;
