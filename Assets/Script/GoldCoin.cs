@@ -70,8 +70,8 @@ public class GoldCoin : MonoBehaviour
                 yield break;
             
             // Rising과 같은방향 직선으로 움직이도록
-            // RisingSpeed와 다르게 FlySpeed 값도 낮고, 
             // 시간이 지나며 중력값 또한 강해져 점차 포물선 하강곡선처럼 진행됨
+            // RisingSpeed와 다르게 FlySpeed 값이 낮아 빠르게 떨어짐 
             transform.Translate(flySpeed * Time.deltaTime * Vector2.up);
             yield return null;
         }
