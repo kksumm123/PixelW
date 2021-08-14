@@ -109,6 +109,8 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         runAudioSource = GetComponentInChildren<AudioSource>();
 
+        DontDestroyOnLoad(transform);
+
         SetGroundRaySetting();
         originSpeed = normalSpeed;
         SetMaxHpAndHp(initMaxHp);

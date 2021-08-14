@@ -35,12 +35,15 @@ public class CenterNotifyUI : MonoBehaviour
 
         canvasGroup.alpha = 0;
         rectTransform.DOScaleX(0, 0);
-        rectTransform.DOScaleX(1, 1).SetEase(Ease.OutBounce);
+        rectTransform.DOScaleX(1, 1)
+                     .SetEase(Ease.OutBounce)
+                     .SetLink(gameObject);
         canvasGroup.DOFade(1, 0.5f);
 
         centerNotifyText.text = content;
         canvasGroup.DOFade(0, 1)
                     .SetDelay(visibleTime)
-                    .OnComplete(() => gameObject.SetActive(false));
+                    .OnComplete(() => gameObject.SetActive(false))
+                    .SetLink(gameObject);
     }
 }
