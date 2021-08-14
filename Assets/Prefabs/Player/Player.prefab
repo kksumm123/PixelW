@@ -311,15 +311,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioList:
   - audioType: 2
-    clip: {fileID: 8300000, guid: 80502e18f68bb734b9dded7bb8d2e750, type: 3}
+    clip: {fileID: 8300000, guid: 67dd73a8fb8b99e4d8c8d793c86c4324, type: 3}
   - audioType: 3
     clip: {fileID: 8300000, guid: 41d09eb9de4a65c4181de008ccdf4783, type: 3}
   - audioType: 4
     clip: {fileID: 8300000, guid: 5f81bdff582c2fc4488e1129bc037245, type: 3}
   - audioType: 5
     clip: {fileID: 8300000, guid: e157d8c7fe1c3c64c912271f5c63885f, type: 3}
-  - audioType: 6
+  - audioType: 7
     clip: {fileID: 8300000, guid: eafa5e6e08b9224419a7f4f3ddf47cde, type: 3}
+  - audioType: 6
+    clip: {fileID: 8300000, guid: 80502e18f68bb734b9dded7bb8d2e750, type: 3}
   m_Hp: 0
   m_power: 5
   state: 0

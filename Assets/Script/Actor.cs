@@ -13,6 +13,7 @@ public class Actor : MonoBehaviour
         Death,
         Hit,
         GetCoin,
+        Parrying,
         Roll,
     }
     [System.Serializable]
@@ -69,7 +70,7 @@ public class Actor : MonoBehaviour
         audioMap = new Dictionary<AudioType, AudioClip>();
         foreach (var item in audioList)
         {
-            if (item.audioType == AudioType.None && item.clip != null)
+            if (item.audioType != AudioType.None && item.clip != null)
                 audioMap[item.audioType] = item.clip;
         }
         if (audioMap.Count == 0)

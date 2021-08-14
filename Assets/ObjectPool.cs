@@ -26,9 +26,10 @@ public class ObjectPool : MonoBehaviour
     {
         instance = this;
     }
-    public void InstantiateOP(GameObject original, Transform parent = null)
+    public GameObject SoundOP(GameObject original, Transform parent = null)
     {
         // 비활성화된 오브젝트가 있으면 그걸 꺼내오자
+        GameObject resultGo = null;
         bool isPopping = false;
         foreach (var item in opGoList)
         {
@@ -37,6 +38,7 @@ public class ObjectPool : MonoBehaviour
                 item.SetActive(true);
                 item.transform.parent = null;
                 isPopping = true;
+                resultGo = item;
                 break;
             }
         }
@@ -47,7 +49,7 @@ public class ObjectPool : MonoBehaviour
                 newGo = Instantiate(original, parent);
             else
                 newGo = Instantiate(original);
-
+            resultGo = newGo;
             opGoList.Add(newGo);
             totalGoCount = opGoList.Count;
             if (totalGoCount >= capacity)
@@ -61,6 +63,7 @@ public class ObjectPool : MonoBehaviour
             StopCo(validChkCoHandle);
             validChkCoHandle = StartCoroutine(validChkCo(totalGoCount));
         }
+        return resultGo;
     }
     public void InstantiateOP(GameObject original, Vector3 position
                         , Quaternion rotation, Transform parent = null)

@@ -564,15 +564,18 @@ public class Player : Actor
             {
                 // 패링타임이면
                 if (isParrying == true)
+                {
                     Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
+                    PlaySound(AudioType.Parrying);
+                }
                 else
                 { // 패링타임이 지났으면
                     var roundDamage = Mathf.RoundToInt(damage * 0.1f);
                     Hp -= roundDamage;
                     TextObjectManager.instance.NewTextObject(transform, roundDamage.ToString(), Color.red);
                     TakeKnockBack(monsterTr.forward);
+                    PlaySound(AudioType.Block);
                 }
-                PlaySound(AudioType.Block);
             }
             else
             {
@@ -610,24 +613,25 @@ public class Player : Actor
     IEnumerator HitCo()
     {
         State = StateType.Hit;
+        PlaySound(AudioType.Hit);
         yield return new WaitForSeconds(hitAnimationLenth);
         if (Hp > 0)
             State = StateType.AttackAndHitExit;
         else
-        {
-            State = StateType.Death;
             StartCoroutine(DeathCo());
-        }
     }
 
-    float deathTime = 1;
+    float deathTime = 4;
     IEnumerator DeathCo()
     {
+        State = StateType.Death;
+        PlaySound(AudioType.Death);
         rigid.isKinematic = true;
         rigid.velocity = Vector2.zero;
         boxCol2D.enabled = false;
         yield return new WaitForSeconds(deathTime);
-        Destroy(gameObject);
+        GetComponentInChildren<Renderer>().enabled = false;
+        //Destroy(gameObject);
     }
     #endregion TakeHit
 
