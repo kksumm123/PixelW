@@ -14,12 +14,14 @@ public class CenterNotifyUI : MonoBehaviour
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
     Text centerNotifyText;
+    AudioSource audioSource;
 
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         centerNotifyText = transform.Find("Text").GetComponent<Text>();
+        audioSource = GetComponent<AudioSource>();
         gameObject.SetActive(false);
     }
 
@@ -27,8 +29,10 @@ public class CenterNotifyUI : MonoBehaviour
     {
         rectTransform.DOKill();
         canvasGroup.DOKill();
-
+         
         gameObject.SetActive(true);
+        audioSource.Play();
+
         canvasGroup.alpha = 0;
         rectTransform.DOScaleX(0, 0);
         rectTransform.DOScaleX(1, 1).SetEase(Ease.OutBounce);
