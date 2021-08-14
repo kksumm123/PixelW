@@ -515,7 +515,7 @@ public class Player : Actor
     {
         if (IsIdle() || IsBlocking())
         {
-            if (Input.GetMouseButtonDown(1))
+            if (State != StateType.IdleBlock && Input.GetMouseButton(1))
             {
                 State = StateType.IdleBlock;
                 normalSpeed = battleSpeed;
