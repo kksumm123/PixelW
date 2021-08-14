@@ -24,11 +24,21 @@ public class Actor : MonoBehaviour
     }
     [SerializeField] protected List<AudioData> audioList;
     protected Dictionary<AudioType, AudioClip> audioMap;
-
-    protected void PlaySound(AudioType toPlayAudioType)
+    void SetAudioMap()
+    {
+        audioMap = new Dictionary<AudioType, AudioClip>();
+        foreach (var item in audioList)
+        {
+            if (item.audioType != AudioType.None && item.clip != null)
+                audioMap[item.audioType] = item.clip;
+        }
+        if (audioMap.Count == 0)
+            print($"오디오 맵 비었다 - {transform}, {transform.name}");
+    }
+    protected void PlaySound(AudioType toPlayAudioType, float volume = 0.5f)
     {
         if (audioMap.ContainsKey(toPlayAudioType))
-            AudioManager.instance.GenerateAudioClip(audioMap[toPlayAudioType], transform);
+            AudioManager.instance.GenerateAudioClip(audioMap[toPlayAudioType], volume);
     }
     #endregion About Audios
 
@@ -66,15 +76,7 @@ public class Actor : MonoBehaviour
     {
         rigid = GetComponentInChildren<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
-
-        audioMap = new Dictionary<AudioType, AudioClip>();
-        foreach (var item in audioList)
-        {
-            if (item.audioType != AudioType.None && item.clip != null)
-                audioMap[item.audioType] = item.clip;
-        }
-        if (audioMap.Count == 0)
-            print($"오디오 맵 비었다 - {transform}, {transform.name}");
+        SetAudioMap();
     }
 
     protected void SetMaxHpAndHp(int _maxHpValue)

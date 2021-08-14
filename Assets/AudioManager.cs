@@ -18,11 +18,12 @@ public class AudioManager : MonoBehaviour
 
     GameObject soundGo;
     AudioSource audioSource;
-    public void GenerateAudioClip(AudioClip clip, Transform parent)
+    public void GenerateAudioClip(AudioClip clip, float volume)
     {
-        soundGo = ObjectPool.instance.SoundOP(audioSourceItem, parent);
+        soundGo = ObjectPool.instance.SoundOP(audioSourceItem);
         audioSource = soundGo.GetComponent<AudioSource>();
         audioSource.clip = clip;
+        audioSource.volume = volume;
         audioSource.Play();
     }
 }

@@ -152,6 +152,7 @@ public class NewMonster : Actor
             Quaternion.Euler(0, DirForPlayer().x > 0 ? 0 : 180, 0);
         yield return new WaitForSeconds(attackPreDelay);
         // 어택 적용할 곳
+        PlaySound(AudioType.Attack);
         var point = new Vector2(attackCol.transform.position.x, attackCol.transform.position.y);
         hitCols = Physics2D.OverlapCircleAll(point, attackCol.radius, playerLayer);
         foreach (var item in hitCols)
@@ -186,6 +187,7 @@ public class NewMonster : Actor
     IEnumerator TakeHitCo()
     {
         State = StateType.Hit;
+        PlaySound(AudioType.Hit);
         PlayAnim(State.ToString(), 0, 0);
 
         yield return new WaitForSeconds(hitDelay);
@@ -215,6 +217,7 @@ public class NewMonster : Actor
     [SerializeField] float deathDelay = 2f;
     IEnumerator DeathCo()
     {
+        PlaySound(AudioType.Death);
         totalMonster.Remove(this);
         if (totalMonster.Count == 0)
             StageManager.instance.OnStageClear();

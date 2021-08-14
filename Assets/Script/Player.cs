@@ -360,7 +360,7 @@ public class Player : Actor
     private IEnumerator RollingCo()
     {
         isRolling = true;
-        PlaySound(AudioType.Roll);
+        PlaySound(AudioType.Roll, 1);
         yield return new WaitForSeconds(rollTime);
         isRolling = false;
     }
@@ -801,6 +801,7 @@ public class Player : Actor
     {
         gold += value;
         GoldUI.instance.AddValueText(value);
+        PlaySound(AudioType.GetCoin, 0.1f);
     }
     public float PlayersHPRate()
     {

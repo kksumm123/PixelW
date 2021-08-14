@@ -26,7 +26,7 @@ public class ObjectPool : MonoBehaviour
     {
         instance = this;
     }
-    public GameObject SoundOP(GameObject original, Transform parent = null)
+    public GameObject SoundOP(GameObject original)
     {
         // 비활성화된 오브젝트가 있으면 그걸 꺼내오자
         GameObject resultGo = null;
@@ -44,13 +44,8 @@ public class ObjectPool : MonoBehaviour
         }
         if (isPopping == false)
         {
-            GameObject newGo;
-            if (parent)
-                newGo = Instantiate(original, parent);
-            else
-                newGo = Instantiate(original);
-            resultGo = newGo;
-            opGoList.Add(newGo);
+            resultGo = Instantiate(original);
+            opGoList.Add(resultGo);
             totalGoCount = opGoList.Count;
             if (totalGoCount >= capacity)
                 capacity += addedCapaValue;
