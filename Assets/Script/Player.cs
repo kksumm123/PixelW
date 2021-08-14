@@ -360,6 +360,7 @@ public class Player : Actor
     private IEnumerator RollingCo()
     {
         isRolling = true;
+        PlaySound(AudioType.Roll);
         yield return new WaitForSeconds(rollTime);
         isRolling = false;
     }
@@ -571,6 +572,7 @@ public class Player : Actor
                     TextObjectManager.instance.NewTextObject(transform, roundDamage.ToString(), Color.red);
                     TakeKnockBack(monsterTr.forward);
                 }
+                PlaySound(AudioType.Block);
             }
             else
             {
