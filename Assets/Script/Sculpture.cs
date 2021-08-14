@@ -36,6 +36,7 @@ public class Sculpture : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadSceneAsync("NextScene");
+        Player.Instance.transform.position = Vector3.zero;
     }
 
     public void EnableSculpture()

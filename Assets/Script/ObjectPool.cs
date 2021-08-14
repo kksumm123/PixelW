@@ -37,7 +37,6 @@ public class ObjectPool : MonoBehaviour
             if (item.activeSelf == false)
             {
                 item.SetActive(true);
-                item.transform.parent = null;
                 isPopping = true;
                 resultGo = item;
                 break;
@@ -45,7 +44,7 @@ public class ObjectPool : MonoBehaviour
         }
         if (isPopping == false)
         {
-            resultGo = Instantiate(original);
+            resultGo = Instantiate(original, transform);
             opGoList.Add(resultGo);
             totalGoCount = opGoList.Count;
             if (totalGoCount >= capacity)
