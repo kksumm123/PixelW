@@ -34,7 +34,7 @@ using UnityEngine;
 // 목요일
 // clear 조작키 알림 UI 만들기
 // Clear SFX들 추가하기 - Coin습득, 공격, 피격, Environmenmt SFX, BGM
-// todo TitleScene 만들기
+// clear TitleScene 만들기
 // todo 다음 맵으로 넘어가기
 //   ㄴ CenterNotifyUI 완성
 
