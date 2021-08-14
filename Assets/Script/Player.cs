@@ -468,6 +468,7 @@ public class Player : Actor
         {
             item.GetComponent<NewMonster>().TakeHit(Power, transform.forward);
             WiggleScreen();
+            yield return null;
         }
         yield return new WaitForSeconds(delay);
         State = StateType.AttackAndHitExit;
