@@ -4,6 +4,33 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
+    #region About Audios
+    protected enum AudioType
+    {
+        None,
+        Attack,
+        Block,
+        Death,
+        Hit,
+        GetCoin,
+        Roll,
+    }
+    [System.Serializable]
+    protected class AudioData
+    {
+        public AudioType audioType;
+        public AudioClip clip;
+    }
+    [SerializeField] protected List<AudioData> audioList;
+    protected Dictionary<AudioType, AudioClip> audioMap;
+
+    protected void PlaySound(AudioType toPlayAudioType)
+    {
+        if (audioMap.ContainsKey(toPlayAudioType))
+            AudioManager.instance.GenerateAudioClip(audioMap[toPlayAudioType], transform);
+    }
+    #endregion About Audios
+
     protected Rigidbody2D rigid;
     protected Animator animator;
     [Header("체력")]
@@ -34,13 +61,19 @@ public class Actor : MonoBehaviour
         set => m_power = value;
     }
 
-    protected void Awake()
-    {
-        rigid = GetComponentInChildren<Rigidbody2D>();
-    }
     protected void Start()
     {
+        rigid = GetComponentInChildren<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+
+        audioMap = new Dictionary<AudioType, AudioClip>();
+        foreach (var item in audioList)
+        {
+            if (item.audioType == AudioType.None && item.clip != null)
+                audioMap[item.audioType] = item.clip;
+        }
+        if (audioMap.Count == 0)
+            print($"오디오 맵 비었다 - {transform}, {transform.name}");
     }
 
     protected void SetMaxHpAndHp(int _maxHpValue)

@@ -242,7 +242,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e819f2c47d99142842edc7b1fc3147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  audioList:
+  - audioType: 1
+    clip: {fileID: 8300000, guid: 20524e42bd0f7614d859fd8bdad6bfd3, type: 3}
+  - audioType: 3
+    clip: {fileID: 8300000, guid: 083c66a5f3029694b9b73e83489df492, type: 3}
+  - audioType: 4
+    clip: {fileID: 8300000, guid: 1602fcd308831704bbafc9cbdc325c06, type: 3}
+  m_Hp: 0
   m_power: 5
   playerLayer:
     serializedVersion: 2

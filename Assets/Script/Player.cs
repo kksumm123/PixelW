@@ -42,9 +42,8 @@ public class Player : Actor
     #region Declare
     static Player m_instance = null;
     public static Player Instance { get => m_instance; }
-    new void Awake()
+    void Awake()
     {
-        base.Awake();
         m_instance = this;
     }
 
@@ -52,6 +51,8 @@ public class Player : Actor
     Transform blockFlashTr;
     GameObject blockFlashEffectGo;
     readonly string blockFlashEffectString = "BlockFlashEffect";
+    AudioSource runAudioSource;
+
     [SerializeField] StateType state;
     [SerializeField] AnimType anim = AnimType.Idle;
     [SerializeField] int gold = 0;
@@ -104,6 +105,8 @@ public class Player : Actor
         blockFlashEffectGo = (GameObject)Resources.Load(blockFlashEffectString);
         attackBoxTr = transform.Find("Sprite/AttackBox");
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
+        runAudioSource = GetComponentInChildren<AudioSource>();
+
         SetGroundRaySetting();
         originSpeed = normalSpeed;
         SetMaxHpAndHp(initMaxHp);
@@ -137,6 +140,8 @@ public class Player : Actor
             Attack();
             Block();
         }
+
+        PlayRunningSound();
     }
     #endregion Update()
 
@@ -533,6 +538,16 @@ public class Player : Actor
         isParrying = false;
     }
     #endregion Block
+
+    #region PlayRunningSound
+    void PlayRunningSound()
+    {
+        if (State == StateType.Run)
+            runAudioSource.enabled = true;
+        else
+            runAudioSource.enabled = false;
+    }
+    #endregion PlayRunningSound
 
     #region TakeHit
     public void TakeHit(int damage, Transform monsterTr)
