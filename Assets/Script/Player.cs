@@ -38,6 +38,10 @@ using UnityEngine;
 // clear TitleScene 만들기
 // clear 다음 맵으로 넘어가기
 //   ㄴ CenterNotifyUI 완성
+//------------
+// clear NextScene에서 CenterNotifyUI 보이기
+// clear SFX, VolumeManager의 변수 하나로 관리하기
+// todo BGM, VolumeManager의 변수 하나로 관리하기
 
 public class Player : Actor
 {
