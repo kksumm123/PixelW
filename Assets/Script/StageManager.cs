@@ -13,6 +13,7 @@ public class StageManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(transform);
     }
 
     public void OnStageClear()
@@ -22,5 +23,10 @@ public class StageManager : MonoBehaviour
 
         // 여신석상 활성화 (S누르면 맵 넘어갈 수 있도록 해야함)
         Sculpture.instance.EnableSculpture();
+    }
+
+    public void TossShowNotice(string content, float visibleTime = 3)
+    {
+        CenterNotifyUI.instance.ShowNotice(content, visibleTime);
     }
 }

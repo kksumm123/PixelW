@@ -10,6 +10,7 @@ public class CenterNotifyUI : MonoBehaviour
     void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(transform.root);
     }
     RectTransform rectTransform;
     CanvasGroup canvasGroup;

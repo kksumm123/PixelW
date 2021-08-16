@@ -37,6 +37,7 @@ public class Sculpture : MonoBehaviour
         yield return new WaitForSeconds(3);
         SceneManager.LoadSceneAsync("NextScene");
         Player.Instance.transform.position = Vector3.zero;
+        CenterNotifyUI.instance.ShowNotice("게임 클리어 ~");
     }
 
     public void EnableSculpture()

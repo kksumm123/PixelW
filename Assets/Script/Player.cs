@@ -452,7 +452,7 @@ public class Player : Actor
         }
     }
     Transform attackBoxTr;
-    Vector2 attackBoxSize = new Vector2(1.9f, 1.5f);
+    Vector2 attackBoxSize = new Vector2(1900f, 1500f);
     LayerMask enemyLayer;
     Collider2D[] attackedEnemies;
 
