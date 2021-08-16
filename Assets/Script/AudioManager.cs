@@ -11,11 +11,9 @@ public class AudioManager : MonoBehaviour
     }
 
     GameObject audioSourceItem;
-    AudioSource bgmAudioSource;
     void Start()
     {
         audioSourceItem = (GameObject)Resources.Load("AudioSourceItem");
-        bgmAudioSource = GameObject.Find("SFXs/BGMPlayer").GetComponent<AudioSource>();
     }
 
     GameObject soundGo;
