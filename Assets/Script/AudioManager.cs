@@ -11,9 +11,11 @@ public class AudioManager : MonoBehaviour
     }
 
     GameObject audioSourceItem;
+    AudioSource bgmAudioSource;
     void Start()
     {
         audioSourceItem = (GameObject)Resources.Load("AudioSourceItem");
+        bgmAudioSource = GameObject.Find("SFXs/BGMPlayer").GetComponent<AudioSource>();
     }
 
     GameObject soundGo;
@@ -23,7 +25,7 @@ public class AudioManager : MonoBehaviour
         soundGo = ObjectPool.instance.SoundOP(audioSourceItem);
         audioSource = soundGo.GetComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = volume;
+        audioSource.volume = volume * VolumeManager.instance.gSFXVolume;
         audioSource.Play();
     }
 }
