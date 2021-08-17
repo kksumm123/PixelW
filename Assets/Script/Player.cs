@@ -42,7 +42,7 @@ using UnityEngine;
 // clear NextScene에서 CenterNotifyUI 보이기
 // clear SFX, VolumeManager의 변수 하나로 관리하기
 // clear BGM, VolumeManager의 변수 하나로 관리하기
-// todo 피격 이펙트 만들기 케챱케챱
+// clear 피격 이펙트 만들기 케챱케챱
 
 public class Player : Actor
 {
