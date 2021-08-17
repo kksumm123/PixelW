@@ -597,6 +597,7 @@ public class Player : Actor
             {
                 Hp -= damage;
                 TextObjectManager.instance.NewTextObject(transform, damage.ToString(), Color.red);
+                CreateBloodEffect();
                 TakeKnockBack(monsterTr.forward);
                 WiggleScreen();
                 StartCoroutine(HitCo());
@@ -812,7 +813,6 @@ public class Player : Actor
     {
         m_instance = null;
     }
-
     public void GetGold(int value)
     {
         gold += value;

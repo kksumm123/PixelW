@@ -175,6 +175,7 @@ public class NewMonster : Actor
             StopCo(currnetCoHandle);
             UpdateHPBar();
             hpBarCoHandle = StopAndStartCoroutine(hpBarCoHandle, HPBarCo());
+            CreateBloodEffect();
             TakeKnockBack(playerForward);
             if (Hp > 0)
                 CurrentFSM = TakeHitCo; // ÄÚ·çÆ¾ TakeHit
@@ -277,6 +278,7 @@ public class NewMonster : Actor
     {
         while (Player.Instance == null)
             yield return null;
+
         playerTr = Player.Instance.transform;
     }
 

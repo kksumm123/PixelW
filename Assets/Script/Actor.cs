@@ -41,9 +41,12 @@ public class Actor : MonoBehaviour
             AudioManager.instance.GenerateAudioClip(audioMap[toPlayAudioType], volume);
     }
     #endregion About Audios
-
+    new Collider2D collider;
     protected Rigidbody2D rigid;
     protected Animator animator;
+    protected GameObject bloodEffectGo;
+    readonly string bloodEffectString = "BloodEffectPrefab";
+
     [Header("Ã¼·Â")]
     [SerializeField] int m_Hp;
     protected int Hp
@@ -74,8 +77,11 @@ public class Actor : MonoBehaviour
 
     protected void Start()
     {
+        collider = GetComponentInChildren<Collider2D>();
         rigid = GetComponentInChildren<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
+        bloodEffectGo = (GameObject)Resources.Load(bloodEffectString);
+
         SetAudioMap();
     }
 
@@ -107,6 +113,13 @@ public class Actor : MonoBehaviour
     {
         rigid.Sleep();
         rigid.AddForce(new Vector2(200 * enemyForward.z, 50));
+    }
+    protected virtual void CreateBloodEffect()
+    {
+        var posRandomY = Random.Range(-collider.bounds.size.y * 0.3f, collider.bounds.size.y * 0.3f);
+        var pos = transform.position + new Vector3(0, collider.offset.y + posRandomY, 0);
+        var bloodRotation = Quaternion.Euler(0, transform.forward.z == 1 ? 0 : 180, 0);
+        Instantiate(bloodEffectGo, pos, bloodRotation, transform);
     }
 
     protected int CalcPower(int power)
