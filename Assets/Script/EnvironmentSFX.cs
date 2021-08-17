@@ -13,6 +13,7 @@ public class EnvironmentSFX : MonoBehaviour
     IEnumerator Start()
     {
         Debug.Assert(envSFXList.Count != 0, "환경음 리스트 설정해줘야함");
+        StageManager.instance.DontDestroy(transform.root.gameObject);
         audioSource = GetComponent<AudioSource>();
         while (isPlay == true)
         {
