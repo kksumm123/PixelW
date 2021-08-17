@@ -25,6 +25,7 @@ public class ESCMenuUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             child.SetActive(!child.activeSelf);
+            Time.timeScale = child.activeSelf == true ? 0 : 1;
         }
     }
 }
