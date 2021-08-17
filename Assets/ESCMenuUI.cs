@@ -17,6 +17,7 @@ public class ESCMenuUI : MonoBehaviour
                     StageManager.instance.ClearDontDestroy();
                 });
         child = transform.Find("child").gameObject;
+        child.SetActive(false);
     }
 
     void Update()
