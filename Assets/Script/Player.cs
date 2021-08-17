@@ -44,7 +44,7 @@ using UnityEngine;
 // clear BGM, VolumeManager의 변수 하나로 관리하기
 // clear 피격 이펙트 만들기 케챱케챱
 // clear ESC keyboard prompt 추가
-
+// 완 C L E A R 성
 public class Player : Actor
 {
     #region Declare
