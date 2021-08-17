@@ -31,6 +31,7 @@ public class StageManager : MonoBehaviour
         dontdestroys.Add(_GameObject);
         DontDestroyOnLoad(_GameObject);
     }
+
     public void ClearDontDestroy()
     {
         foreach (var item in dontdestroys)
