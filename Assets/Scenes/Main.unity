@@ -3464,7 +3464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c53762dcad0143469d315d27f839183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gSFXVolume: 1
 --- !u!1 &557929774
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,9 +12,8 @@ public class VolumeManager : MonoBehaviour
     }
 
     AudioSource bgmAudioSource;
-    [Range(0, 1)]
-    public float gSFXVolume = 1;
     float gBGMVolume = 1;
+    float gSFXVolume = 1;
     float originBGMVolume;
 
     public float GBGMVolume
@@ -26,6 +25,8 @@ public class VolumeManager : MonoBehaviour
             bgmAudioSource.volume = originBGMVolume * gBGMVolume;
         }
     }
+
+    public float GSFXVolume { get => gSFXVolume; set => gSFXVolume = value; }
 
     void Start()
     {

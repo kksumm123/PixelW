@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
         soundGo = ObjectPool.instance.SoundOP(audioSourceItem);
         audioSource = soundGo.GetComponent<AudioSource>();
         audioSource.clip = clip;
-        audioSource.volume = volume * VolumeManager.instance.gSFXVolume;
+        audioSource.volume = volume * VolumeManager.instance.GSFXVolume;
         audioSource.Play();
     }
 }
