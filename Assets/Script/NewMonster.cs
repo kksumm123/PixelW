@@ -145,7 +145,7 @@ public class NewMonster : Actor
     Collider2D[] hitCols;
     IEnumerator AttackCo()
     {
-        yield return new WaitForSeconds(RandomDelayTime(0.1f));
+        yield return new WaitForSeconds(RandomDelayTime(0.15f));
         State = Random.Range(0, 2) == 0 ? StateType.Attack1 : StateType.Attack2;
         PlayAnim(State.ToString(), 0, 0);
         transform.rotation = // 공격전 플레이어 방향으로 회전 
