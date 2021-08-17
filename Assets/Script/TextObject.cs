@@ -26,7 +26,7 @@ public class TextObject : MonoBehaviour
         else
             renderer.sortingOrder = SortingOrder;
 
-        transform.DOLocalMoveY(1, 2);
+        transform.DOLocalMoveY(1, 2).SetLink(gameObject);
         var textColor = textMeshPro.color;
 
         yield return new WaitForSeconds(0.2f);

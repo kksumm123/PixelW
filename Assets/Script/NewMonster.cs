@@ -287,6 +287,9 @@ public class NewMonster : Actor
         // Idle while 탈출판단
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
+        if (Player.Instance == null)
+            return false;
+
         detectDistance = Vector3.Distance(transform.position, playerTr.position);
         return detectDistance < detectRange;
     }
@@ -297,6 +300,9 @@ public class NewMonster : Actor
     {
         // 범위 내에 들어오면 true
         // 범위 밖에 있으면 false
+        if (Player.Instance == null)
+            return false;
+
         attackDistance = Vector3.Distance(transform.position, playerTr.position);
         return attackDistance < attackRange;
     }

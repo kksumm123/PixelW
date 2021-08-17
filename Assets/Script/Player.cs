@@ -113,7 +113,7 @@ public class Player : Actor
         enemyLayer = 1 << LayerMask.NameToLayer("Monster");
         runAudioSource = GetComponentInChildren<AudioSource>();
 
-        DontDestroyOnLoad(transform);
+        StageManager.instance.DontDestroy(gameObject);
 
         SetGroundRaySetting();
         originSpeed = normalSpeed;

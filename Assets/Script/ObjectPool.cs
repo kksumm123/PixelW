@@ -25,7 +25,7 @@ public class ObjectPool : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(transform);
+        StageManager.instance.DontDestroy(gameObject);
     }
     public GameObject SoundOP(GameObject original)
     {

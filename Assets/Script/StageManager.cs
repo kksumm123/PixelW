@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+    public static List<GameObject> dontdestroys = new List<GameObject>();
     // 몬스터 마릿수 체크
     // 다 잡으면 안내 UI 띄워줌
     //   ㄴ CenterNotifyUI 만들어야함
@@ -13,7 +14,7 @@ public class StageManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(transform);
+        DontDestroy(gameObject);
     }
 
     public void OnStageClear()
@@ -25,8 +26,19 @@ public class StageManager : MonoBehaviour
         Sculpture.instance.EnableSculpture();
     }
 
-    public void TossShowNotice(string content, float visibleTime = 3)
+    public void DontDestroy(GameObject _GameObject)
     {
-        CenterNotifyUI.instance.ShowNotice(content, visibleTime);
+        dontdestroys.Add(_GameObject);
+        DontDestroyOnLoad(_GameObject);
+    }
+    public void ClearDontDestroy()
+    {
+        foreach (var item in dontdestroys)
+        {
+            if (item == gameObject)
+                continue;
+            Destroy(item);
+        }
+        Destroy(gameObject);
     }
 }

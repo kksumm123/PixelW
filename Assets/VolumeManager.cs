@@ -8,7 +8,7 @@ public class VolumeManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(transform);
+        StageManager.instance.DontDestroy(gameObject);
     }
 
     AudioSource bgmAudioSource;

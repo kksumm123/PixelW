@@ -10,7 +10,7 @@ public class CenterNotifyUI : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(transform.root);
+        StageManager.instance.DontDestroy(transform.root.gameObject);
     }
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
