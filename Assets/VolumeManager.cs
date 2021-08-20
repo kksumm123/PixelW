@@ -11,9 +11,11 @@ public class VolumeManager : MonoBehaviour
     }
 
     AudioSource bgmAudioSource;
+    AudioSource envSFXAudioSource;
     float gBGMVolume = 1;
     float gSFXVolume = 1;
     float originBGMVolume;
+    float originEnvSFXVolume;
 
     public float GBGMVolume
     {
@@ -22,6 +24,7 @@ public class VolumeManager : MonoBehaviour
         {
             gBGMVolume = value;
             bgmAudioSource.volume = originBGMVolume * gBGMVolume;
+            envSFXAudioSource.volume = originEnvSFXVolume * gBGMVolume;
         }
     }
 
@@ -30,6 +33,8 @@ public class VolumeManager : MonoBehaviour
     void Start()
     {
         bgmAudioSource = GameObject.Find("BGMPlayer").GetComponent<AudioSource>();
+        envSFXAudioSource = GameObject.Find("EnvironmentSFX").GetComponent<AudioSource>();
         originBGMVolume = bgmAudioSource.volume;
+        originEnvSFXVolume = envSFXAudioSource.volume;
     }
 }
