@@ -36,7 +36,7 @@ public class CenterNotifyUI : MonoBehaviour
 
         canvasGroup.alpha = 0;
         rectTransform.DOScaleX(0, 0);
-        rectTransform.DOScaleX(1, 10)
+        rectTransform.DOScaleX(1, 1f)
                      .SetEase(Ease.OutBounce)
                      .SetLink(gameObject);
         canvasGroup.DOFade(1, 0.5f);

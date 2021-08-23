@@ -93,7 +93,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   camWidthHalf: 0
-  wiggleForce: 0.1
+  wiggleForce: 0.15
 --- !u!95 &5689310269919287062
 Animator:
   serializedVersion: 3

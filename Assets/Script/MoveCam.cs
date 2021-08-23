@@ -51,7 +51,7 @@ public class MoveCam : MonoBehaviour
         if (wiggleScreenCoHandle == null)
             wiggleScreenCoHandle = StartCoroutine(WiggleScreenCo(time));
     }
-    [SerializeField] float wiggleForce = 0.1f;
+    [SerializeField] float wiggleForce = 0.15f;
     IEnumerator WiggleScreenCo(float time)
     {
         var pos = transform.position;
