@@ -48,6 +48,14 @@ public class Player : Actor
                  , Vector2.right * slideRayLength);
         Gizmos.DrawRay(transform.position + new Vector3(slideRayOffsetX, 0, 0)
                  , Vector2.right * slideRayLength);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position + new Vector3(0, downJumpRayOffsetY, 0)
+               , Vector2.down * 10);
+        Gizmos.DrawRay(transform.position + new Vector3(-groundRayOffsetX, downJumpRayOffsetY, 0)
+            , Vector2.down * 10);
+        Gizmos.DrawRay(transform.position + new Vector3(groundRayOffsetX, downJumpRayOffsetY, 0)
+            , Vector2.down * 10);
     }
 
     bool ChkRay(Vector3 pos, Vector2 dir, float length, LayerMask layer)
@@ -55,6 +63,12 @@ public class Player : Actor
         Debug.Assert(layer != 0, "레이어 지정안됨");
         var hit = Physics2D.Raycast(pos, dir, length, layer);
         return hit.transform;
+    }
+    RaycastHit2D GetRayCast(Vector3 pos, Vector2 dir, float length, LayerMask layer)
+    {
+        Debug.Assert(layer != 0, "레이어 지정안됨");
+        var hit = Physics2D.Raycast(pos, dir, length, layer);
+        return hit;
     }
     #endregion AboutRay
 
@@ -104,6 +118,7 @@ public class Player : Actor
             Move();
             Rolling();
             Jump();
+            DownJump();
             Attack();
             Block();
         }
@@ -370,6 +385,62 @@ public class Player : Actor
         }
     }
     #endregion Jump
+
+    #region DownJump
+    [SerializeField] float downJumpForce = -300f;
+    void DownJump()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (IsGound() == true && IsWallSlide() == false && IsDownJumpable() == true)
+            {
+                State = StateType.Fall;
+                rigid.AddForce(new Vector2(0, downJumpForce), ForceMode2D.Force);
+                var distance = Mathf.Abs(downJumpRayOffsetY) + transform.position.y + boxCol2D.offset.y + (boxCol2D.size.y * 0.5f);
+                StopAndStartCoroutine(DownJumpCoHandle, DownJumpCo(distance));
+            }
+        }
+    }
+    Coroutine DownJumpCoHandle;
+    IEnumerator DownJumpCo(float distance)
+    {
+        var endPos = transform.position.y - distance;
+        boxCol2D.isTrigger = true;
+        while (transform.position.y > endPos)
+            yield return null;
+
+        boxCol2D.isTrigger = false;
+    }
+
+    [SerializeField] float downJumpRayOffsetY = -1.2f;
+    bool IsDownJumpable()
+    {
+        var velo = rigid.velocity;
+        if (Mathf.Approximately(velo.y, 0) == true)
+        {
+            var pos = transform.position;
+            var fisrt = GetRayCast(pos + new Vector3(0, downJumpRayOffsetY, 0), Vector2.down, 10, groundLayer);
+            var second = GetRayCast(pos + new Vector3(-groundRayOffsetX, downJumpRayOffsetY, 0), Vector2.down, 10, groundLayer);
+            var third = GetRayCast(pos + new Vector3(groundRayOffsetX, downJumpRayOffsetY, 0), Vector2.down, 10, groundLayer);
+            if (IsRayNotNull(fisrt, second, third) == true)
+            {
+                if (Mathf.Approximately(fisrt.point.y, second.point.y)
+                    && Mathf.Approximately(second.point.y, third.point.y))
+                    return true;
+            }
+        }
+        return false;
+    }
+    bool IsRayNotNull(params RaycastHit2D[] rays)
+    {
+        foreach (var item in rays)
+        {
+            if (item.transform == null)
+                return false;
+        }
+        return true;
+    }
+    #endregion DownJump
 
     #region Attack
     float attackApplyDelay = 0.15f;
