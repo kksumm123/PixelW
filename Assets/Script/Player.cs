@@ -392,11 +392,11 @@ public class Player : Actor
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (IsGound() == true && IsWallSlide() == false && IsDownJumpable() == true)
+            var distance = Mathf.Abs(downJumpRayOffsetY) + boxCol2D.offset.y + (boxCol2D.size.y * 0.5f);
+            if (IsGound() == true && IsWallSlide() == false && IsDownJumpable(distance) == true)
             {
                 State = StateType.Fall;
                 rigid.AddForce(new Vector2(0, downJumpForce), ForceMode2D.Force);
-                var distance = Mathf.Abs(downJumpRayOffsetY) + transform.position.y + boxCol2D.offset.y + (boxCol2D.size.y * 0.5f);
                 StopAndStartCoroutine(DownJumpCoHandle, DownJumpCo(distance));
             }
         }
@@ -413,7 +413,7 @@ public class Player : Actor
     }
 
     [SerializeField] float downJumpRayOffsetY = -1.2f;
-    bool IsDownJumpable()
+    bool IsDownJumpable(float distance)
     {
         var velo = rigid.velocity;
         if (Mathf.Approximately(velo.y, 0) == true)
@@ -426,7 +426,12 @@ public class Player : Actor
             {
                 if (Mathf.Approximately(fisrt.point.y, second.point.y)
                     && Mathf.Approximately(second.point.y, third.point.y))
-                    return true;
+                {
+                    var rayStart = pos.y + downJumpRayOffsetY;
+                    var rayHitY = second.point.y;
+                    if (rayStart - rayHitY > distance)
+                        return true;
+                }
             }
         }
         return false;
