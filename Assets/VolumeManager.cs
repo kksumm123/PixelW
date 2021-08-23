@@ -9,11 +9,12 @@ public class VolumeManager : MonoBehaviour
     {
         instance = this;
     }
-
+    AudioSource playerFootStepSource;
     AudioSource bgmAudioSource;
     AudioSource envSFXAudioSource;
     float gBGMVolume = 1;
     float gSFXVolume = 1;
+    float originPlayerFootStepVolume;
     float originBGMVolume;
     float originEnvSFXVolume;
 
@@ -28,12 +29,22 @@ public class VolumeManager : MonoBehaviour
         }
     }
 
-    public float GSFXVolume { get => gSFXVolume; set => gSFXVolume = value; }
+    public float GSFXVolume 
+    { 
+        get => gSFXVolume;
+        set
+        {
+            gSFXVolume = value;
+            playerFootStepSource.volume = originPlayerFootStepVolume * gSFXVolume;
+        }
+    }
 
     void Start()
     {
+        playerFootStepSource = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<AudioSource>();
         bgmAudioSource = GameObject.Find("BGMPlayer").GetComponent<AudioSource>();
         envSFXAudioSource = GameObject.Find("EnvironmentSFX").GetComponent<AudioSource>();
+        originPlayerFootStepVolume = playerFootStepSource.volume;
         originBGMVolume = bgmAudioSource.volume;
         originEnvSFXVolume = envSFXAudioSource.volume;
     }
