@@ -2,49 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//-------------
-// 토요일
-// clear HP UI만들기 및 연동 - maxHp 만들고, 좌측 상단에 만들기
-// clear 몬스터 죽으면 동전 떨어트리기 https://youtu.be/a0Rf8C3UpdU?t=110
-// clear 현재 소지 골드 표시하기
-// clear 골드 먹을 때 value text 보여주기
-// clear 공격시 앞으로 조금 전진하도록 (플레이어)
-// clear 피격시 넉백 방향 이상한거 수정하기 (플레이어, 몬스터)
-//-------------
-// 일요일
-// clear 버그 - 방패 올린 상태로 구를시, 속도가 안돌아옴 
-// clear 버그 - WallSlide 발동 후 풀리지않음 
-// clear 데미지 수치 랜덤화
-// clear WallSlide 판단로직 수정하기, 캐릭터중앙, 발바닥
-// clear 맵 크기 좀더 키움
-// clear 몬스터가 플레이어 발견시 바로 rotate 하도록 수정
-// clear 몬스터 마릿수 카운트 UI 완성
-//------------
-// 화요일
-// clear Rolling 무적시간 축소
-// clear 방패 올리고있으면 10% 데미지 받도록
-// Clear 몬스터 HPBar 추가
-//   ㄴ> 기본적으로 안보임, 피격시 2초 간 노출, 이후 다시 안보임
-//------------
-// 일요일
-// clear 몬스터 다양하게
-//   ㄴ Skeleton(0), Goblin(0), Mushroon(O)
-// clear 몬스터 발판 아래로 안떨어지도록
-//------------
-// 목요일
-// clear 조작키 알림 UI 만들기
-// 토요일
-// Clear SFX들 추가하기 - Coin습득, 공격, 피격, Environmenmt SFX, BGM
-// clear TitleScene 만들기
-// clear 다음 맵으로 넘어가기
-//   ㄴ CenterNotifyUI 완성
-//------------
-// clear NextScene에서 CenterNotifyUI 보이기
-// clear SFX, VolumeManager의 변수 하나로 관리하기
-// clear BGM, VolumeManager의 변수 하나로 관리하기
-// clear 피격 이펙트 만들기 케챱케챱
-// clear ESC keyboard prompt 추가
-// 완 C L E A R 성
 public class Player : Actor
 {
     #region Declare
@@ -584,6 +541,7 @@ public class Player : Actor
                 {
                     Instantiate(blockFlashEffectGo, blockFlashTr.position, transform.rotation);
                     PlaySound(AudioType.Parrying);
+                    monsterTr.GetComponent<NewMonster>().TakeDizzy(transform.forward);
                 }
                 else
                 { // 패링타임이 지났으면

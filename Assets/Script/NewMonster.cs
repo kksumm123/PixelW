@@ -164,6 +164,24 @@ public class NewMonster : Actor
     }
     #endregion AttackCo
 
+    #region Dizzy
+    internal void TakeDizzy(Vector3 playerForward)
+    {
+        StopCo(currnetCoHandle);
+        TakeKnockBack(playerForward);
+        StartCoroutine(DizzyCo());
+    }
+    [SerializeField] float DizzyTime = 0.5f;
+    IEnumerator DizzyCo()
+    {
+        State = StateType.Dizzy;
+        PlayAnim(State.ToString(), 0, 0);
+        yield return new WaitForSeconds(DizzyTime);
+        State = StateType.Idle;
+        CurrentFSM = IdleCo;
+    }
+    #endregion Dizzy
+
     #region TakeHit
     public void TakeHit(int damage, Vector3 playerForward)
     {
@@ -257,6 +275,7 @@ public class NewMonster : Actor
         Attack2,
         Hit,
         Death,
+        Dizzy,
     }
     #endregion StateType
 
