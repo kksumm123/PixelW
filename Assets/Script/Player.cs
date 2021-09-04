@@ -676,6 +676,7 @@ public class Player : Actor
     float deathTime = 4;
     IEnumerator DeathCo()
     {
+        CenterNotifyUI.instance.ShowNotice("죽어버려따... 게임 오바");
         State = StateType.Death;
         PlaySound(AudioType.Death);
         rigid.isKinematic = true;
