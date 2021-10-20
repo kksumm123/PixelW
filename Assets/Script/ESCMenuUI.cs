@@ -11,6 +11,8 @@ public class ESCMenuUI : MonoBehaviour
     Button reStartButton;
     Slider sliderBGM;
     Slider sliderSFXs;
+    string sliderBGMKey = "SliderBGM";
+    string sliderSFXsKey = "SliderSFXs";
 
     void Start()
     {
@@ -24,6 +26,10 @@ public class ESCMenuUI : MonoBehaviour
                 });
         sliderBGM = transform.Find("child/BGM/Slider").GetComponent<Slider>();
         sliderSFXs = transform.Find("child/SFXs/Slider").GetComponent<Slider>();
+        if (PlayerPrefs.HasKey(sliderBGMKey))
+            sliderBGM.value = PlayerPrefs.GetFloat(sliderBGMKey);
+        if (PlayerPrefs.HasKey(sliderSFXsKey))
+            sliderSFXs.value = PlayerPrefs.GetFloat(sliderSFXsKey);
         child.SetActive(false);
     }
 
@@ -37,6 +43,12 @@ public class ESCMenuUI : MonoBehaviour
 
         VolumeBGM();
         VolumeSFXs();
+    }
+
+    void OnDestroy()
+    {
+        PlayerPrefs.SetFloat(sliderBGMKey, sliderBGM.value);
+        PlayerPrefs.SetFloat(sliderSFXsKey, sliderSFXs.value);
     }
 
     void VolumeBGM()
