@@ -18,20 +18,22 @@ public class GoldUI : MonoBehaviour
     void Start()
     {
         goldValueText = transform.Find("ValueText").GetComponent<Text>();
+        goldValueText.text = $"{Player.Instance.PlayersGold()} G";
         goldAddValueText = transform.Find("AddValueText").GetComponent<Text>();
         goldAddValueText.text = "";
     }
 
-    void Update()
-    {
-        if (Player.Instance)
-        {
-            goldValueText.text = Player.Instance.PlayersGold();
-        }
-    }
+    DG.Tweening.Core.TweenerCore<int, int, DG.Tweening.Plugins.Options.NoOptions> goldValueTweenHandle;
+    float goldValueAnimationTime = 0.5f;
     Coroutine TextColorFadeCoHandle;
-    public void AddValueText(int addValue)
+    public void AddValueText(int oldGold, int addValue)
     {
+        goldValueTweenHandle.Complete();
+        goldValueTweenHandle = DOTween.To(() => oldGold,
+                                          x => goldValueText.text = $"{x} G",
+                                          oldGold + addValue,
+                                          goldValueAnimationTime);
+
         goldAddValueText.DOKill();
         goldAddValueText.text = $" + {addValue} G";
 

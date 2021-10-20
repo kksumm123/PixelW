@@ -23,6 +23,7 @@ public class ESCMenuUI : MonoBehaviour
                     Time.timeScale = 1;
                     SceneManager.LoadSceneAsync("Title");
                     StageManager.instance.ClearDontDestroy();
+                    NewMonster.totalMonster.Clear();
                 });
         sliderBGM = transform.Find("child/BGM/Slider").GetComponent<Slider>();
         sliderSFXs = transform.Find("child/SFXs/Slider").GetComponent<Slider>();

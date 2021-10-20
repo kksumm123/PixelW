@@ -849,10 +849,11 @@ public class Player : Actor
     {
         m_instance = null;
     }
-    public void GetGold(int value)
+    public void GetGold(int addValue)
     {
-        gold += value;
-        GoldUI.instance.AddValueText(value);
+        var oldGold = gold;
+        gold += addValue;
+        GoldUI.instance.AddValueText(oldGold, addValue);
         PlaySound(AudioType.GetCoin, 0.1f);
     }
     public float PlayersHPRate()
@@ -866,7 +867,7 @@ public class Player : Actor
 
     public string PlayersGold()
     {
-        return $"{string.Format("{0:n0}", gold)} G";
+        return $"{string.Format("{0:n0}", gold)}";
     }
     #endregion Methods
 }
