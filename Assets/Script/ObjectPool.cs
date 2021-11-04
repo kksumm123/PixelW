@@ -57,7 +57,7 @@ public class ObjectPool : MonoBehaviour
         if (totalGoCount > validGoCount)
         {
             StopCo(validChkCoHandle);
-            validChkCoHandle = StartCoroutine(validChkCo(totalGoCount));
+            validChkCoHandle = StartCoroutine(ValidChkCo(totalGoCount));
         }
         return resultGo;
     }
@@ -97,7 +97,7 @@ public class ObjectPool : MonoBehaviour
         if (totalGoCount > validGoCount)
         {
             StopCo(validChkCoHandle);
-            validChkCoHandle = StartCoroutine(validChkCo(totalGoCount));
+            validChkCoHandle = StartCoroutine(ValidChkCo(totalGoCount));
         }
     }
 
@@ -106,7 +106,7 @@ public class ObjectPool : MonoBehaviour
         if (handle != null)
             StopCoroutine(handle);
     }
-    private IEnumerator validChkCo(int objCount)
+    private IEnumerator ValidChkCo(int objCount)
     {
         yield return new WaitForSeconds(validGoTime);
         for (int i = 0; i < objCount - validGoCount; i++)
